@@ -112,7 +112,6 @@ int _tmain(int argc, _TCHAR* argv[])
 	void addCities()
 	{
 
-	}
 
 	//std::string mapCity;
 	//int pop;
