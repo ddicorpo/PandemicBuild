@@ -10,9 +10,15 @@
 #include "Player.h"
 #include "reference_cards.h"
 #include "InfectionCard.h"
+#include "GameManager.h"
+#include "roles.h"
+#include <windows.h>
 
 int main() {
 	std::srand((int)time(0));
+	//accessing the game manager
+	//GameManager::Instance().displayCubeCount();
+
 
 	//vectors to hold card objects
 	std::vector<PlayerCard*> cities;
@@ -52,6 +58,8 @@ int main() {
 	//create a deck
 	Deck *deck(new Deck());
 	deck->createDeck(cities, events, epidemics);
+	//hold the deck for game manipulation
+	std::vector<PlayerCard*> pDeck = deck->getDeck();
 	//output deck
 	//deck->displayDeck();
 
@@ -72,7 +80,27 @@ int main() {
 	Player *p1(new Player(player1));
 	Player *p2(new Player(player2));
 
-	//p1->getReferenceCard();
+	//give roles to players
+	int role1 = rand() % 7;
+	int role2 = rand() % 7;
+	while (role1 == role2)
+	{
+		role2 = rand() % 7;
+	}
+	p1->setRole(new roles(role1));
+	p2->setRole(new roles(role2));
+
+	//set pawns of player (to do: set start location of pawn)
+	p1->setPawn(new Pawn(p1->getRole()->getColor()));
+	p2->setPawn(new Pawn(p2->getRole()->getColor()));
+
+	std::cout << std::endl;
+	std::cout << "-------------------- Roles --------------------" << std::endl;
+	std::cout << p1->getName() << " is a " << p1->getRole()->getName() << std::endl;
+	std::cout << p2->getName() << " is a " << p2->getRole()->getName() << std::endl;
+	std::cout << "-----------------------------------------------" << std::endl;
+	std::cout << std::endl;
+
 	//populate individual player hands
 	for (int i = 0; i < deck->getPlayerHand().size(); i++){
 		p1->addCard(deck->getPlayerHand().at(i));
@@ -87,14 +115,17 @@ int main() {
 	std::string option;
 	start: {
 
+		//start of players turn
 		std::cout << p1->getName() << "'s turn." << std::endl;
+		std::cout << p1->getRole()->getSkill() << std::endl;
 		std::cout << "These are your cards." << std::endl;
 		std::cout << std::endl;
 		p1->displayHand();
 		std::cout << std::endl;
-		o = 1;
+
+		//perform the 4 or less actions available to the player
+		o = 0;
 		std::cout << "Below are your options. Enter an option number to make a decision." << std::endl;
-		std::cout << o << " : do nothing because city card are useless in this version." << std::endl;
 		for (int i = 0; i < p1->getHand().size(); i++) {
 			if (p1->getHand()[i]->getType() != "city") {
 				p1HasEvent = true;
@@ -102,7 +133,7 @@ int main() {
 		}
 
 		if (p1HasEvent == true) {
-			o = 2;
+			o = 1;
 			std::cout << o << " : use 1 event card." << std::endl;
 		}
 		std::cout << o + 1 << " : check actions on reference card" << std::endl;
@@ -110,25 +141,21 @@ int main() {
 		std::cin >> option;
 
 		options: {
-			if (option == "1") {
-				std::cout << "Next players turn" << std::endl;
+			if (option == "1" && p1HasEvent == true) {
+				std::cout << "Turns out events are useless. Next players turn." << std::endl;
 				goto proceed;
 			}
-			else if (option == "2" && p1HasEvent == true) {
-				std::cout << "Turns out events are useless too. Next players turn.";
-				goto proceed;
-			}
-
 
 			else if (option == std::to_string(o + 1)) {
 				p1->getReferenceCard();
 				std::cout << "You have up to 4 actions to do, you can either pick a number to perform the action, or skip your actions by pressing 0. What would you like to do?" << std::endl;
 				int playerTurns = 4;
 				int playerInput;
+				retry:
 				std::cin >> playerInput;
 				while (playerTurns <= 0 || playerInput != 0)
 				{
-					if (playerInput == 1 || playerInput == 2 || playerInput == 3 || playerInput == 4)
+					if (playerInput > 0 && playerInput < 10)
 					{
 						std::cout << "Doing " << playerInput << "'s actions. We have not yet implemented the actions" << std::endl;
 						playerTurns--;
@@ -146,13 +173,17 @@ int main() {
 						std::cout << "Confirmed! Exiting now . . . " << std::endl;
 						break;
 					}
+					else {
+						std::cout << "Wrong input, try again." << std::endl;
+						goto retry;
+					}
 				}
 				
 
 			}
 
 			else if (option == std::to_string(o + 2)) {
-				std::cout << "Game ended!" << std::endl;
+				MessageBox(NULL, L"You ended the game.", L"Game Over", NULL);
 				goto endgame;
 			}
 			else {
@@ -160,31 +191,71 @@ int main() {
 				goto options;
 			}
 		}
+			 proceed:
+				 //draw 2 cards from player deck, add to player hand. If epidemic, discard it and update infection rate
+				 if (pDeck.at(0)->getType() == "epidemic") {
+					 //if epidemic, increase infection rate and add 1 card to your hand
+					 GameManager::Instance().increseInfectionRate();
+					 pDeck.erase(pDeck.begin());
+					 p1->addCard(pDeck.at(0));
+					 pDeck.erase(pDeck.begin());
+				 }
+				 else if(pDeck.at(1)->getType() == "epidemic") {
+					 //if 2nd card is epidemic, increase infection rate and add first card to your hand
+					 p1->addCard(pDeck.at(0));
+					 pDeck.erase(pDeck.begin());
+					 GameManager::Instance().increseInfectionRate();
+					 pDeck.erase(pDeck.begin());
+				 }
+				 else {
+					 //if not, add 2 cards to your hand
+					 p1->addCard(pDeck.at(0));
+					 pDeck.erase(pDeck.begin());
+					 p1->addCard(pDeck.at(0));
+					 pDeck.erase(pDeck.begin());
+				 }
 
-		std::cout << "Drawing 2 Infection Cards from infection deck . . . . " << std::endl;
-		srand(time(0));    
-		int card1 = rand() % infectionCardDeck.size();
+				 //infect cities - done automatiacally by the game - will check if cubes are available and update avaialble cube counts
+				 if (GameManager::Instance().checkCubes()) {
+					 std::cout << "------------------------------------------------------" << std::endl;
+					 std::cout << "Drawing 2 Infection Cards from infection deck . . . . " << std::endl;
 
-		infectionCardDeck[card1]->infect();
-		infectionCardDeck.erase(infectionCardDeck.begin() + card1);
-		infectionCardDiscard.push_back(infectionCardDeck.at(card1)); 
+					 int card1 = rand() % infectionCardDeck.size();
+
+					 infectionCardDeck[card1]->infect();
+					 infectionCardDeck.erase(infectionCardDeck.begin() + card1);
+					 infectionCardDiscard.push_back(infectionCardDeck.at(card1));
+
+					 int card2 = rand() % infectionCardDeck.size();
+
+					 infectionCardDeck[card2]->infect();
+					 infectionCardDeck.erase(infectionCardDeck.begin() + card2);
+					 infectionCardDiscard.push_back(infectionCardDeck.at(card2));
+					 std::cout << "------------------------------------------------------" << std::endl;
+				 }
+				 else {
+					 MessageBox(NULL, L"You ran out of infection cubes", L"Game Over", NULL);
+					 goto endgame;
+				 }
+
+				 //check if outbreak limit was reached
+				 if (GameManager::Instance().checkOutbreak()) {
+					 MessageBox(NULL, L"Outbreak tracker is at 8. You lose.", L"Game Over", NULL);
+					 goto endgame;
+				 }
+
 		
-		int card2 = rand() % infectionCardDeck.size();
-
-		infectionCardDeck[card2]->infect();
-		infectionCardDeck.erase(infectionCardDeck.begin() + card2);
-		infectionCardDiscard.push_back(infectionCardDeck.at(card2));
-
-		 proceed:
 		//next players turn
 		std::cout << p2->getName() << "'s turn." << std::endl;
+		std::cout << p2->getRole()->getSkill() << std::endl;
 		std::cout << "These are your cards." << std::endl;
 		std::cout << std::endl;
 		p2->displayHand();
-		o = 1;
+		o = 0;
 		std::cout << std::endl;
+
+		//perform the 4 or less actions available to the player
 		std::cout << "Below are your options. Enter an option number to make a decision." << std::endl;
-		std::cout << o << " : do nothing because city card are useless in this version." << std::endl;
 		for (int i = 0; i < p2->getHand().size(); i++) {
 			if (p2->getHand()[i]->getType() != "city") {
 				p2HasEvent = true;
@@ -192,7 +263,7 @@ int main() {
 		}
 
 		if (p2HasEvent == true) {
-			o = 2;
+			o = 1;
 			std::cout << o << " : use 1 event card." << std::endl;
 		}
 		std::cout << o + 1 << " : check actions on reference card" << std::endl;
@@ -200,12 +271,8 @@ int main() {
 		std::cin >> option;
 
 		options2: {
-			if (option == "1") {
-				std::cout << "Next players turn." << std::endl;
-				goto proceed2;
-			}
-			else if (option == "2" && p2HasEvent == true) {
-				std::cout << "Turns out events are useless too. Next players turn." << std::endl;
+			if (option == "1" && p2HasEvent == true) {
+				std::cout << "Turns out events are useless. Next players turn." << std::endl;
 				goto proceed2;
 			}
 			else if (option == std::to_string(o + 1)) {
@@ -213,10 +280,11 @@ int main() {
 				std::cout << "You have up to 4 actions to do, you can either pick a number to perform the action, or skip your actions by pressing 0. What would you like to do?" << std::endl;
 				int playerTurns = 4;
 				int playerInput;
+				retry2:
 				std::cin >> playerInput;
 				while (playerTurns != 0 || playerInput != 0)
 				{
-					if (playerInput > 0 && playerInput << 9)
+					if (playerInput > 0 && playerInput < 10)
 					{
 						std::cout << "Doing " << playerInput << "'s actions. We have not yet implemented the actions" << std::endl;
 						playerTurns--;
@@ -234,13 +302,17 @@ int main() {
 						std::cout << "Confirmed! Exiting now . . . " << std::endl;
 						break;
 					}
+					else {
+						std::cout << "Wrong input, try again." << std::endl;
+						goto retry2;
+					}
 				}
 
 
 			}
 
 			else if (option == std::to_string(o + 2)) {
-				std::cout << "Game ended!" << std::endl;
+				MessageBox(NULL, L"You ended the game.", L"Game Over", NULL);
 				goto endgame;
 			}
 			else {
@@ -248,18 +320,59 @@ int main() {
 				goto options2;
 			}
 		}
-		int card3 = rand() % infectionCardDeck.size();
-
-		infectionCardDeck[card3]->infect();
-		infectionCardDeck.erase(infectionCardDeck.begin() + card3);
-		infectionCardDiscard.push_back(infectionCardDeck.at(card3));
-
-		int card4 = rand() % infectionCardDeck.size();
-
-		infectionCardDeck[card4]->infect();
-		infectionCardDeck.erase(infectionCardDeck.begin() + card4);
-		infectionCardDiscard.push_back(infectionCardDeck.at(card4));
 			  proceed2:
+				  //draw 2 cards from player deck, add to player hand. If epidemic, discard it and update infection rate
+				  if (pDeck.at(0)->getType() == "epidemic") {
+					  //if epidemic, increase infection rate and add one card tou your hand
+					  GameManager::Instance().increseInfectionRate();
+					  pDeck.erase(pDeck.begin());
+					  p2->addCard(pDeck.at(0));
+					  pDeck.erase(pDeck.begin());
+				  }
+				  else if (pDeck.at(1)->getType() == "epidemic") {
+					  //if 2nd card is epidemic, increase infection rate and add first card to your hand
+					  p1->addCard(pDeck.at(0));
+					  pDeck.erase(pDeck.begin());
+					  GameManager::Instance().increseInfectionRate();
+					  pDeck.erase(pDeck.begin());
+				  }
+				  else {
+					  //if not, add 2 cards to your hand
+					  p1->addCard(pDeck.at(0));
+					  pDeck.erase(pDeck.begin());
+					  p1->addCard(pDeck.at(0));
+					  pDeck.erase(pDeck.begin());
+				  }
+
+				  //infect cities - done automatiacally by the game - will check if cubes are available and update avaialble cube counts
+				  if (GameManager::Instance().checkCubes()) {
+					  std::cout << "------------------------------------------------------" << std::endl;
+					  std::cout << "Drawing 2 Infection Cards from infection deck . . . . " << std::endl;
+
+					  int card3 = rand() % infectionCardDeck.size();
+
+					  infectionCardDeck[card3]->infect();
+					  infectionCardDeck.erase(infectionCardDeck.begin() + card3);
+					  infectionCardDiscard.push_back(infectionCardDeck.at(card3));
+
+					  int card4 = rand() % infectionCardDeck.size();
+
+					  infectionCardDeck[card4]->infect();
+					  infectionCardDeck.erase(infectionCardDeck.begin() + card4);
+					  infectionCardDiscard.push_back(infectionCardDeck.at(card4));
+					  std::cout << "------------------------------------------------------" << std::endl;
+				  }
+				  else {
+					  MessageBox(NULL, L"You ran out of infection cubes", L"Game Over", NULL);
+					  goto endgame;
+				  }
+
+				  //check if outbreak limit was reached
+				  if (GameManager::Instance().checkOutbreak()) {
+					  MessageBox(NULL, L"Outbreak tracker is at 8. You lose.", L"Game Over", NULL);
+					  goto endgame;
+				  }
+			 
 				  goto start;
 	}
 

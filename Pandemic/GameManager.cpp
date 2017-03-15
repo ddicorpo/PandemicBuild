@@ -7,15 +7,20 @@ GameManager::GameManager(){
 	blueCubes = 24;
 	yellowCubes = 24;
 	blackCubes = 24;
-	int infectionRate[7] = { 2, 2, 2, 3, 3, 4, 4 };
+	infectionRate[0] = 2;
+	infectionRate[1] = 2;
+	infectionRate[2] = 2;
+	infectionRate[3] = 3;
+	infectionRate[4] = 3;
+	infectionRate[5] = 4;
+	infectionRate[6] = 4;
+	infectionRateIndex = 0;
+	outbreakTracker = 1;
+	researchStations = 6;
 }
 
 void GameManager::increseInfectionRate(){
 	infectionRateIndex = infectionRateIndex + 1;
-}
-
-void GameManager::setInfectionRate(int i){
-	infectionRateIndex = i;
 }
 
 void GameManager::increaseOutbreakTracker(){
@@ -57,4 +62,30 @@ int GameManager::getInfectionRate(){
 
 int GameManager::getOutbreakTracker(){
 	return outbreakTracker;
+}
+
+int GameManager::getAvailableStations() {
+	return researchStations;
+}
+
+void GameManager::displayCubeCount() {
+	std::cout << "Red Cubes: " << redCubes << std::endl;
+	std::cout << "Blue Cubes: " << blueCubes << std::endl;
+	std::cout << "Black Cubes: " << blackCubes << std::endl;
+	std::cout << "Yellow Cubes: " << yellowCubes << std::endl;
+}
+
+bool GameManager::checkCubes(){
+	if (redCubes > 0 && blueCubes > 0 && yellowCubes > 0 && blackCubes > 0)
+		return true;
+	else
+		return false;
+}
+
+bool GameManager::checkOutbreak()
+{
+	if (outbreakTracker = 8)
+		return true;
+	else
+		return false;
 }

@@ -33,3 +33,20 @@ void Player::displayHand()
 void Player::getReferenceCard(){
 	reference_card->output();
 }
+
+void Player::setRole(roles* r){
+	role = r;
+}
+
+roles* Player::getRole(){
+	return role;
+}
+
+void Player::setPawn(Pawn * p){
+	pawn = p;
+}
+
+Pawn* Player::getPawn()
+{
+	return pawn;
+}

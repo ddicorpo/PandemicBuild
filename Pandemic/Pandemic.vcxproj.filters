@@ -97,5 +97,8 @@
     <Text Include="..\cities.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="..\PandemicMap.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>
