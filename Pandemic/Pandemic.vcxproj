@@ -150,6 +150,7 @@
     <ClInclude Include="Deck.h" />
     <ClInclude Include="Epidemic.h" />
     <ClInclude Include="Event.h" />
+    <ClInclude Include="GameManager.h" />
     <ClInclude Include="InfectionCard.h" />
     <ClInclude Include="MapCity.h" />
     <ClInclude Include="Pawn.h" />
@@ -163,6 +164,7 @@
     <ClCompile Include="Deck.cpp" />
     <ClCompile Include="Epidemic.cpp" />
     <ClCompile Include="Event.cpp" />
+    <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="InfectionCard.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapCity.cpp" />
