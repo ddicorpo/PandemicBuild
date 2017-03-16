@@ -8,10 +8,13 @@ public:
 	roles(int);
 	void output();
 	std::string getColor();
+	std::string getName();
+	std::string getSkill();
 private:
 	int roleID;
 	std::string name;
 	std::string color;
+	std::string skill;
 	bool skill_dispatcher = false;
 	bool skill_medic = false;
 	bool skill_scientist = false;

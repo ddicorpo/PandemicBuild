@@ -1,0 +1,29 @@
+game manager is now singleton.
+game manager used to update cube counts when a city gets infected.
+added roles for players.
+roles are displayed at the begining of the game.
+role skills are displayed every turn.
+player pawn now sets in main.
+fixed some output formatting.
+added dialog box for when game ends.
+added check for wrong input.
+only options on turn is choose 4 actions or use event card.
+after 4 actions, 2 cards are added to player hand. If one is an epidemic, discard and increase infection rate.
+before infecting cities, a check for available cubes is made. If one(or more) cube colors are not available, game over.
+after every turn a check for outbreak limit (8) is made. If limit reached, game over.
+
+
+to do:
+save/load GameManager attributes to/from a file.
+add location to player/pawn.
+save/load player/pawn location.
+save/load infected cities and their cube count.
+have the options do things
+
+Note:
+Reference cards really only describe 5 actions
+1)move (4 ways)
+2)build a research station
+3)treat disease
+4)share knowledge
+5)discover a cure
