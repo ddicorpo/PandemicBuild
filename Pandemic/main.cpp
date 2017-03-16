@@ -14,6 +14,8 @@
 #include "roles.h"
 #include "MapCity.h"
 #include <windows.h>
+#include <sstream>
+
 
 int main() {
 	std::srand((int)time(0));
@@ -48,22 +50,45 @@ int main() {
 		epidemics.push_back(new Epidemic());
 	}
 
-	std::ifstream mapCities("..\\PandemicMap.txt"); 
+	std::ifstream mcities("..\\PandemicMap.txt");
 	std::vector<MapCity*> map;
-	std::string city, neighbourOne, neighbourTwo, neighbourThree, neighbourFour;
-	
-	while (mapCities >> city >> neighbourOne >> neighbourTwo >> neighbourThree >> neighbourFour)
-	{
-		std::vector<MapCity*> neighbours;
-		neighbours.push_back(new MapCity(neighbourOne));
-		neighbours.push_back(new MapCity(neighbourTwo));
-		neighbours.push_back(new MapCity(neighbourThree));
-		neighbours.push_back(new MapCity(neighbourFour));
 
-		map.push_back(new MapCity(city, neighbours));
+	std::string line;
+
+	for (int lineNum = 1; getline(mcities, line); lineNum++)
+	{
+		std::stringstream ss(line);
+		std::string word;
+
+		std::string name;
+		std::vector<MapCity*> neighs;
+		int wordNum = 1;
+		for (wordNum; ss >> word; wordNum++)
+		{
+			if (wordNum == 1)
+				name = word;
+			else
+				neighs.push_back(new MapCity(word));
+		}
+		map.push_back(new MapCity(name, neighs));
 	}
 
-	std::cout << map.size();
+	//std::ifstream mapCities("..\\PandemicMap.txt"); 
+	//std::vector<MapCity*> map;
+	//std::string city, neighbourOne, neighbourTwo, neighbourThree, neighbourFour;
+	//
+	//while (mapCities >> city >> neighbourOne >> neighbourTwo >> neighbourThree >> neighbourFour)
+	//{
+	//	std::vector<MapCity*> neighbours;
+	//	neighbours.push_back(new MapCity(neighbourOne));
+	//	neighbours.push_back(new MapCity(neighbourTwo));
+	//	neighbours.push_back(new MapCity(neighbourThree));
+	//	neighbours.push_back(new MapCity(neighbourFour));
+
+	//	map.push_back(new MapCity(city, neighbours));
+	//}
+
+	//std::cout << map.size();
 	//for (int i = 0; i < map.size(); i++)
 	//{
 	//	std::cout << map[i]->getName() << " has neighbours: " << std::endl;
@@ -71,7 +96,12 @@ int main() {
 	//	std::cout << std::endl;
 	//}
 
-	
+	//for (int i = 0; i < map.size(); i++)
+	//{
+	//	std::cout << map[i]->getName() << std::endl;
+	//	map[i]->getListOfNeighbours();
+	//	std::cout << std::endl;
+	//}
 
 	//creating event cards
 	events.push_back(new Event("Airlift", "Move any one pawn to any city. Get permission before moving another player's pawn."));
@@ -91,9 +121,12 @@ int main() {
 
 	
 	
-	
+	int input;
 	std::cout << "Welcome to Pandemic: Build 1." << std::endl;
 	std::cout << "===============================================" << std::endl;
+	/*std::cout << "Would you like to: \n 1) Start a new game? \n 2) Load an existing game?";
+	std::cin >> input;*/
+
 	std::cout << "What is the name of player 1: ";
 	std::string player1;
 	std::cin >> player1;
