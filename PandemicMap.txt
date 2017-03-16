@@ -6,7 +6,7 @@ Washington NewYork Montreal Atlanta Miami
 NewYork Montreal Washington London Madrid
 London NewYork Madrid Paris Essen
 Madrid Paris London NewYork SaoPaulo
-Paris Es sen Milan Algiers Madrid London 
+Paris Essen Milan Algiers Madrid London 
 Essen StPetersburg Milan Paris London
 Milan Istanbul Paris Essen
 StPetersburg Moscow Istanbul Essen

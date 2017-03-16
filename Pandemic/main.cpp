@@ -12,6 +12,7 @@
 #include "InfectionCard.h"
 #include "GameManager.h"
 #include "roles.h"
+#include "MapCity.h"
 #include <windows.h>
 
 int main() {
@@ -46,6 +47,30 @@ int main() {
 	for (int i = 0; i < 6; i++){
 		epidemics.push_back(new Epidemic());
 	}
+
+	std::ifstream mapCities("..\\PandemicMap.txt"); 
+	std::vector<MapCity*> map;
+	std::string city, neighbourOne, neighbourTwo, neighbourThree, neighbourFour;
+	
+	while (mapCities >> city >> neighbourOne >> neighbourTwo >> neighbourThree >> neighbourFour)
+	{
+		std::vector<MapCity*> neighbours;
+		neighbours.push_back(new MapCity(neighbourOne));
+		neighbours.push_back(new MapCity(neighbourTwo));
+		neighbours.push_back(new MapCity(neighbourThree));
+		neighbours.push_back(new MapCity(neighbourFour));
+
+		map.push_back(new MapCity(city, neighbours));
+	}
+
+	std::cout << map.size();
+	//for (int i = 0; i < map.size(); i++)
+	//{
+	//	std::cout << map[i]->getName() << " has neighbours: " << std::endl;
+	//	map[i]->getListOfNeighbours();
+	//	std::cout << std::endl;
+	//}
+
 	
 
 	//creating event cards
@@ -116,6 +141,11 @@ int main() {
 	start: {
 
 		//start of players turn
+		p1->setCurrentCity(map[0]);
+		p2->setCurrentCity(map[0]);
+		
+		std::cout << "Players are now stationed in " << p1->getCurrentCity() << " !" << std::endl;
+
 		std::cout << p1->getName() << "'s turn." << std::endl;
 		std::cout << p1->getRole()->getSkill() << std::endl;
 		std::cout << "These are your cards." << std::endl;
@@ -155,7 +185,15 @@ int main() {
 				std::cin >> playerInput;
 				while (playerTurns <= 0 || playerInput != 0)
 				{
-					if (playerInput > 0 && playerInput < 10)
+					if (playerInput == 1)
+					{
+						p1->move();
+						std::cout << std::endl;
+						p1->getReferenceCard();
+						std::cout << "Would you like to perform another action? Press 0 to skip" << std::endl;
+						std::cin >> playerInput;
+					}
+					else if (playerInput > 1 && playerInput < 10)
 					{
 						std::cout << "Doing " << playerInput << "'s actions. We have not yet implemented the actions" << std::endl;
 						playerTurns--;
@@ -284,7 +322,16 @@ int main() {
 				std::cin >> playerInput;
 				while (playerTurns != 0 || playerInput != 0)
 				{
-					if (playerInput > 0 && playerInput < 10)
+					if (playerInput == 1)
+					{
+						p1->move();
+						std::cout << std::endl;
+						p1->getReferenceCard();
+						std::cout << "Would you like to perform another action? Press 0 to skip" << std::endl;
+						std::cin >> playerInput;
+					}
+
+					else if (playerInput > 0 && playerInput < 10)
 					{
 						std::cout << "Doing " << playerInput << "'s actions. We have not yet implemented the actions" << std::endl;
 						playerTurns--;
