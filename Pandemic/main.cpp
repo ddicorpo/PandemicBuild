@@ -8,11 +8,11 @@
 #include "Epidemic.h"
 #include "Deck.h"
 #include "Player.h"
-#include "reference_cards.h"
+//#include "reference_cards.h"
 #include "InfectionCard.h"
 #include "GameManager.h"
-#include "roles.h"
-#include "MapCity.h"
+//#include "roles.h"
+//#include "MapCity.h"
 #include <windows.h>
 #include <sstream>
 

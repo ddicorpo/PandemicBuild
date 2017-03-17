@@ -84,7 +84,7 @@ bool GameManager::checkCubes(){
 
 bool GameManager::checkOutbreak()
 {
-	if (outbreakTracker = 8)
+	if (outbreakTracker == 8)
 		return true;
 	else
 		return false;
