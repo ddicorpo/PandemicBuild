@@ -22,6 +22,12 @@ GameManager::GameManager(){
 void GameManager::increseInfectionRate(){
 	infectionRateIndex = infectionRateIndex + 1;
 }
+int GameManager::getInfectionRateIndex(){
+	return infectionRateIndex;
+}
+void GameManager::setInfectionRateIndex(int i){
+	infectionRateIndex = i;
+}
 
 void GameManager::increaseOutbreakTracker(){
 	outbreakTracker = outbreakTracker + 1;
@@ -89,3 +95,29 @@ bool GameManager::checkOutbreak()
 	else
 		return false;
 }
+int GameManager::getRed(){
+	return redCubes;
+}
+int GameManager::getBlue(){
+	return blueCubes;
+}
+int GameManager::getYellow(){
+	return yellowCubes;
+}
+int GameManager::getBlack(){
+	return blackCubes;
+}
+
+void GameManager::setRed(int r){
+	redCubes = r;
+}
+void GameManager::setBlue(int b){
+	blueCubes = b;
+}
+void GameManager::setYellow(int y){
+	yellowCubes = y;
+}
+void GameManager::setBlack(int bl){
+	blackCubes = bl;
+}
+

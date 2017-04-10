@@ -23,33 +23,7 @@ int main() {
 	//accessing the game manager
 	//GameManager::Instance().displayCubeCount();
 
-
-	//vectors to hold card objects
-	std::vector<PlayerCard*> cities;
-	std::vector<PlayerCard*> events;
-	std::vector<PlayerCard*> epidemics;
-
-	//creating city 
-	std::ifstream cityFile("..\\cities.txt");
-	std::string name, color;
-	int pop;
-	while (cityFile >> name >> color >> pop){
-		cities.push_back(new City(name, color, pop));
-	}
-
-	std::vector<InfectionCard*> infectionCardDeck;
-	std::vector<InfectionCard*> infectionCardDiscard;
-	std::ifstream infectionDeck("..\\cities.txt");
-	std::string cityName, cityColor; 
-	int null;
-	while (infectionDeck >> name >> color >> null)
-	{
-		infectionCardDeck.push_back(new InfectionCard(name, color));
-	}
-
-	for (int i = 0; i < 6; i++){
-		epidemics.push_back(new Epidemic());
-	}
+	//////////////CRAETE THE MAP CITY OBJECTS
 
 	std::ifstream mcities("..\\PandemicMap.txt");
 	std::vector<MapCity*> map;
@@ -74,92 +48,133 @@ int main() {
 		map.push_back(new MapCity(name, neighs));
 	}
 
+	//////////////DETERMINE IF NEW GAME OR LOAD GAME
+
+	int input;
+	std::cout << "Welcome to Pandemic: Build 1." << std::endl;
+	std::cout << "===============================================" << std::endl;
+neworload:
+	std::cout << "Would you like to: \n 1) Start a new game? \n 2) Load an existing game?" << std::endl;
+	std::cin >> input;
+	if (input == 1){
+		goto newgame;
+	}
+	else if (input == 2){
+		//goto loadgame;
+	}
+	else{
+		std::cout << "Must make a selection" << std::endl;
+		goto neworload;
+	}
+
+newgame:
+	//////////////CRAETE THE PLAYER CARD OBJECTS
+
+	//vectors to hold card objects
+	std::vector<PlayerCard*> cities;
+	std::vector<PlayerCard*> events;
+	std::vector<PlayerCard*> epidemics;
+
+	//creating city 
+	std::ifstream cityFile("..\\cities.txt");
+	std::string name, color;
+	int pop;
+	while (cityFile >> name >> color >> pop){
+		cities.push_back(new City(name, color, pop));
+	}
+
+	std::vector<InfectionCard*> infectionCardDeck;
+	std::vector<InfectionCard*> infectionCardDiscard;
+	std::ifstream infectionDeck("..\\cities.txt");
+	std::string cityName, cityColor;
+	int null;
+	while (infectionDeck >> name >> color >> null)
+	{
+		infectionCardDeck.push_back(new InfectionCard(name, color));
+	}
+
+	for (int i = 0; i < 6; i++){
+		epidemics.push_back(new Epidemic());
+	}
 
 	//creating event cards
 	events.push_back(new Event("Airlift", "Move any one pawn to any city. Get permission before moving another player's pawn."));
 	events.push_back(new Event("One Quiet Night", "The next player to begin the Playing The Infection phase of their turn may skip that phase entirely."));
 	events.push_back(new Event("Forecast", "Examine the top 6 cards of the Infection Draw Pile, rearrange them in the order of your choice, then place them back on the pile."));
-	events.push_back(new Event("Government Grant","Add a Research Station to any city for free."));
+	events.push_back(new Event("Government Grant", "Add a Research Station to any city for free."));
 	events.push_back(new Event("Resilient Population", "Take a card from the Infection Discard Pile and remove it from the game."));
-	
+
+
+	//////////////INITIALIZE NEW GAME PLAYERS
+
+	int playerCount;
+	std::cout << "How many players?" << std::endl;
+	std::cin >> playerCount;
+	std::vector<Player*> players;
+	for (int i = 0; i < playerCount; i++){
+		std::string name;
+		std::cout << "What is player " << i + 1 << "'s name?" << std::endl;
+		std::cin >> name;
+		players.push_back(new Player(name));
+	}
+
 	//create a deck
-	Deck *deck(new Deck());
+	Deck *deck(new Deck(playerCount));
 	deck->createDeck(cities, events, epidemics);
 	//hold the deck for game manipulation
 	std::vector<PlayerCard*> pDeck = deck->getDeck();
 	//output deck
 	//deck->displayDeck();
+	//std::cout << deck->getPlayerHand().size() << std::endl;
 
-
-	
-	
-	int input;
-	std::cout << "Welcome to Pandemic: Build 1." << std::endl;
-	std::cout << "===============================================" << std::endl;
-	/*std::cout << "Would you like to: \n 1) Start a new game? \n 2) Load an existing game?";
-	std::cin >> input;*/
-
-	std::cout << "What is the name of player 1: ";
-	std::string player1;
-	std::cin >> player1;
-	std::cout << "What is the name of player 2: ";
-	std::string player2;
-	std::cin >> player2;
-
-	//initialize 2 players
-	Player *p1(new Player(player1));
-	Player *p2(new Player(player2));
-
-	//give roles to players
-	int role1 = rand() % 7;
-	int role2 = rand() % 7;
-	while (role1 == role2)
-	{
-		role2 = rand() % 7;
-	}
-	p1->setRoleId(role1);
-	p1->setRole(new roles(role1));
-	p2->setRoleId(role2);
-	p2->setRole(new roles(role2));
-
-	//set pawns of player (to do: set start location of pawn)
-	p1->setPawn(new Pawn(p1->getRole()->getColor()));
-	p2->setPawn(new Pawn(p2->getRole()->getColor()));
-
-	std::cout << std::endl;
+	//give roles to players and pawns
+	std::vector<int> rolesvec = { 0, 1, 2, 3, 4, 5, 6 };
+	int handindex = 0;
 	std::cout << "-------------------- Roles --------------------" << std::endl;
-	std::cout << p1->getName() << " is a " << p1->getRole()->getName() << std::endl;
-	std::cout << p2->getName() << " is a " << p2->getRole()->getName() << std::endl;
-	std::cout << "-----------------------------------------------" << std::endl;
-	std::cout << std::endl;
-
-	//populate individual player hands
-	for (int i = 0; i < deck->getPlayerHand().size(); i++){
-		p1->addCard(deck->getPlayerHand().at(i));
-		p2->addCard(deck->getPlayerHand().at(i + 1));
-		i = i + 1;
-	}
-
-	//set starting city
-	p1->setCurrentCity(map[0]);
-	p2->setCurrentCity(map[0]);
-
-	//initialize a vector of players
-	std::vector<Player*> players;
-	players.push_back(p1);
-	players.push_back(p2);
-
-	/*for (int i = 0; i < players.size(); i++){
-		std::cout << players.at(i)->getName() << players.at(i)->getRoleId() << players.at(i)->getCurrentCity() << std::endl;
-		for (int k = 0; k < players.at(i)->getHand().size(); k++){
-			std::cout << players.at(i)->getHand().at(k)->getName() << ":" << players.at(i)->getHand().at(k)->getType() << std::endl;
+	for (int i = 0; i < players.size(); i++){
+		int role = rand() % (7 - i);
+		players[i]->setRole(new roles(rolesvec[role]));
+		players[i]->setRoleId(rolesvec[role]);
+		rolesvec.erase(rolesvec.begin() + role);
+		players[i]->setPawn(new Pawn(players[i]->getRole()->getColor()));
+		std::cout << players[i]->getName() << " is a " << players[i]->getRole()->getName() << std::endl;
+		for (int c = 0; c < deck->getPlayerHand().size() / playerCount; c++){
+			players[i]->addCard(deck->getPlayerHand().at(handindex));
+			handindex++;
 		}
-	}*/
+		players[i]->setCurrentCity(map[0]);
+	}
+	std::cout << "-----------------------------------------------" << std::endl;
 
+
+	/*
 	//testing saving the players
 	Serialize access = Serialize();
 	access.savePlayers(players);
 	access.saveDeck(pDeck);
+	access.saveManager();
+	*/
+
+start:
+	int turnCounter = 0;
+	int playerIndex = turnCounter % playerCount;
+	std::cout << players[playerIndex]->getName() << "' turn" << std::endl;
+	std::cout << "You are stationed in "<< players[playerIndex]->getCurrentCity() << std::endl;
+	std::cout << "Below are your cards" << std::endl;
+	players[playerIndex]->displayHand();
+
+	////OPTIONS 4 of 8 actions, draw 2 cards, infect 
+
+	system("pause");
+
+	turnCounter++;
+	goto start;
+	
+	/*
+
+
+
+
 
 	//decisions decisions - hard coded atm. will be possibly implemetned as a functon of class game.
 	bool p1HasEvent = false;
@@ -467,6 +482,7 @@ int main() {
 
 	delete deck, p1, p2;
 	deck, p1, p2 = NULL;
-	
+	*/
+system("pause");
 	return 0;
 }

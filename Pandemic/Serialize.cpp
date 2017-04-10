@@ -23,10 +23,22 @@ void Serialize::saveDeck(std::vector<PlayerCard*> deck){
 	for (int i = 0; i < deck.size(); i++){
 		thefile << deck.at(i)->getAttributes() << "\n";
 	}
+	thefile.close();
+	std::cout << "Deck Saved" << std::endl;
 }
 
 void Serialize::saveManager(){
-
+	std::ofstream thefile;
+	thefile.open("_gamemanager");
+	thefile << &GameManager::getRed << " "
+		<< &GameManager::getBlue << " "
+		<< &GameManager::getYellow << " "
+		<< &GameManager::getBlack << " "
+		<< &GameManager::getInfectionRateIndex << " "
+		<< &GameManager::getOutbreakTracker << " "
+		<< &GameManager::getAvailableStations;
+	thefile.close();
+	std::cout << "Game Manager Saved" << std::endl;
 }
 
 //Player Serialize::loadPlayers(){
@@ -37,6 +49,6 @@ void Serialize::saveManager(){
 //
 //}
 //
-//GameManager Serialize::loadManager(){
+//void Serialize::loadManager(){
 //
 //}

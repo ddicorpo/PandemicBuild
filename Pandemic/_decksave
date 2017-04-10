@@ -1,69 +1,48 @@
-Taipei:city:red:1000000
-Moscow:city:black:1000000
-Paris:city:blue:1000000
-Riyadh:city:black:1000000
-Hong-Kong:city:red:1000000
-Johannesburg:city:yellow:1000000
-Essen:city:blue:1000000
-Los-Angeles:city:yellow:1000000
-Algiers:city:black:1000000
-Miami:city:yellow:1000000
-Kolkata:city:black:1000000
-Epidemic!
-1 - Increase
-Move Infection rate marker forward 1 space.
-2 - Infect
-Draw the bottom card from the Ingection Deck nd put 3 cubes on that city. Discard that card.
-3 - Intensify
-Shuffle the cards in the Infection Discard Pile and put them on top of the Infection Deck.
-
-Baghdad:city:black:1000000
-Montreal:city:blue:1000000
-Washington:city:blue:1000000
-Mumbai:city:black:1000000
-Bangkok:city:red:1000000
-Resilient Population:event:Take a card from the Infection Discard Pile and remove it from the game.
-Osaka:city:red:1000000
-Sao-Paulo:city:yellow:1000000
-Bogota:city:yellow:1000000
-London:city:blue:1000000
-Tokyo:city:red:1000000
-Buenos-Aires:city:yellow:1000000
-Epidemic!
-1 - Increase
-Move Infection rate marker forward 1 space.
-2 - Infect
-Draw the bottom card from the Ingection Deck nd put 3 cubes on that city. Discard that card.
-3 - Intensify
-Shuffle the cards in the Infection Discard Pile and put them on top of the Infection Deck.
-
-Seoul:city:red:1000000
-Milan:city:blue:1000000
-One Quiet Night:event:The next player to begin the Playing The Infection phase of their turn may skip that phase entirely.
-Kinshasa:city:yellow:1000000
-Manila:city:red:1000000
-Jakarta:city:red:1000000
-St-Petersburg:city:blue:1000000
-Government Grant:event:Add a Research Station to any city for free.
-San-Francisco:city:blue:1000000
-New-York:city:blue:1000000
-Karachi:city:black:1000000
-Chicago:city:blue:1000000
-Epidemic!
-1 - Increase
-Move Infection rate marker forward 1 space.
-2 - Infect
-Draw the bottom card from the Ingection Deck nd put 3 cubes on that city. Discard that card.
-3 - Intensify
-Shuffle the cards in the Infection Discard Pile and put them on top of the Infection Deck.
-
-Atlanta:city:blue:1000000
-Cairo:city:black:1000000
 Forecast:event:Examine the top 6 cards of the Infection Draw Pile, rearrange them in the order of your choice, then place them back on the pile.
-Madrid:city:blue:1000000
-Sydney:city:red:1000000
+St-Petersburg:city:blue:1000000
+Atlanta:city:blue:1000000
+Bogota:city:yellow:1000000
+Taipei:city:red:1000000
+Essen:city:blue:1000000
+Montreal:city:blue:1000000
+Milan:city:blue:1000000
+Government Grant:event:Add a Research Station to any city for free.
 Shanghai:city:red:1000000
+Los-Angeles:city:yellow:1000000
+epidemic
+Moscow:city:black:1000000
+Bangkok:city:red:1000000
+Istanbul:city:black:1000000
+Baghdad:city:black:1000000
 Delhi:city:black:1000000
-Ho-Chi-Minh-City:city:red:1000000
-Lagos:city:yellow:1000000
+San-Francisco:city:blue:1000000
+Algiers:city:black:1000000
+Kolkata:city:black:1000000
+Paris:city:blue:1000000
+Sydney:city:red:1000000
 Mexico-City:city:yellow:1000000
+Lagos:city:yellow:1000000
+epidemic
+Manila:city:red:1000000
+Santiago:city:yellow:1000000
+Osaka:city:red:1000000
+Lima:city:yellow:1000000
+Kinshasa:city:yellow:1000000
+Sao-Paulo:city:yellow:1000000
+Hong-Kong:city:red:1000000
+Tehran:city:black:1000000
+Washington:city:blue:1000000
+Buenos-Aires:city:yellow:1000000
+Karachi:city:black:1000000
+Madrid:city:blue:1000000
+epidemic
+Miami:city:yellow:1000000
+Chicago:city:blue:1000000
+Ho-Chi-Minh-City:city:red:1000000
+Johannesburg:city:yellow:1000000
+Tokyo:city:red:1000000
+Beijing:city:red:1000000
+Jakarta:city:red:1000000
+Chennai:city:black:1000000
+Seoul:city:red:1000000
+Cairo:city:black:1000000

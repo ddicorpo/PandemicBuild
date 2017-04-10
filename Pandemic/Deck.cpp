@@ -5,7 +5,9 @@
 #include <time.h>
 #include "Deck.h"
 
-Deck::Deck() {}
+Deck::Deck(int playercount) {
+	pcount = playercount;
+}
 Deck::~Deck() {}
 
 void Deck::getAttributes(){
@@ -25,7 +27,15 @@ void Deck::createDeck(std::vector<PlayerCard*> cities, std::vector<PlayerCard*> 
 	}
 
 	//populate playerHand with cards for players
-	for (int a = 0; a < 8; a++){
+	int bound;
+	if (pcount == 2)
+		bound = 8;
+	else if (pcount == 3)
+		bound = 9;
+	else if (pcount == 4)
+		bound = 8;
+
+	for (int a = 0; a < bound; a++){
 		randIndex = rand() % preDeck.size();
 
 		playerHand.push_back(preDeck.at(randIndex));

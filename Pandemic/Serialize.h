@@ -17,5 +17,5 @@ public:
 
 	/*Player loadPlayers();
 	Deck loadDeck();
-	GameManager loadManager();*/
+	void loadManager();*/
 };

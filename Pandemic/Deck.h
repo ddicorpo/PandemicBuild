@@ -5,7 +5,7 @@
 
 class Deck {
 public:
-	Deck();
+	Deck(int playercount);
 	~Deck();
 	void getAttributes();
 	void createDeck(std::vector<PlayerCard*> cities, std::vector<PlayerCard*> events, std::vector<PlayerCard*> epidemics);
@@ -16,4 +16,5 @@ private:
 	std::vector<PlayerCard*> preDeck;
 	std::vector<PlayerCard*> deck;
 	std::vector<PlayerCard*> playerHand;
+	int pcount;
 };

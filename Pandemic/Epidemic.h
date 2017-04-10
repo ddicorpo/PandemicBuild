@@ -10,4 +10,5 @@ public:
 	std::string getType();
 private:
 	std::string type;
+	std::string atr;
 };
