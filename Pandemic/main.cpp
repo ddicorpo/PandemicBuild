@@ -165,6 +165,12 @@ start:
 
 	////OPTIONS 4 of 8 actions, draw 2 cards, infect 
 
+
+
+
+
+	//
+
 	system("pause");
 
 	turnCounter++;
