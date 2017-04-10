@@ -7,11 +7,8 @@ PlayerCard::PlayerCard(){}
 
 PlayerCard::~PlayerCard(){}
 
-void PlayerCard::getAttributes()
-{
-}
+std::string PlayerCard::getAttributes(){ return ""; }
 
-std::string PlayerCard::getType()
-{
-	return "";
-}
+std::string PlayerCard::getType(){ return ""; }
+
+std::string PlayerCard::getName(){ return ""; }

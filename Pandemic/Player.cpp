@@ -25,7 +25,7 @@ std::string Player::getName(){
 void Player::displayHand()
 {
 	for (int i = 0; i < hand.size(); i++) {
-		hand[i]->getAttributes();
+		std::cout << hand[i]->getAttributes() << std::endl;
 		std::cout << "----------------------" << std::endl;
 	}
 }
@@ -40,6 +40,14 @@ void Player::setRole(roles* r){
 
 roles* Player::getRole(){
 	return role;
+}
+
+void Player::setRoleId(int i){
+	roleId = i;
+}
+
+int Player::getRoleId(){
+	return roleId;
 }
 
 void Player::setPawn(Pawn * p){

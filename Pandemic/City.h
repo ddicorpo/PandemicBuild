@@ -7,8 +7,8 @@ class City : public PlayerCard {
 public:
 	City(std::string name, std::string color, int pop);
 	~City();
-	void getAttributes();
-	std::string getCityName();	//for future development
+	std::string getAttributes();
+	std::string getName();	//for future development
 	std::string getColor();		//for future development
 	int getPop();				//for future development
 	std::string getType();

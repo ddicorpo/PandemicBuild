@@ -6,6 +6,7 @@ class PlayerCard {
 public:
 	PlayerCard();
 	~PlayerCard();
-	virtual void getAttributes();
+	virtual std::string getAttributes();
 	virtual std::string getType();
+	virtual std::string getName();
 };

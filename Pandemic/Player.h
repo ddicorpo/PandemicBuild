@@ -12,13 +12,19 @@ class Player{
 public:
 	Player(std::string name);
 	~Player();
-	void addCard(PlayerCard *card);
+
 	std::vector<PlayerCard*> getHand();
 	std::string getName();
+	
+	void addCard(PlayerCard *card);
 	void displayHand();
 	void getReferenceCard();
+	
 	void setRole(roles* role);
 	roles* getRole();
+	int getRoleId();
+	void setRoleId(int i);
+	
 	void setPawn(Pawn* p);
 	Pawn* getPawn();
 
@@ -32,6 +38,7 @@ private:
 	std::vector<PlayerCard*> hand;
 	reference_cards* reference_card;
 	roles *role;
+	int roleId;
 	Pawn *pawn;
 	MapCity* currentCity;
 };

@@ -15,6 +15,7 @@
 //#include "MapCity.h"
 #include <windows.h>
 #include <sstream>
+#include "Serialize.h"
 
 
 int main() {
@@ -73,35 +74,6 @@ int main() {
 		map.push_back(new MapCity(name, neighs));
 	}
 
-	//std::ifstream mapCities("..\\PandemicMap.txt"); 
-	//std::vector<MapCity*> map;
-	//std::string city, neighbourOne, neighbourTwo, neighbourThree, neighbourFour;
-	//
-	//while (mapCities >> city >> neighbourOne >> neighbourTwo >> neighbourThree >> neighbourFour)
-	//{
-	//	std::vector<MapCity*> neighbours;
-	//	neighbours.push_back(new MapCity(neighbourOne));
-	//	neighbours.push_back(new MapCity(neighbourTwo));
-	//	neighbours.push_back(new MapCity(neighbourThree));
-	//	neighbours.push_back(new MapCity(neighbourFour));
-
-	//	map.push_back(new MapCity(city, neighbours));
-	//}
-
-	//std::cout << map.size();
-	//for (int i = 0; i < map.size(); i++)
-	//{
-	//	std::cout << map[i]->getName() << " has neighbours: " << std::endl;
-	//	map[i]->getListOfNeighbours();
-	//	std::cout << std::endl;
-	//}
-
-	//for (int i = 0; i < map.size(); i++)
-	//{
-	//	std::cout << map[i]->getName() << std::endl;
-	//	map[i]->getListOfNeighbours();
-	//	std::cout << std::endl;
-	//}
 
 	//creating event cards
 	events.push_back(new Event("Airlift", "Move any one pawn to any city. Get permission before moving another player's pawn."));
@@ -145,7 +117,9 @@ int main() {
 	{
 		role2 = rand() % 7;
 	}
+	p1->setRoleId(role1);
 	p1->setRole(new roles(role1));
+	p2->setRoleId(role2);
 	p2->setRole(new roles(role2));
 
 	//set pawns of player (to do: set start location of pawn)
@@ -166,16 +140,33 @@ int main() {
 		i = i + 1;
 	}
 
+	//set starting city
+	p1->setCurrentCity(map[0]);
+	p2->setCurrentCity(map[0]);
+
+	//initialize a vector of players
+	std::vector<Player*> players;
+	players.push_back(p1);
+	players.push_back(p2);
+
+	/*for (int i = 0; i < players.size(); i++){
+		std::cout << players.at(i)->getName() << players.at(i)->getRoleId() << players.at(i)->getCurrentCity() << std::endl;
+		for (int k = 0; k < players.at(i)->getHand().size(); k++){
+			std::cout << players.at(i)->getHand().at(k)->getName() << ":" << players.at(i)->getHand().at(k)->getType() << std::endl;
+		}
+	}*/
+
+	//testing saving the players
+	Serialize access = Serialize();
+	access.savePlayers(players);
+	access.saveDeck(pDeck);
+
 	//decisions decisions - hard coded atm. will be possibly implemetned as a functon of class game.
 	bool p1HasEvent = false;
 	bool p2HasEvent = false;
 	int o;
 	std::string option;
 	start: {
-
-		//start of players turn
-		p1->setCurrentCity(map[0]);
-		p2->setCurrentCity(map[0]);
 		
 		std::cout << "Players are now stationed in " << p1->getCurrentCity() << " !" << std::endl;
 
