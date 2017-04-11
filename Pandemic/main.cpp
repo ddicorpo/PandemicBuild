@@ -8,11 +8,8 @@
 #include "Epidemic.h"
 #include "Deck.h"
 #include "Player.h"
-//#include "reference_cards.h"
 #include "InfectionCard.h"
 #include "GameManager.h"
-//#include "roles.h"
-//#include "MapCity.h"
 #include <windows.h>
 #include <sstream>
 #include "Serialize.h"
@@ -50,6 +47,7 @@ int main() {
 
 	//////////////DETERMINE IF NEW GAME OR LOAD GAME
 
+	Serialize access = Serialize();
 	int input;
 	std::cout << "Welcome to Pandemic: Build 1." << std::endl;
 	std::cout << "===============================================" << std::endl;
@@ -61,6 +59,12 @@ neworload:
 	}
 	else if (input == 2){
 		//goto loadgame;
+		
+		std::vector<std::string> p = access.loadPlayers();
+		for (int i = 0; i < p.size(); i++){
+			std::cout << p[i] << std::endl;
+		}
+		system("pause");
 	}
 	else{
 		std::cout << "Must make a selection" << std::endl;
@@ -146,14 +150,12 @@ newgame:
 	}
 	std::cout << "-----------------------------------------------" << std::endl;
 
-
-	/*
-	//testing saving the players
-	Serialize access = Serialize();
-	access.savePlayers(players);
 	access.saveDeck(pDeck);
 	access.saveManager();
-	*/
+	access.savePlayers(players);
+
+//loadgame:
+	
 
 start:
 	int turnCounter = 0;
@@ -164,12 +166,64 @@ start:
 	players[playerIndex]->displayHand();
 
 	////OPTIONS 4 of 8 actions, draw 2 cards, infect 
+	int actioncounter = 0;
+performactions:
+	std::cout << "Choose an action from the list below - " << 4 - actioncounter << "actions remain" << std::endl;
+	if (actioncounter > 3)
+		goto drawcards;
 
+	//////////////////////////////////////////
+	//////////////dans work here//////////////
+	//////////////////////////////////////////
 
+	actioncounter++;
 
+drawcards:
+	if (pDeck.at(0)->getType() == "epidemic") {
+		//if epidemic, increase infection rate and add 1 card to your hand
+		GameManager::Instance().increseInfectionRate();
+		pDeck.erase(pDeck.begin());
+		players[playerIndex]->addCard(pDeck.at(0));
+		pDeck.erase(pDeck.begin());
+	}
+	else if (pDeck.at(1)->getType() == "epidemic") {
+		//if 2nd card is epidemic, increase infection rate and add first card to your hand
+		players[playerIndex]->addCard(pDeck.at(0));
+		pDeck.erase(pDeck.begin());
+		GameManager::Instance().increseInfectionRate();
+		pDeck.erase(pDeck.begin());
+	}
+	else {
+		//if not, add 2 cards to your hand
+		players[playerIndex]->addCard(pDeck.at(0));
+		pDeck.erase(pDeck.begin());
+		players[playerIndex]->addCard(pDeck.at(0));
+		pDeck.erase(pDeck.begin());
+	}
 
+infectcities:
+	//infect cities - done automatiacally by the game - will check if cubes are available and update avaialble cube counts
+	if (GameManager::Instance().checkCubes()) {
+		std::cout << "------------------------------------------------------" << std::endl;
+		std::cout << "Drawing 2 Infection Cards from infection deck . . . . " << std::endl;
 
-	//
+		int card1 = rand() % infectionCardDeck.size();
+
+		infectionCardDeck[card1]->infect();
+		infectionCardDeck.erase(infectionCardDeck.begin() + card1);
+		infectionCardDiscard.push_back(infectionCardDeck.at(card1));
+
+		int card2 = rand() % infectionCardDeck.size();
+
+		infectionCardDeck[card2]->infect();
+		infectionCardDeck.erase(infectionCardDeck.begin() + card2);
+		infectionCardDiscard.push_back(infectionCardDeck.at(card2));
+		std::cout << "------------------------------------------------------" << std::endl;
+	}
+	else {
+		MessageBox(NULL, L"You ran out of infection cubes", L"Game Over", NULL);
+		goto endgame;
+	}
 
 	system("pause");
 
@@ -470,7 +524,7 @@ start:
 
 	
 
-
+	*/
 	endgame:
 
 	//delete all pointers
@@ -486,9 +540,12 @@ start:
 		delete *it;
 	epidemics.clear();
 
-	delete deck, p1, p2;
-	deck, p1, p2 = NULL;
-	*/
-system("pause");
+	for (auto it = players.begin(); it != players.end(); it++)
+		delete *it;
+	players.clear();
+
+	delete deck;
+	deck = NULL;
+
 	return 0;
 }

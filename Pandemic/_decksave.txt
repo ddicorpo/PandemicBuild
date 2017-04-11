@@ -1,0 +1,48 @@
+San-Francisco:city:blue:1000000
+Madrid:city:blue:1000000
+Chicago:city:blue:1000000
+Kolkata:city:black:1000000
+Osaka:city:red:1000000
+Kinshasa:city:yellow:1000000
+Hong-Kong:city:red:1000000
+Ho-Chi-Minh-City:city:red:1000000
+Algiers:city:black:1000000
+Sao-Paulo:city:yellow:1000000
+Karachi:city:black:1000000
+epidemic
+Mexico-City:city:yellow:1000000
+Atlanta:city:blue:1000000
+Essen:city:blue:1000000
+Buenos-Aires:city:yellow:1000000
+Tehran:city:black:1000000
+Santiago:city:yellow:1000000
+Cairo:city:black:1000000
+Forecast:event:Examine the top 6 cards of the Infection Draw Pile, rearrange them in the order of your choice, then place them back on the pile.
+Resilient Population:event:Take a card from the Infection Discard Pile and remove it from the game.
+Manila:city:red:1000000
+Sydney:city:red:1000000
+Taipei:city:red:1000000
+epidemic
+Moscow:city:black:1000000
+London:city:blue:1000000
+Jakarta:city:red:1000000
+Airlift:event:Move any one pawn to any city. Get permission before moving another player's pawn.
+Mumbai:city:black:1000000
+New-York:city:blue:1000000
+Johannesburg:city:yellow:1000000
+Khartoum:city:yellow:1000000
+Los-Angeles:city:yellow:1000000
+Seoul:city:red:1000000
+Paris:city:blue:1000000
+Tokyo:city:red:1000000
+epidemic
+Bogota:city:yellow:1000000
+Baghdad:city:black:1000000
+Lagos:city:yellow:1000000
+Shanghai:city:red:1000000
+Bangkok:city:red:1000000
+Government Grant:event:Add a Research Station to any city for free.
+One Quiet Night:event:The next player to begin the Playing The Infection phase of their turn may skip that phase entirely.
+Miami:city:yellow:1000000
+Delhi:city:black:1000000
+Montreal:city:blue:1000000

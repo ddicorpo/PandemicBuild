@@ -1,0 +1,2 @@
+max 2 Atlanta|Riyadh:city:black:1000000 Lima:city:yellow:1000000 Milan:city:blue:1000000 St-Petersburg:city:blue:1000000 
+mike 1 Atlanta|Washington:city:blue:1000000 Beijing:city:red:1000000 Chennai:city:black:1000000 Istanbul:city:black:1000000 

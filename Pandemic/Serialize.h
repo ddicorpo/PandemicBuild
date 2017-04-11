@@ -2,7 +2,6 @@
 #include <vector>
 #include <iostream>
 #include "Player.h"
-#include "Deck.h"
 #include "PlayerCard.h"
 #include "GameManager.h"
 
@@ -15,7 +14,7 @@ public:
 	void saveDeck(std::vector<PlayerCard*> d);
 	void saveManager();
 
-	/*Player loadPlayers();
-	Deck loadDeck();
-	void loadManager();*/
+	std::vector<std::string> loadPlayers();
+	std::vector<PlayerCard> loadDeck();
+	void loadManager();
 };
