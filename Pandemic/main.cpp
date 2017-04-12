@@ -158,30 +158,15 @@ neworload:
 	}
 	std::cout << "-----------------------------------------------" << std::endl;
 
-	//delete all pointers for temporary vectors
-	/*for (auto it = cities.begin(); it != cities.end(); it++)
-		delete *it;
-	cities.clear();
-
-	for (auto it = events.begin(); it != events.end(); it++)
-		delete *it;
-	events.clear();
-
-	for (auto it = epidemics.begin(); it != epidemics.end(); it++)
-		delete *it;
-	epidemics.clear();
-
+	//delete pointers
 	delete deck;
-	deck = NULL;*/
+	deck = NULL;
 
 	}
 	else {
 		std::cout << "Must make a selection" << std::endl;
 		goto neworload;
 	}
-	
-
-	players[0]->displayHand();
 
 
 start:
@@ -204,9 +189,9 @@ performactions:
 	//////////////////////////////////////////
 
 	//save game option
-	/*access.saveDeck(pDeck);
+	access.saveDeck(pDeck);
 	access.saveManager();
-	access.savePlayers(players);*/
+	access.savePlayers(players);
 
 	actioncounter++;
 	goto performactions;

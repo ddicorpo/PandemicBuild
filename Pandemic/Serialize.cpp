@@ -1,6 +1,7 @@
 #include "Serialize.h"
 #include <fstream>
 #include <sstream>
+#include <algorithm>
 
 Serialize::Serialize() {}
 Serialize::~Serialize() {}
@@ -9,11 +10,11 @@ void Serialize::savePlayers(std::vector<Player*> players) {
 	std::ofstream thefile;
 	thefile.open("_playerssave");
 	for (int k = 0; k < players.size(); k++) {
-		thefile << players.at(k)->getName() << " " << players.at(k)->getRoleId() << " " << players.at(k)->getCurrentCity() << " ";
+		thefile << players.at(k)->getName() << "|" << players.at(k)->getRoleId() << "|" << players.at(k)->getCurrentCity() << "|";
 		for (int i = 0; i < players.at(k)->getHand().size(); i++) {
-			thefile << players.at(k)->getHand().at(i)->getAttributes() << " ";
+			thefile << players.at(k)->getHand().at(i)->getAttributes() << "|";
 		}
-		thefile << "\n";
+		thefile << std::endl;
 	}
 	thefile.close();
 	std::cout << "Players Saved" << std::endl;
@@ -45,38 +46,33 @@ void Serialize::saveManager() {
 void Serialize::loadPlayers() {
 	std::ifstream thefile;
 	thefile.open("_playerssave");
+	
+	std::vector<std::string> temp;
+	std::string name;
+	std::string roleId;
+	std::string city;
 
 	std::string line;
-	for (int lineNum = 1; getline(thefile, line); lineNum++)
+	
+	for (int lineNum = 1; getline(thefile, line, '|'); lineNum++)
 	{
-		std::cout << line << std::endl;
-		std::stringstream ss(line);
-		std::string word;
-
-		std::string name;
-		std::string roleId;
-		std::string city;
-		std::string cards;
-
-		int wordNum = 1;
-		for (wordNum; ss >> word; wordNum++)
-		{
-			if (wordNum == 1)
-				name = word;
-			else if (wordNum == 2)
-				roleId = word;
-			else if (wordNum == 3)
-				city = word;
-			else
-				cards += word;
-		}
-
-		std::cout << name << std::endl;
-		std::cout << roleId << std::endl;
-		std::cout << city << std::endl;
-		std::cout << cards << std::endl;
-
+		for (int p = line.find('\n'); p != (int)std::string::npos; p = line.find('\n'))
+			line.erase(p, 1);
+		
+		temp.push_back(line);
+		//std::cout << line << std::endl;
 	}
+
+
+	name = temp[0];
+	roleId = temp[1];
+	city = temp[2];
+	std::cout << name << "|" << roleId << "|" << city << std::endl;
+	for (int i = 3; i < temp.size(); i++) {
+		std::cout << temp[i] << std::endl;
+	}
+
+	
 }
 //
 //Deck Serialize::loadDeck(){
