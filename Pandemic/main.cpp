@@ -79,7 +79,7 @@ neworload:
 		playerCount = players.size();
 
 
-		access.loadPlayers();
+		players = access.loadPlayers();
 
 		system("pause");
 	}

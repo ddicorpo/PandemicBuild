@@ -14,6 +14,7 @@ void Player::addCard(PlayerCard *card){
 	hand.push_back(card);
 }
 
+
 std::vector<PlayerCard*> Player::getHand(){
 	return hand;
 }

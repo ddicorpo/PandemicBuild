@@ -1,4 +1,6 @@
 #include "Serialize.h"
+#include "City.h"
+#include "Event.h"
 #include <fstream>
 #include <sstream>
 #include <algorithm>
@@ -43,36 +45,61 @@ void Serialize::saveManager() {
 	std::cout << "Game Manager Saved" << std::endl;
 }
 
-void Serialize::loadPlayers() {
+std::vector<Player*> Serialize::loadPlayers() {
 	std::ifstream thefile;
 	thefile.open("_playerssave");
 	
-	std::vector<std::string> temp;
+	std::vector<Player*> players;
 	std::string name;
 	std::string roleId;
 	std::string city;
 
 	std::string line;
 	
-	for (int lineNum = 1; getline(thefile, line, '|'); lineNum++)
+	for (int lineNum = 1; getline(thefile, line); lineNum++)
 	{
 		for (int p = line.find('\n'); p != (int)std::string::npos; p = line.find('\n'))
 			line.erase(p, 1);
 		
-		temp.push_back(line);
-		//std::cout << line << std::endl;
+		std::string item;
+		std::istringstream ss;
+		ss.str(line);
+		std::vector<std::string> temp;
+		for (int k = 0; getline(ss, item, '|'); k++) {
+			//std::cout << item << std::endl;
+			temp.push_back(item);
+		}
+
+		std::string name = temp[0];
+		int roleid = std::stoi(temp[1]);
+		std::string city = temp[2];
+		Player* pl = new Player(name);
+		pl->setCurrentCity(new MapCity(city));
+		pl->setRoleId(roleid);
+		for (int i = 3; i < temp.size(); i++) {
+			std::string item;
+			std::istringstream ss;
+			std::vector<std::string> tempy;
+			ss.str(temp[i]);
+			for (int k = 0; getline(ss, item, ':'); k++) {
+				tempy.push_back(item);
+			}
+
+			if (tempy[1] == "city") {
+				pl->addCard(new City(tempy[0], tempy[2], std::stoi(tempy[3])));
+			}
+			else if (tempy[1] == "event") {
+				pl->addCard(new Event(tempy[0], tempy[2]));
+			}	
+		}
+
+		players.push_back(pl);
+		std::cout << "player loaded: " << lineNum << std::endl;
+
 	}
 
 
-	name = temp[0];
-	roleId = temp[1];
-	city = temp[2];
-	std::cout << name << "|" << roleId << "|" << city << std::endl;
-	for (int i = 3; i < temp.size(); i++) {
-		std::cout << temp[i] << std::endl;
-	}
-
-	
+	return players;
 }
 //
 //Deck Serialize::loadDeck(){
