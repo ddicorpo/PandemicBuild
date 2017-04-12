@@ -14,7 +14,7 @@ public:
 	void saveDeck(std::vector<PlayerCard*> d);
 	void saveManager();
 
-	std::vector<std::string> loadPlayers();
-	std::vector<PlayerCard> loadDeck();
+	void loadPlayers();
+	void loadDeck();
 	void loadManager();
 };

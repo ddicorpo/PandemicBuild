@@ -2,15 +2,15 @@
 #include <fstream>
 #include <sstream>
 
-Serialize::Serialize(){}
-Serialize::~Serialize(){}
+Serialize::Serialize() {}
+Serialize::~Serialize() {}
 
-void Serialize::savePlayers(std::vector<Player*> players){
+void Serialize::savePlayers(std::vector<Player*> players) {
 	std::ofstream thefile;
 	thefile.open("_playerssave");
-	for (int k = 0; k < players.size(); k++){
-		thefile << players.at(k)->getName() << " " << players.at(k)->getRoleId() << " " << players.at(k)->getCurrentCity() << "|";
-		for (int i = 0; i < players.at(k)->getHand().size(); i++){
+	for (int k = 0; k < players.size(); k++) {
+		thefile << players.at(k)->getName() << " " << players.at(k)->getRoleId() << " " << players.at(k)->getCurrentCity() << " ";
+		for (int i = 0; i < players.at(k)->getHand().size(); i++) {
 			thefile << players.at(k)->getHand().at(i)->getAttributes() << " ";
 		}
 		thefile << "\n";
@@ -18,17 +18,17 @@ void Serialize::savePlayers(std::vector<Player*> players){
 	thefile.close();
 	std::cout << "Players Saved" << std::endl;
 }
-void Serialize::saveDeck(std::vector<PlayerCard*> deck){
+void Serialize::saveDeck(std::vector<PlayerCard*> deck) {
 	std::ofstream thefile;
 	thefile.open("_decksave");
-	for (int i = 0; i < deck.size(); i++){
+	for (int i = 0; i < deck.size(); i++) {
 		thefile << deck.at(i)->getAttributes() << "\n";
 	}
 	thefile.close();
 	std::cout << "Deck Saved" << std::endl;
 }
 
-void Serialize::saveManager(){
+void Serialize::saveManager() {
 	std::ofstream thefile;
 	thefile.open("_gamemanager");
 	thefile << &GameManager::getRed << " "
@@ -42,14 +42,14 @@ void Serialize::saveManager(){
 	std::cout << "Game Manager Saved" << std::endl;
 }
 
-std::vector<std::string> Serialize::loadPlayers(){
+void Serialize::loadPlayers() {
 	std::ifstream thefile;
-	thefile.open("_playersave");
-	std::vector<std::string> p;
+	thefile.open("_playerssave");
 
 	std::string line;
 	for (int lineNum = 1; getline(thefile, line); lineNum++)
 	{
+		std::cout << line << std::endl;
 		std::stringstream ss(line);
 		std::string word;
 
@@ -57,7 +57,7 @@ std::vector<std::string> Serialize::loadPlayers(){
 		std::string roleId;
 		std::string city;
 		std::string cards;
-		
+
 		int wordNum = 1;
 		for (wordNum; ss >> word; wordNum++)
 		{
@@ -70,13 +70,13 @@ std::vector<std::string> Serialize::loadPlayers(){
 			else
 				cards += word;
 		}
-		p.push_back(name);
-		p.push_back(roleId);
-		p.push_back(city);
-		p.push_back(cards);
-	
+
+		std::cout << name << std::endl;
+		std::cout << roleId << std::endl;
+		std::cout << city << std::endl;
+		std::cout << cards << std::endl;
+
 	}
-	return p;
 }
 //
 //Deck Serialize::loadDeck(){
