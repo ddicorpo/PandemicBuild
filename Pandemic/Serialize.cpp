@@ -7,7 +7,7 @@ Serialize::~Serialize(){}
 
 void Serialize::savePlayers(std::vector<Player*> players){
 	std::ofstream thefile;
-	thefile.open("_playerssave.txt");
+	thefile.open("_playerssave");
 	for (int k = 0; k < players.size(); k++){
 		thefile << players.at(k)->getName() << " " << players.at(k)->getRoleId() << " " << players.at(k)->getCurrentCity() << "|";
 		for (int i = 0; i < players.at(k)->getHand().size(); i++){
@@ -20,7 +20,7 @@ void Serialize::savePlayers(std::vector<Player*> players){
 }
 void Serialize::saveDeck(std::vector<PlayerCard*> deck){
 	std::ofstream thefile;
-	thefile.open("_decksave.txt");
+	thefile.open("_decksave");
 	for (int i = 0; i < deck.size(); i++){
 		thefile << deck.at(i)->getAttributes() << "\n";
 	}
@@ -30,7 +30,7 @@ void Serialize::saveDeck(std::vector<PlayerCard*> deck){
 
 void Serialize::saveManager(){
 	std::ofstream thefile;
-	thefile.open("_gamemanager.txt");
+	thefile.open("_gamemanager");
 	thefile << &GameManager::getRed << " "
 		<< &GameManager::getBlue << " "
 		<< &GameManager::getYellow << " "
