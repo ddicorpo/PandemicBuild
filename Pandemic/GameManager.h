@@ -28,6 +28,7 @@ public:
 	void updateCubes(std::string color, int n);
 	void setCubes(int red, int blue, int black, int yellow);	//to use when loading i guess
 	void useStation();											//used to fullfill an option of building a research station
+	void setStationCount(int stations);
 	void setRed(int r);
 	void setBlue(int b);
 	void setYellow(int y);

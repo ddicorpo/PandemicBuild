@@ -34,13 +34,13 @@ void Serialize::saveDeck(std::vector<PlayerCard*> deck) {
 void Serialize::saveManager() {
 	std::ofstream thefile;
 	thefile.open("_gamemanager");
-	thefile << &GameManager::getRed << " "
-		<< &GameManager::getBlue << " "
-		<< &GameManager::getYellow << " "
-		<< &GameManager::getBlack << " "
-		<< &GameManager::getInfectionRateIndex << " "
-		<< &GameManager::getOutbreakTracker << " "
-		<< &GameManager::getAvailableStations;
+	thefile << GameManager::Instance().getRed() << " "
+		<< GameManager::Instance().getBlue() << " "
+		<< GameManager::Instance().getYellow() << " "
+		<< GameManager::Instance().getBlack() << " "
+		<< GameManager::Instance().getInfectionRateIndex() << " "
+		<< GameManager::Instance().getOutbreakTracker() << " "
+		<< GameManager::Instance().getAvailableStations();
 	thefile.close();
 	std::cout << "Game Manager Saved" << std::endl;
 }
@@ -101,11 +101,21 @@ std::vector<Player*> Serialize::loadPlayers() {
 
 	return players;
 }
-//
-//Deck Serialize::loadDeck(){
-//
-//}
-//
-//void Serialize::loadManager(){
-//
-//}
+
+void Serialize::loadDeck(){
+
+}
+
+void Serialize::loadManager(){
+	std::ifstream thefile;
+	thefile.open("_playerssave");
+	int red, blue, yellow, black, infectionrateindex, outbreaktracker, stations;
+
+	while (thefile >> red >> blue >> yellow >> black >> infectionrateindex >> outbreaktracker >> stations)
+	{
+		GameManager::Instance().setCubes(red, blue, yellow, black);
+		GameManager::Instance().setInfectionRateIndex(infectionrateindex);
+		GameManager::Instance().setOutbreakTracker(outbreaktracker);
+		GameManager::Instance().setStationCount(stations);
+	}
+}

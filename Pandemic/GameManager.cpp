@@ -62,6 +62,10 @@ void GameManager::useStation(){
 		researchStations = researchStations - 1;
 }
 
+void GameManager::setStationCount(int s){
+	researchStations = s;
+}
+
 int GameManager::getInfectionRate(){
 	return infectionRate[infectionRateIndex];
 }
