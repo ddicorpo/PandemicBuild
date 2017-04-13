@@ -11,4 +11,5 @@ public:
 private:
 	std::string type;
 	std::string atr;
+	std::string name;
 };

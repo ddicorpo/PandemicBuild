@@ -1,6 +1,7 @@
 #include "Serialize.h"
 #include "City.h"
 #include "Event.h"
+#include "Epidemic.h"
 #include <fstream>
 #include <sstream>
 #include <algorithm>
@@ -25,7 +26,7 @@ void Serialize::saveDeck(std::vector<PlayerCard*> deck) {
 	std::ofstream thefile;
 	thefile.open("_decksave");
 	for (int i = 0; i < deck.size(); i++) {
-		thefile << deck.at(i)->getAttributes() << "\n";
+		thefile << deck.at(i)->getAttributes() << std::endl;
 	}
 	thefile.close();
 	std::cout << "Deck Saved" << std::endl;
@@ -102,13 +103,42 @@ std::vector<Player*> Serialize::loadPlayers() {
 	return players;
 }
 
-void Serialize::loadDeck(){
+std::vector<PlayerCard*> Serialize::loadDeck(){
+	std::ifstream thefile;
+	thefile.open("_decksave");
+	std::string line;
+	std::vector<PlayerCard*> deck;
 
+	for (int lineNum = 1; getline(thefile, line); lineNum++)
+	{
+		for (int p = line.find('\n'); p != (int)std::string::npos; p = line.find('\n'))
+			line.erase(p, 1);
+
+		std::string item;
+		std::istringstream ss;
+		ss.str(line);
+		std::vector<std::string> temp;
+		for (int k = 0; getline(ss, item, ':'); k++) {
+			temp.push_back(item);
+		}
+
+		if (temp[1] == "city"){
+			deck.push_back(new City(temp[0], temp[2], std::stoi(temp[3])));
+		}
+		else if (temp[1] == "event"){
+			deck.push_back(new Event(temp[0], temp[2]));
+		}
+		else if (temp[1] == "epidemic"){
+			deck.push_back(new Epidemic());
+		}
+
+	}
+	return deck;
 }
 
 void Serialize::loadManager(){
 	std::ifstream thefile;
-	thefile.open("_playerssave");
+	thefile.open("_gamemanager");
 	int red, blue, yellow, black, infectionrateindex, outbreaktracker, stations;
 
 	while (thefile >> red >> blue >> yellow >> black >> infectionrateindex >> outbreaktracker >> stations)

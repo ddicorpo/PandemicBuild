@@ -73,15 +73,12 @@ neworload:
 	std::cout << "Would you like to: \n 1) Start a new game? \n 2) Load an existing game?" << std::endl;
 	std::cin >> input;
 	if (input == 2){
-
-		players = {};
-		pDeck = {};
+		//loading operations
+		players = access.loadPlayers();
 		playerCount = players.size();
 
-
-		players = access.loadPlayers();
-
-		system("pause");
+		pDeck = access.loadDeck();
+		access.loadManager();
 	}
 	else if (input == 1){
 		//set up a new game
@@ -189,9 +186,9 @@ performactions:
 	//////////////////////////////////////////
 
 	//save game option
-	access.saveDeck(pDeck);
+	/*access.saveDeck(pDeck);
 	access.saveManager();
-	access.savePlayers(players);
+	access.savePlayers(players);*/
 
 	actioncounter++;
 	goto performactions;
