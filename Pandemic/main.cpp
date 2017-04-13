@@ -20,6 +20,11 @@ int main() {
 	//accessing the game manager
 	//GameManager::Instance().displayCubeCount();
 
+	//locals
+	std::vector<Player*> players;
+	std::vector<PlayerCard*> pDeck;
+	int playerCount;
+
 	//////////////CRAETE THE MAP CITY OBJECTS
 
 	std::ifstream mcities("..\\PandemicMap.txt");
@@ -45,33 +50,42 @@ int main() {
 		map.push_back(new MapCity(name, neighs));
 	}
 
+	//////////////CREATE THE INFECTION DECK
+
+	std::vector<InfectionCard*> infectionCardDeck;
+	std::vector<InfectionCard*> infectionCardDiscard;
+	std::ifstream infectionDeck("..\\cities.txt");
+	std::string cityName, cityColor;
+	int null;
+	while (infectionDeck >> cityName >> cityColor >> null)
+	{
+		infectionCardDeck.push_back(new InfectionCard(cityName, cityColor));
+	}
+
 	//////////////DETERMINE IF NEW GAME OR LOAD GAME
 
 	Serialize access = Serialize();
-	int input;
+
 	std::cout << "Welcome to Pandemic: Build 1." << std::endl;
 	std::cout << "===============================================" << std::endl;
 neworload:
+	int input;
 	std::cout << "Would you like to: \n 1) Start a new game? \n 2) Load an existing game?" << std::endl;
 	std::cin >> input;
-	if (input == 1){
-		goto newgame;
-	}
-	else if (input == 2){
-		//goto loadgame;
-		
-		std::vector<std::string> p = access.loadPlayers();
-		for (int i = 0; i < p.size(); i++){
-			std::cout << p[i] << std::endl;
-		}
+	if (input == 2){
+
+		players = {};
+		pDeck = {};
+		playerCount = players.size();
+
+
+		players = access.loadPlayers();
+
 		system("pause");
 	}
-	else{
-		std::cout << "Must make a selection" << std::endl;
-		goto neworload;
-	}
-
-newgame:
+	else if (input == 1){
+		//set up a new game
+		
 	//////////////CRAETE THE PLAYER CARD OBJECTS
 
 	//vectors to hold card objects
@@ -87,16 +101,7 @@ newgame:
 		cities.push_back(new City(name, color, pop));
 	}
 
-	std::vector<InfectionCard*> infectionCardDeck;
-	std::vector<InfectionCard*> infectionCardDiscard;
-	std::ifstream infectionDeck("..\\cities.txt");
-	std::string cityName, cityColor;
-	int null;
-	while (infectionDeck >> name >> color >> null)
-	{
-		infectionCardDeck.push_back(new InfectionCard(name, color));
-	}
-
+	//create epidmics
 	for (int i = 0; i < 6; i++){
 		epidemics.push_back(new Epidemic());
 	}
@@ -111,10 +116,14 @@ newgame:
 
 	//////////////INITIALIZE NEW GAME PLAYERS
 
-	int playerCount;
 	std::cout << "How many players?" << std::endl;
-	std::cin >> playerCount;
-	std::vector<Player*> players;
+	
+	while (!(std::cin >> playerCount) || playerCount < 2 || playerCount > 4) {
+		std::cout << "2-4 PLayers only" << std::endl;
+		std::cin.clear();
+		std::cin.ignore(INT_MAX, '\n');
+	}
+
 	for (int i = 0; i < playerCount; i++){
 		std::string name;
 		std::cout << "What is player " << i + 1 << "'s name?" << std::endl;
@@ -126,13 +135,11 @@ newgame:
 	Deck *deck(new Deck(playerCount));
 	deck->createDeck(cities, events, epidemics);
 	//hold the deck for game manipulation
-	std::vector<PlayerCard*> pDeck = deck->getDeck();
-	//output deck
-	//deck->displayDeck();
-	//std::cout << deck->getPlayerHand().size() << std::endl;
+	pDeck = deck->getDeck();
 
 	//give roles to players and pawns
 	std::vector<int> rolesvec = { 0, 1, 2, 3, 4, 5, 6 };
+	std::vector<PlayerCard*> playerHands = deck->getPlayerHand();
 	int handindex = 0;
 	std::cout << "-------------------- Roles --------------------" << std::endl;
 	for (int i = 0; i < players.size(); i++){
@@ -142,20 +149,25 @@ newgame:
 		rolesvec.erase(rolesvec.begin() + role);
 		players[i]->setPawn(new Pawn(players[i]->getRole()->getColor()));
 		std::cout << players[i]->getName() << " is a " << players[i]->getRole()->getName() << std::endl;
-		for (int c = 0; c < deck->getPlayerHand().size() / playerCount; c++){
-			players[i]->addCard(deck->getPlayerHand().at(handindex));
+		for (int c = 0; c < playerHands.size() / playerCount; c++) {
+			//std::cout << playerHands[handindex]->getAttributes() << std::endl;
+			players[i]->addCard(playerHands[handindex]);
 			handindex++;
 		}
 		players[i]->setCurrentCity(map[0]);
 	}
 	std::cout << "-----------------------------------------------" << std::endl;
 
-	access.saveDeck(pDeck);
-	access.saveManager();
-	access.savePlayers(players);
+	//delete pointers
+	delete deck;
+	deck = NULL;
 
-//loadgame:
-	
+	}
+	else {
+		std::cout << "Must make a selection" << std::endl;
+		goto neworload;
+	}
+
 
 start:
 	int turnCounter = 0;
@@ -169,16 +181,22 @@ start:
 	int actioncounter = 0;
 performactions:
 	std::cout << "Choose an action from the list below - " << 4 - actioncounter << "actions remain" << std::endl;
-	if (actioncounter > 3)
-		goto drawcards;
+	if (actioncounter >= 3)
+		goto proceed;
 
 	//////////////////////////////////////////
 	//////////////dans work here//////////////
 	//////////////////////////////////////////
 
-	actioncounter++;
+	//save game option
+	access.saveDeck(pDeck);
+	access.saveManager();
+	access.savePlayers(players);
 
-drawcards:
+	actioncounter++;
+	goto performactions;
+
+proceed:
 	if (pDeck.at(0)->getType() == "epidemic") {
 		//if epidemic, increase infection rate and add 1 card to your hand
 		GameManager::Instance().increseInfectionRate();
@@ -201,7 +219,6 @@ drawcards:
 		pDeck.erase(pDeck.begin());
 	}
 
-infectcities:
 	//infect cities - done automatiacally by the game - will check if cubes are available and update avaialble cube counts
 	if (GameManager::Instance().checkCubes()) {
 		std::cout << "------------------------------------------------------" << std::endl;
@@ -527,25 +544,14 @@ infectcities:
 	*/
 	endgame:
 
-	//delete all pointers
-	for (auto it = cities.begin(); it != cities.end(); it++)
-		delete *it;
-	cities.clear();
-
-	for (auto it = events.begin(); it != events.end(); it++)
-		delete *it;
-	events.clear();
-
-	for (auto it = epidemics.begin(); it != epidemics.end(); it++)
-		delete *it;
-	epidemics.clear();
-
+	//delete rest of pointers
 	for (auto it = players.begin(); it != players.end(); it++)
 		delete *it;
 	players.clear();
 
-	delete deck;
-	deck = NULL;
+	for (auto it = pDeck.begin(); it != pDeck.end(); it++)
+		delete *it;
+	pDeck.clear();
 
 	return 0;
 }

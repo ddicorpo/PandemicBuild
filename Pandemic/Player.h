@@ -13,6 +13,7 @@ public:
 	Player(std::string name);
 	~Player();
 
+	void setHand(std::vector<PlayerCard> h);
 	std::vector<PlayerCard*> getHand();
 	std::string getName();
 	

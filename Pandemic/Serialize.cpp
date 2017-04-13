@@ -1,36 +1,39 @@
 #include "Serialize.h"
+#include "City.h"
+#include "Event.h"
 #include <fstream>
 #include <sstream>
+#include <algorithm>
 
-Serialize::Serialize(){}
-Serialize::~Serialize(){}
+Serialize::Serialize() {}
+Serialize::~Serialize() {}
 
-void Serialize::savePlayers(std::vector<Player*> players){
+void Serialize::savePlayers(std::vector<Player*> players) {
 	std::ofstream thefile;
-	thefile.open("_playerssave.txt");
-	for (int k = 0; k < players.size(); k++){
-		thefile << players.at(k)->getName() << " " << players.at(k)->getRoleId() << " " << players.at(k)->getCurrentCity() << "|";
-		for (int i = 0; i < players.at(k)->getHand().size(); i++){
-			thefile << players.at(k)->getHand().at(i)->getAttributes() << " ";
+	thefile.open("_playerssave");
+	for (int k = 0; k < players.size(); k++) {
+		thefile << players.at(k)->getName() << "|" << players.at(k)->getRoleId() << "|" << players.at(k)->getCurrentCity() << "|";
+		for (int i = 0; i < players.at(k)->getHand().size(); i++) {
+			thefile << players.at(k)->getHand().at(i)->getAttributes() << "|";
 		}
-		thefile << "\n";
+		thefile << std::endl;
 	}
 	thefile.close();
 	std::cout << "Players Saved" << std::endl;
 }
-void Serialize::saveDeck(std::vector<PlayerCard*> deck){
+void Serialize::saveDeck(std::vector<PlayerCard*> deck) {
 	std::ofstream thefile;
-	thefile.open("_decksave.txt");
-	for (int i = 0; i < deck.size(); i++){
+	thefile.open("_decksave");
+	for (int i = 0; i < deck.size(); i++) {
 		thefile << deck.at(i)->getAttributes() << "\n";
 	}
 	thefile.close();
 	std::cout << "Deck Saved" << std::endl;
 }
 
-void Serialize::saveManager(){
+void Serialize::saveManager() {
 	std::ofstream thefile;
-	thefile.open("_gamemanager.txt");
+	thefile.open("_gamemanager");
 	thefile << &GameManager::getRed << " "
 		<< &GameManager::getBlue << " "
 		<< &GameManager::getYellow << " "
@@ -42,41 +45,61 @@ void Serialize::saveManager(){
 	std::cout << "Game Manager Saved" << std::endl;
 }
 
-std::vector<std::string> Serialize::loadPlayers(){
+std::vector<Player*> Serialize::loadPlayers() {
 	std::ifstream thefile;
-	thefile.open("_playersave");
-	std::vector<std::string> p;
+	thefile.open("_playerssave");
+	
+	std::vector<Player*> players;
+	std::string name;
+	std::string roleId;
+	std::string city;
 
 	std::string line;
+	
 	for (int lineNum = 1; getline(thefile, line); lineNum++)
 	{
-		std::stringstream ss(line);
-		std::string word;
-
-		std::string name;
-		std::string roleId;
-		std::string city;
-		std::string cards;
+		for (int p = line.find('\n'); p != (int)std::string::npos; p = line.find('\n'))
+			line.erase(p, 1);
 		
-		int wordNum = 1;
-		for (wordNum; ss >> word; wordNum++)
-		{
-			if (wordNum == 1)
-				name = word;
-			else if (wordNum == 2)
-				roleId = word;
-			else if (wordNum == 3)
-				city = word;
-			else
-				cards += word;
+		std::string item;
+		std::istringstream ss;
+		ss.str(line);
+		std::vector<std::string> temp;
+		for (int k = 0; getline(ss, item, '|'); k++) {
+			//std::cout << item << std::endl;
+			temp.push_back(item);
 		}
-		p.push_back(name);
-		p.push_back(roleId);
-		p.push_back(city);
-		p.push_back(cards);
-	
+
+		std::string name = temp[0];
+		int roleid = std::stoi(temp[1]);
+		std::string city = temp[2];
+		Player* pl = new Player(name);
+		pl->setCurrentCity(new MapCity(city));
+		pl->setRoleId(roleid);
+		for (int i = 3; i < temp.size(); i++) {
+			std::string item;
+			std::istringstream ss;
+			std::vector<std::string> tempy;
+			ss.str(temp[i]);
+			for (int k = 0; getline(ss, item, ':'); k++) {
+				tempy.push_back(item);
+			}
+
+			if (tempy[1] == "city") {
+				pl->addCard(new City(tempy[0], tempy[2], std::stoi(tempy[3])));
+			}
+			else if (tempy[1] == "event") {
+				pl->addCard(new Event(tempy[0], tempy[2]));
+			}	
+		}
+
+		players.push_back(pl);
+		std::cout << "player loaded: " << lineNum << std::endl;
+
 	}
-	return p;
+
+
+	return players;
 }
 //
 //Deck Serialize::loadDeck(){
