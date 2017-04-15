@@ -30,6 +30,7 @@ public:
 	Pawn* getPawn();
 
 	void move();
+	void removeCube();
 	void setCurrentCity(MapCity* currentCity);
 	std::string getCurrentCity();
 

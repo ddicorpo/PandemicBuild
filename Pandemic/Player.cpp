@@ -127,6 +127,68 @@ void Player::move()
 
 	}
 }
+void Player::removeCube()
+{
+	if (currentCity->getInfected() != true)
+	{
+		std::cout << "City isn't infected. Try another choice!" << std::endl;
+	}
+    else
+	{
+		int playerChoice;
+		std::cout << "Here is the list of cubes for this city. " << std::endl;
+		currentCity->displayCubes();
+		std::cout << "What cube would you like to remove?" << std::endl;
+		std::cin >> playerChoice;
+		
+			switch (playerChoice)
+			{
+			case 1:
+				if (currentCity->getBlackCubes() == 0)
+				{
+					std::cout << "No more black cubes! No need to remove." << std::endl;
+				}
+				
+				else
+				{
+					currentCity->removeBlackCube();
+				}
+				
+			case 2:
+				if (currentCity->getBlueCubes() == 0)
+				{
+					std::cout << "No more blue cubes! No need to remove." << std::endl;
+				}
+						
+				else
+				{
+					currentCity->removeBlueCube();
+				}
+						
+			case 3:
+				if (currentCity->getRedCubes() == 0)
+		     	{
+					std::cout << "No more red cubes! No need to remove." << std::endl;
+				}
+								
+				else
+				{
+					currentCity->removeRedCube();
+				}
+								
+			case 4:
+				if (currentCity->getYellowCubes() == 0)
+				{
+					std::cout << "No more yellow cubes! No need to remove." << std::endl;
+				}
+										
+				else
+				{
+					currentCity->removeYellowCube();
+				}
+			}
+	}
+}
 
 
 void Player::setCurrentCity(MapCity* currentCity)

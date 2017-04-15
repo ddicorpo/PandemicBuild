@@ -9,6 +9,8 @@ public:
 	InfectionCard::InfectionCard(std::string city, std::string colorCode);
 
 	void infect(); 
+	std::string getCity();
+
 
 private:
 	std::string colorCode;

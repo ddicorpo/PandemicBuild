@@ -11,3 +11,8 @@ void InfectionCard::infect()
 		std::cout << city << " infected! 1 " << colorCode << " added to " << city << "." << std::endl;
 		GameManager::Instance().updateCubes(colorCode, 1);
 }
+
+std::string InfectionCard::getCity()
+{
+	return city;
+}

@@ -106,3 +106,85 @@ void MapCity::epidemic(std::string color)
 		}
 	}
 }
+
+void MapCity::removeBlackCube()
+{
+	blackCubes -= 1;
+	
+		if (blackCubes == 0)
+		{
+			isInfected = false;
+			/*isInfectedBlack = false;*/
+		}
+}
+
+void MapCity::removeBlueCube()
+{
+	blueCubes -= 1;
+	
+		if (blueCubes == 0)
+		{
+			isInfected = false;
+			//isInfectedBlue = false;
+		}
+	
+}
+
+void MapCity::removeRedCube()
+{
+	redCubes -= 1;
+	
+		if (redCubes == 0)
+		{
+			isInfected = false;
+			/*isInfectedBlack = false;*/
+		}
+	
+}
+
+void MapCity::removeYellowCube()
+{
+	yellowCubes -= 1;
+	
+		if (yellowCubes == 0)
+		{
+			isInfected = false;
+			/*isInfectedYellow = false;*/
+		}
+	
+}
+
+bool MapCity::getInfected()
+{
+	return isInfected;
+}
+
+int MapCity::getBlackCubes()
+{
+	return blackCubes;
+}
+
+int MapCity::getBlueCubes()
+{
+	return blueCubes;
+}
+
+int MapCity::getYellowCubes()
+{
+	return yellowCubes;
+}
+
+int MapCity::getRedCubes()
+{
+	return redCubes;
+}
+
+void MapCity::displayCubes()
+{
+	
+	std::cout << "Here are the list of cubes: " << std::endl;
+	std::cout << "Black: " << blackCubes << std::endl;
+	std::cout << "Blue: " << blueCubes << std::endl;
+	std::cout << "Red: " << redCubes << std::endl;
+	std::cout << "Yellow:  " << yellowCubes << std::endl;
+}

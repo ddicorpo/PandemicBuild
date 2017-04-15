@@ -165,9 +165,14 @@ neworload:
 		goto neworload;
 	}
 
-
-start:
 	int turnCounter = 0;
+start:
+	for (int i = 0; i < infectionCardDiscard.size(); i++)
+	{
+		std::cout << infectionCardDiscard[i]->getCity() << std::endl;
+	}
+	std::cout << map.size();
+	GameManager::Instance().getCubes();
 	int playerIndex = turnCounter % playerCount;
 	std::cout << players[playerIndex]->getName() << "' turn" << std::endl;
 	std::cout << "You are stationed in "<< players[playerIndex]->getCurrentCity() << std::endl;
@@ -177,7 +182,7 @@ start:
 	////OPTIONS 4 of 8 actions, draw 2 cards, infect 
 	int actioncounter = 0;
 performactions:
-	std::cout << "Choose an action from the list below - " << 4 - actioncounter << "actions remain" << std::endl;
+	std::cout << "Choose an action from the list below - " << 4 - actioncounter << " actions remain" << std::endl;
 	if (actioncounter >= 3)
 		goto proceed;
 
@@ -217,21 +222,22 @@ proceed:
 	}
 
 	//infect cities - done automatiacally by the game - will check if cubes are available and update avaialble cube counts
-	if (GameManager::Instance().checkCubes()) {
+	if (GameManager::Instance().checkCubes()) 
+	{
 		std::cout << "------------------------------------------------------" << std::endl;
 		std::cout << "Drawing 2 Infection Cards from infection deck . . . . " << std::endl;
 
 		int card1 = rand() % infectionCardDeck.size();
 
 		infectionCardDeck[card1]->infect();
-		infectionCardDeck.erase(infectionCardDeck.begin() + card1);
 		infectionCardDiscard.push_back(infectionCardDeck.at(card1));
+		infectionCardDeck.erase(infectionCardDeck.begin() + card1);
 
 		int card2 = rand() % infectionCardDeck.size();
 
 		infectionCardDeck[card2]->infect();
-		infectionCardDeck.erase(infectionCardDeck.begin() + card2);
 		infectionCardDiscard.push_back(infectionCardDeck.at(card2));
+		infectionCardDeck.erase(infectionCardDeck.begin() + card2);
 		std::cout << "------------------------------------------------------" << std::endl;
 	}
 	else {

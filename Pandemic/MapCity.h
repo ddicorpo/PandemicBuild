@@ -9,11 +9,19 @@ private:
 	std::string name;
 	std::vector <MapCity*> neighbours;
 	bool isInfected; 
+
+	//bool isInfectedBlue;
+	//bool isInfectedRed;
+	//bool isInfectedBlack;
+	//bool isInfectedYellow;
+
 	//bool epidemic; 
 	int blueCubes; 
 	int redCubes; 
 	int blackCubes;
 	int yellowCubes; 
+
+
 
 public:
 	MapCity::MapCity(std::string name, std::vector <MapCity*> neighbours);
@@ -29,6 +37,19 @@ public:
 	void addBlueCube();
 	void addRedCube();
 	void addYellowCube();
+
+	void displayCubes();
+
+	void removeBlackCube();
+	void removeBlueCube();
+	void removeRedCube();
+	void removeYellowCube();
+	
+	bool getInfected();
+	int getBlackCubes();
+	int getBlueCubes();
+	int getYellowCubes();
+	int getRedCubes();
 
 	void epidemic(std::string cubeColor);
 };
