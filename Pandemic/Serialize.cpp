@@ -5,6 +5,7 @@
 #include <fstream>
 #include <sstream>
 #include <algorithm>
+#include "OptionOne_Move.h"
 
 Serialize::Serialize() {}
 Serialize::~Serialize() {}
@@ -74,7 +75,7 @@ std::vector<Player*> Serialize::loadPlayers() {
 		std::string name = temp[0];
 		int roleid = std::stoi(temp[1]);
 		std::string city = temp[2];
-		Player* pl = new Player(name);
+		Player* pl = new Player(name, new OptionOne_Move());
 		pl->setCurrentCity(new MapCity(city));
 		pl->setRoleId(roleid);
 		for (int i = 3; i < temp.size(); i++) {

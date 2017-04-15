@@ -13,6 +13,14 @@
 #include <windows.h>
 #include <sstream>
 #include "Serialize.h"
+#include "OptionOne_Move.h"
+#include "OptionTwo_Fly.h"
+#include "OptionThree_FlyAny.h"
+#include "OptionFour_FlyResearch.h"
+#include "OptionFive_Cure.h"
+#include "OptionSix_Trade.h"
+#include "OptionSeven_Remove.h"
+#include "OptionEight_Construct.h"
 
 
 int main() {
@@ -125,7 +133,7 @@ neworload:
 		std::string name;
 		std::cout << "What is player " << i + 1 << "'s name?" << std::endl;
 		std::cin >> name;
-		players.push_back(new Player(name));
+		players.push_back(new Player(name, new OptionOne_Move()));
 	}
 
 	//create a deck
@@ -165,14 +173,10 @@ neworload:
 		goto neworload;
 	}
 
-	int turnCounter = 0;
+
 start:
-	for (int i = 0; i < infectionCardDiscard.size(); i++)
-	{
-		std::cout << infectionCardDiscard[i]->getCity() << std::endl;
-	}
-	std::cout << map.size();
-	GameManager::Instance().getCubes();
+	int turnCounter = 0;
+	int playerChoice = 0;
 	int playerIndex = turnCounter % playerCount;
 	std::cout << players[playerIndex]->getName() << "' turn" << std::endl;
 	std::cout << "You are stationed in "<< players[playerIndex]->getCurrentCity() << std::endl;
@@ -182,13 +186,50 @@ start:
 	////OPTIONS 4 of 8 actions, draw 2 cards, infect 
 	int actioncounter = 0;
 performactions:
-	std::cout << "Choose an action from the list below - " << 4 - actioncounter << " actions remain" << std::endl;
-	if (actioncounter >= 3)
+	std::cout << 4 - actioncounter << " actions remain" << std::endl;
+	if (actioncounter > 3)
 		goto proceed;
 
 	//////////////////////////////////////////
 	//////////////dans work here//////////////
 	//////////////////////////////////////////
+
+	players[playerIndex]->getReferenceCard();
+	std::cin >> playerChoice;
+
+	switch (playerChoice)
+	{
+		case 1: players[playerIndex]->setStrategy(new OptionOne_Move());
+				players[playerIndex]->executeStrategy();
+				break;
+		case 2: players[playerIndex]->setStrategy(new OptionTwo_Fly());
+				players[playerIndex]->executeStrategy();
+				break;
+		case 3: players[playerIndex]->setStrategy(new OptionThree_FlyAny());
+				players[playerIndex]->executeStrategy();
+				break;
+		case 4: players[playerIndex]->setStrategy(new OptionFour_FlyResearch());
+				players[playerIndex]->executeStrategy();
+				break;
+		case 5: players[playerIndex]->setStrategy(new OptionFive_Cure());
+				players[playerIndex]->executeStrategy();
+				break;
+		case 6: players[playerIndex]->setStrategy(new OptionSix_Trade());
+				players[playerIndex]->executeStrategy();
+				break;
+		case 7: players[playerIndex]->setStrategy(new OptionSeven_Remove());
+				players[playerIndex]->executeStrategy();
+				break;
+		case 8: players[playerIndex]->setStrategy(new OptionEight_Construct());
+				players[playerIndex]->executeStrategy();
+				break;
+	}
+
+	if (playerChoice > 8 || playerChoice < 1)
+	{
+		std::cout << "You made an invalid choice. Please select again!" << std::endl << std::endl;
+		goto performactions;
+	}
 
 	//save game option
 	/*access.saveDeck(pDeck);
@@ -222,22 +263,21 @@ proceed:
 	}
 
 	//infect cities - done automatiacally by the game - will check if cubes are available and update avaialble cube counts
-	if (GameManager::Instance().checkCubes()) 
-	{
+	if (GameManager::Instance().checkCubes()) {
 		std::cout << "------------------------------------------------------" << std::endl;
 		std::cout << "Drawing 2 Infection Cards from infection deck . . . . " << std::endl;
 
 		int card1 = rand() % infectionCardDeck.size();
 
 		infectionCardDeck[card1]->infect();
-		infectionCardDiscard.push_back(infectionCardDeck.at(card1));
 		infectionCardDeck.erase(infectionCardDeck.begin() + card1);
+		infectionCardDiscard.push_back(infectionCardDeck.at(card1));
 
 		int card2 = rand() % infectionCardDeck.size();
 
 		infectionCardDeck[card2]->infect();
-		infectionCardDiscard.push_back(infectionCardDeck.at(card2));
 		infectionCardDeck.erase(infectionCardDeck.begin() + card2);
+		infectionCardDiscard.push_back(infectionCardDeck.at(card2));
 		std::cout << "------------------------------------------------------" << std::endl;
 	}
 	else {

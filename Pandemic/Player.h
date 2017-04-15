@@ -7,10 +7,11 @@
 #include "MapCity.h"
 #include "roles.h"
 #include "Pawn.h"
+#include "Strategy.h"
 
 class Player{
 public:
-	Player(std::string name);
+	Player(std::string name, Strategy *initStrategy);
 	~Player();
 
 	void setHand(std::vector<PlayerCard> h);
@@ -30,11 +31,20 @@ public:
 	Pawn* getPawn();
 
 	void move();
-	void removeCube();
 	void setCurrentCity(MapCity* currentCity);
 	std::string getCurrentCity();
 
+	//called to set player object with new strategy
+	void setStrategy(Strategy *newStrategy)
+	{
+		this->strategy = newStrategy;
+	}
 
+	//Executed current strategy's execute function
+	void executeStrategy()
+	{
+		return this->strategy->execute();
+	}
 private:
 	std::string name;
 	std::vector<PlayerCard*> hand;
@@ -43,4 +53,5 @@ private:
 	int roleId;
 	Pawn *pawn;
 	MapCity* currentCity;
+	Strategy *strategy;
 };
