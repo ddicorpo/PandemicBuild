@@ -195,8 +195,6 @@ performactions:
 	{
 		if (map[i]->getInfected() == true)
 			std::cout << map[i]->getName() << "\t   " << map[i]->getAllCubes();
-		else
-			std::cout << "No infections yet!" << std::endl;
 	}
 	std::cout << "***********************************************" << std::endl;
 
