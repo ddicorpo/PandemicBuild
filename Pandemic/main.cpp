@@ -246,6 +246,8 @@ proceed:
 		pDeck.erase(pDeck.begin());
 		players[playerIndex]->addCard(pDeck.at(0));
 		pDeck.erase(pDeck.begin());
+		
+
 	}
 	else if (pDeck.at(1)->getType() == "epidemic") {
 		//if 2nd card is epidemic, increase infection rate and add first card to your hand
@@ -268,16 +270,49 @@ proceed:
 		std::cout << "Drawing 2 Infection Cards from infection deck . . . . " << std::endl;
 
 		int card1 = rand() % infectionCardDeck.size();
+		for (int i = 0; i < map.size(); i++){
+			if (map[i]->getName() == infectionCardDeck.at(card1)->getCity()){
+				if (infectionCardDeck.at(card1)->getColor() == "red"){
+					map[i]->addRedCube();
+				}
+				else if (infectionCardDeck.at(card1)->getColor() == "blue"){
+					map[i]->addBlueCube();
+				}
+				else if (infectionCardDeck.at(card1)->getColor() == "yellow"){
+					map[i]->addYellowCube();
+				}
+				else if (infectionCardDeck.at(card1)->getColor() == "black"){
+					map[i]->addBlackCube();
+				}
 
-		infectionCardDeck[card1]->infect();
+			}
+		}
+				
+		infectionCardDiscard.push_back(infectionCardDeck.at(card1)); 
 		infectionCardDeck.erase(infectionCardDeck.begin() + card1);
-		infectionCardDiscard.push_back(infectionCardDeck.at(card1));
+		
 
 		int card2 = rand() % infectionCardDeck.size();
+		for (int i = 0; i < map.size(); i++){
+			if (map[i]->getName() == infectionCardDeck.at(card2)->getCity()){
+				if (infectionCardDeck.at(card2)->getColor() == "red"){
+					map[i]->addRedCube();
+				}
+				else if (infectionCardDeck.at(card2)->getColor() == "blue"){
+					map[i]->addBlueCube();
+				}
+				else if (infectionCardDeck.at(card2)->getColor() == "yellow"){
+					map[i]->addYellowCube();
+				}
+				else if (infectionCardDeck.at(card2)->getColor() == "black"){
+					map[i]->addBlackCube();
+				}
 
-		infectionCardDeck[card2]->infect();
-		infectionCardDeck.erase(infectionCardDeck.begin() + card2);
+			}
+		}
+
 		infectionCardDiscard.push_back(infectionCardDeck.at(card2));
+		infectionCardDeck.erase(infectionCardDeck.begin() + card2);
 		std::cout << "------------------------------------------------------" << std::endl;
 	}
 	else {

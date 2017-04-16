@@ -51,5 +51,6 @@ public:
 	int getYellowCubes();
 	int getRedCubes();
 
-	void epidemic(std::string cubeColor);
+	void outbreak(std::string cubeColor);
+	void epidemic(std::string color);
 };
