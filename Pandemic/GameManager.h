@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 
+
 class GameManager {
 public:
 	static GameManager &Instance() {
@@ -33,6 +34,7 @@ public:
 	void setBlue(int b);
 	void setYellow(int y);
 	void setBlack(int bl);
+
 	
 	//checkers
 	bool checkCubes();			//check if cubes are available

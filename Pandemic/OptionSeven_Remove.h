@@ -12,9 +12,9 @@ private:
 	std::vector<MapCity*> map;
 public:
 	OptionSeven_Remove(Player*, std::vector<MapCity*>);
-	void execute()
-	{
-		std::cout << "Called OptionSeven_Remove Execute()" << std::endl;
-	}
+	void execute();
+	//{
+	//	std::cout << "Called OptionSeven_Remove Execute()" << std::endl;
+	//}
 };
 

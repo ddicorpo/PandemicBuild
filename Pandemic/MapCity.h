@@ -20,6 +20,7 @@ private:
 	int redCubes; 
 	int blackCubes;
 	int yellowCubes; 
+	/*int allCubes;*/
 
 	bool hasResearchStation = false;
 
@@ -46,11 +47,14 @@ public:
 	void removeYellowCube();
 	
 	bool getInfected();
+
 	int getBlackCubes();
 	int getBlueCubes();
 	int getYellowCubes();
 	int getRedCubes();
+	int getAllCubes();
 
+	void outbreak(std::string cubeColor);
 	void epidemic(std::string cubeColor);
 
 	void setResearchStation();

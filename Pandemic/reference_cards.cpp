@@ -11,7 +11,7 @@ reference_cards::reference_cards()
 
 void reference_cards::output()
 {
-	std::cout << "You have 4 actions. Please choose from one of the actions below." << std::endl
+	std::cout << "Please choose from one of the actions below." << std::endl
 		<< "1. Move to an adjacent city" << std::endl
 		<< "2. Fly to a city by discarding the player card of that city" << std::endl
 		<< "3. Fly to any city by discarding the player card of the city that the player is currently on" << std::endl

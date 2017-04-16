@@ -188,6 +188,19 @@ start:
 	////OPTIONS 4 of 8 actions, draw 2 cards, infect 
 	int actioncounter = 0;
 performactions:
+
+	std::cout << "*************** INFECTED CITIES ***************" << std::endl;
+	std::cout << "Name: \t   Number of cubes: " << std::endl;
+	for (int i = 0; i < map.size(); i++)
+	{
+		if (map[i]->getInfected() == true)
+			std::cout << map[i]->getName() << "\t   " << map[i]->getAllCubes();
+		else
+			std::cout << "No infections yet!" << std::endl;
+	}
+	std::cout << "***********************************************" << std::endl;
+
+
 	std::cout << 4 - actioncounter << " actions remain" << std::endl;
 	if (actioncounter > 3)
 		goto proceed;
@@ -220,7 +233,7 @@ performactions:
 				//players[playerIndex]->executeStrategy();
 				break;
 		case 7: players[playerIndex]->setStrategy(new OptionSeven_Remove(players[playerIndex], map));
-				//players[playerIndex]->executeStrategy();
+				players[playerIndex]->executeStrategy();
 				break;
 		case 8: players[playerIndex]->setStrategy(new OptionEight_Construct(players[playerIndex], map));
 				players[playerIndex]->executeStrategy();
@@ -271,14 +284,14 @@ proceed:
 
 		int card1 = rand() % infectionCardDeck.size();
 
-		infectionCardDeck[card1]->infect();
+		/*infectionCardDeck[card1]->infect();*/
 		infectionCardDiscard.push_back(infectionCardDeck.at(card1));
 		infectionCardDeck.erase(infectionCardDeck.begin() + card1);
 		
 
 		int card2 = rand() % infectionCardDeck.size();
 
-		infectionCardDeck[card2]->infect();
+		/*infectionCardDeck[card2]->infect();*/
 		infectionCardDiscard.push_back(infectionCardDeck.at(card2));
 		infectionCardDeck.erase(infectionCardDeck.begin() + card2);
 		
