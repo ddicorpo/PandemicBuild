@@ -1,4 +1,5 @@
 #include "MapCity.h"
+#include "GameManager.h"
 
 MapCity::MapCity(std::string name, std::vector <MapCity*> neighbours) :name(name), neighbours(neighbours){};
 MapCity::MapCity(){};
@@ -187,4 +188,15 @@ void MapCity::displayCubes()
 	std::cout << "Blue: " << blueCubes << std::endl;
 	std::cout << "Red: " << redCubes << std::endl;
 	std::cout << "Yellow:  " << yellowCubes << std::endl;
+}
+
+void MapCity::setResearchStation()
+{
+	hasResearchStation = true;
+	GameManager::Instance().useStation();
+}
+
+bool MapCity::getResearchStation()
+{
+	return hasResearchStation;
 }

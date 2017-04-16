@@ -21,6 +21,7 @@
 #include "OptionSix_Trade.h"
 #include "OptionSeven_Remove.h"
 #include "OptionEight_Construct.h"
+#include "OptionDefault.h"
 
 
 int main() {
@@ -57,6 +58,8 @@ int main() {
 		}
 		map.push_back(new MapCity(name, neighs));
 	}
+
+	map[0]->setResearchStation();
 
 	//////////////CREATE THE INFECTION DECK
 
@@ -133,7 +136,7 @@ neworload:
 		std::string name;
 		std::cout << "What is player " << i + 1 << "'s name?" << std::endl;
 		std::cin >> name;
-		players.push_back(new Player(name, new OptionOne_Move()));
+		players.push_back(new Player(name,new OptionDefault()));
 	}
 
 	//create a deck
@@ -173,13 +176,12 @@ neworload:
 		goto neworload;
 	}
 
-
+	int turnCounter = playerCount;
 start:
-	int turnCounter = 0;
 	int playerChoice = 0;
 	int playerIndex = turnCounter % playerCount;
 	std::cout << players[playerIndex]->getName() << "' turn" << std::endl;
-	std::cout << "You are stationed in "<< players[playerIndex]->getCurrentCity() << std::endl;
+	std::cout << "You are stationed in "<< players[playerIndex]->getCurrentCity()->getName() << std::endl;
 	std::cout << "Below are your cards" << std::endl;
 	players[playerIndex]->displayHand();
 
@@ -199,28 +201,28 @@ performactions:
 
 	switch (playerChoice)
 	{
-		case 1: players[playerIndex]->setStrategy(new OptionOne_Move());
+		case 1: players[playerIndex]->setStrategy(new OptionOne_Move(players[playerIndex], map));
 				players[playerIndex]->executeStrategy();
 				break;
-		case 2: players[playerIndex]->setStrategy(new OptionTwo_Fly());
+		case 2: players[playerIndex]->setStrategy(new OptionTwo_Fly(players[playerIndex], map));
 				players[playerIndex]->executeStrategy();
 				break;
-		case 3: players[playerIndex]->setStrategy(new OptionThree_FlyAny());
-				players[playerIndex]->executeStrategy();
+		case 3: players[playerIndex]->setStrategy(new OptionThree_FlyAny(players[playerIndex], map));
+				//players[playerIndex]->executeStrategy();
 				break;
-		case 4: players[playerIndex]->setStrategy(new OptionFour_FlyResearch());
-				players[playerIndex]->executeStrategy();
+		case 4: players[playerIndex]->setStrategy(new OptionFour_FlyResearch(players[playerIndex], map));
+				//players[playerIndex]->executeStrategy();
 				break;
-		case 5: players[playerIndex]->setStrategy(new OptionFive_Cure());
-				players[playerIndex]->executeStrategy();
+		case 5: players[playerIndex]->setStrategy(new OptionFive_Cure(players[playerIndex], map));
+				//players[playerIndex]->executeStrategy();
 				break;
-		case 6: players[playerIndex]->setStrategy(new OptionSix_Trade());
-				players[playerIndex]->executeStrategy();
+		case 6: players[playerIndex]->setStrategy(new OptionSix_Trade(players[playerIndex], map));
+				//players[playerIndex]->executeStrategy();
 				break;
-		case 7: players[playerIndex]->setStrategy(new OptionSeven_Remove());
-				players[playerIndex]->executeStrategy();
+		case 7: players[playerIndex]->setStrategy(new OptionSeven_Remove(players[playerIndex], map));
+				//players[playerIndex]->executeStrategy();
 				break;
-		case 8: players[playerIndex]->setStrategy(new OptionEight_Construct());
+		case 8: players[playerIndex]->setStrategy(new OptionEight_Construct(players[playerIndex], map));
 				players[playerIndex]->executeStrategy();
 				break;
 	}
@@ -270,14 +272,16 @@ proceed:
 		int card1 = rand() % infectionCardDeck.size();
 
 		infectionCardDeck[card1]->infect();
-		infectionCardDeck.erase(infectionCardDeck.begin() + card1);
 		infectionCardDiscard.push_back(infectionCardDeck.at(card1));
+		infectionCardDeck.erase(infectionCardDeck.begin() + card1);
+		
 
 		int card2 = rand() % infectionCardDeck.size();
 
 		infectionCardDeck[card2]->infect();
-		infectionCardDeck.erase(infectionCardDeck.begin() + card2);
 		infectionCardDiscard.push_back(infectionCardDeck.at(card2));
+		infectionCardDeck.erase(infectionCardDeck.begin() + card2);
+		
 		std::cout << "------------------------------------------------------" << std::endl;
 	}
 	else {

@@ -5,7 +5,7 @@
 #include <fstream>
 #include <sstream>
 #include <algorithm>
-#include "OptionOne_Move.h"
+#include "OptionDefault.h"
 
 Serialize::Serialize() {}
 Serialize::~Serialize() {}
@@ -14,7 +14,7 @@ void Serialize::savePlayers(std::vector<Player*> players) {
 	std::ofstream thefile;
 	thefile.open("_playerssave");
 	for (int k = 0; k < players.size(); k++) {
-		thefile << players.at(k)->getName() << "|" << players.at(k)->getRoleId() << "|" << players.at(k)->getCurrentCity() << "|";
+		thefile << players.at(k)->getName() << "|" << players.at(k)->getRoleId() << "|" << players.at(k)->getCurrentCity()->getName() << "|";
 		for (int i = 0; i < players.at(k)->getHand().size(); i++) {
 			thefile << players.at(k)->getHand().at(i)->getAttributes() << "|";
 		}
@@ -75,7 +75,7 @@ std::vector<Player*> Serialize::loadPlayers() {
 		std::string name = temp[0];
 		int roleid = std::stoi(temp[1]);
 		std::string city = temp[2];
-		Player* pl = new Player(name, new OptionOne_Move());
+		Player* pl = new Player(name, new OptionDefault());
 		pl->setCurrentCity(new MapCity(city));
 		pl->setRoleId(roleid);
 		for (int i = 3; i < temp.size(); i++) {

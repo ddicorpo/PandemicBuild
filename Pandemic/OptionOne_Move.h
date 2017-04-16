@@ -1,13 +1,17 @@
 #pragma once
 #include <iostream>
 #include "Strategy.h"
+#include "Player.h"
+#include "MapCity.h"
+#include <vector>
 
 class OptionOne_Move : public Strategy
 {
+private:
+	Player* player;
+	std::vector<MapCity*> map;
 public:
-	void execute()
-	{
-		std::cout << "Called OptionOne_Move Execute()" << std::endl;
-	}
+	OptionOne_Move(Player*, std::vector<MapCity*>);
+	void execute();
 };
 

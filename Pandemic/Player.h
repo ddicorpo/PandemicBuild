@@ -8,6 +8,9 @@
 #include "roles.h"
 #include "Pawn.h"
 #include "Strategy.h"
+#include "Player.h"
+#include "MapCity.h"
+#include <vector>
 
 class Player{
 public:
@@ -32,7 +35,7 @@ public:
 
 	void move();
 	void setCurrentCity(MapCity* currentCity);
-	std::string getCurrentCity();
+	MapCity* getCurrentCity();
 
 	//called to set player object with new strategy
 	void setStrategy(Strategy *newStrategy)

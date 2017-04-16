@@ -135,7 +135,7 @@ void Player::setCurrentCity(MapCity* currentCity)
 	this->currentCity = currentCity;
 }
 
-std::string Player::getCurrentCity()
+MapCity* Player::getCurrentCity()
 {
-	return currentCity->getName();
+	return currentCity;
 }
