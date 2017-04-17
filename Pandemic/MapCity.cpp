@@ -40,8 +40,12 @@ void MapCity::addBlackCube()
 {
 	GameManager::Instance().updateCubes("black", 1);
 	blackCubes += 1;
-	if (blackCubes >= 4)
+	if (blackCubes >= 4) {
 		outbreak("black");
+		blackCubes -= 1;
+	}
+		
+
 
 	isInfected = true;
 }
@@ -50,9 +54,11 @@ void MapCity::addBlueCube()
 {
 	GameManager::Instance().updateCubes("blue", 1);
 	blueCubes += 1;
-	if (blueCubes >= 4)
+	if (blueCubes >= 4) {
 		outbreak("blue");
-
+		blueCubes -= 1;
+	}
+		
 	isInfected = true;
 }
 
@@ -60,8 +66,11 @@ void MapCity::addRedCube()
 {
 	GameManager::Instance().updateCubes("red", 1);
 	redCubes += 1;
-	if (yellowCubes >= 4)
+	if (redCubes >= 4) {
 		outbreak("red");
+		redCubes -= 1;
+	}
+		
 
 	isInfected = true;
 }
@@ -69,9 +78,11 @@ void MapCity::addYellowCube()
 {
 	GameManager::Instance().updateCubes("yellow", 1);
 	yellowCubes += 1;
-	if (yellowCubes >= 4)
+	if (yellowCubes >= 4) {
 		outbreak("yellow");
-
+		yellowCubes -= 1;
+	}
+		
 	isInfected = true; 
 }
 
@@ -191,6 +202,7 @@ void MapCity::epidemic(std::string cubeColor){
 		}
 	}
 }
+
 
 void MapCity::removeBlackCube()
 {

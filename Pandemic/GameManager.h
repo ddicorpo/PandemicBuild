@@ -1,5 +1,6 @@
 #pragma once
-#include <string>
+#include "InfectionCard.h"
+#include <vector>
 
 class GameManager {
 public:
@@ -33,6 +34,8 @@ public:
 	void setBlue(int b);
 	void setYellow(int y);
 	void setBlack(int bl);
+
+	std::vector<InfectionCard*> epishuffle(std::vector<InfectionCard*> draw, std::vector<InfectionCard*> discard);
 	
 	//checkers
 	bool checkCubes();			//check if cubes are available

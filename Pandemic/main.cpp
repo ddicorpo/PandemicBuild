@@ -173,15 +173,16 @@ neworload:
 		goto neworload;
 	}
 
-
+	int turnCounter = playerCount;
 start:
-	int turnCounter = 0;
 	int playerChoice = 0;
 	int playerIndex = turnCounter % playerCount;
 	std::cout << players[playerIndex]->getName() << "' turn" << std::endl;
 	std::cout << "You are stationed in "<< players[playerIndex]->getCurrentCity() << std::endl;
 	std::cout << "Below are your cards" << std::endl;
+	std::cout << "======================== HAND ========================" << std::endl;
 	players[playerIndex]->displayHand();
+	std::cout << "======================================================" << std::endl;
 
 	////OPTIONS 4 of 8 actions, draw 2 cards, infect 
 	int actioncounter = 0;
@@ -191,17 +192,13 @@ performactions:
 	for (int i = 0; i < map.size(); i++)
 	{
 		if (map[i]->getInfected() == true)
-			std::cout << map[i]->getName() << "\t   " << map[i]->getAllCubes();
+			std::cout << map[i]->getName() << "\t   " << map[i]->getAllCubes() << std::endl;
 	}
 	std::cout << "***********************************************" << std::endl;
 
 	std::cout << 4 - actioncounter << " actions remain" << std::endl;
 	if (actioncounter > 3)
 		goto proceed;
-
-	//////////////////////////////////////////
-	//////////////dans work here//////////////
-	//////////////////////////////////////////
 
 	players[playerIndex]->getReferenceCard();
 	std::cin >> playerChoice;
@@ -250,12 +247,13 @@ performactions:
 
 proceed:
 	if (pDeck.at(0)->getType() == "epidemic") {
-		//if epidemic, increase infection rate and add 1 card to your hand
-		GameManager::Instance().increseInfectionRate();
+		//increase
+		GameManager::Instance().increseInfectionRate();	//if epidemic, increase infection rate and add 1 card to your hand
 		pDeck.erase(pDeck.begin());
 		players[playerIndex]->addCard(pDeck.at(0));
 		pDeck.erase(pDeck.begin());
 		
+		//infect
 		std::string epicity = infectionCardDeck.back()->getCity();
 		std::string epicolor = infectionCardDeck.back()->getColor();
 		for (int i = 0; i < map.size(); i++) {
@@ -264,14 +262,21 @@ proceed:
 			}
 		}
 
+		//intensify
+		infectionCardDeck = GameManager::Instance().epishuffle(infectionCardDeck, infectionCardDiscard);
+		infectionCardDiscard.clear();
+
+		//check player has <= 7 cards
+		players[playerIndex]->handcheck();
 	}
 	else if (pDeck.at(1)->getType() == "epidemic") {
-		//if 2nd card is epidemic, increase infection rate and add first card to your hand
+		//increase
 		players[playerIndex]->addCard(pDeck.at(0));
 		pDeck.erase(pDeck.begin());
-		GameManager::Instance().increseInfectionRate();
+		GameManager::Instance().increseInfectionRate();	//if 2nd card is epidemic, increase infection rate and add first card to your hand
 		pDeck.erase(pDeck.begin());
 
+		//infect
 		std::string epicity = infectionCardDeck.back()->getCity();
 		std::string epicolor = infectionCardDeck.back()->getColor();
 		for (int i = 0; i < map.size(); i++) {
@@ -279,6 +284,13 @@ proceed:
 				map[i]->epidemic(epicolor);
 			}
 		}
+
+		//intensify
+		infectionCardDeck = GameManager::Instance().epishuffle(infectionCardDeck, infectionCardDiscard);
+		infectionCardDiscard.clear();
+
+		//check player has <= 7 cards
+		players[playerIndex]->handcheck();
 	}
 	else {
 		//if not, add 2 cards to your hand
@@ -286,6 +298,9 @@ proceed:
 		pDeck.erase(pDeck.begin());
 		players[playerIndex]->addCard(pDeck.at(0));
 		pDeck.erase(pDeck.begin());
+
+		//check player has <= 7 cards
+		players[playerIndex]->handcheck();
 	}
 
 	//infect cities - done automatiacally by the game - will check if cubes are available and update avaialble cube counts
@@ -311,7 +326,8 @@ proceed:
 
 			}
 		}
-				
+		
+		infectionCardDeck[card1]->infect();
 		infectionCardDiscard.push_back(infectionCardDeck.at(card1)); 
 		infectionCardDeck.erase(infectionCardDeck.begin() + card1);
 		
@@ -335,6 +351,7 @@ proceed:
 			}
 		}
 
+		infectionCardDeck[card2]->infect();
 		infectionCardDiscard.push_back(infectionCardDeck.at(card2));
 		infectionCardDeck.erase(infectionCardDeck.begin() + card2);
 		std::cout << "------------------------------------------------------" << std::endl;

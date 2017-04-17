@@ -20,6 +20,7 @@ public:
 	
 	void addCard(PlayerCard *card);
 	void displayHand();
+	void handcheck();
 	void getReferenceCard();
 	
 	void setRole(roles* role);
