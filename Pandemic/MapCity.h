@@ -59,4 +59,5 @@ public:
 
 	void setResearchStation();
 	bool getResearchStation();
+	bool checkResearchStation();
 };

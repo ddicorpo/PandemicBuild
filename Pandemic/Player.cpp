@@ -61,6 +61,8 @@ Pawn* Player::getPawn()
 	return pawn;
 }
 
+
+
 void Player::move()
 {
 	int playerChoice;

@@ -184,6 +184,7 @@ start:
 	std::cout << "You are stationed in "<< players[playerIndex]->getCurrentCity()->getName() << std::endl;
 	std::cout << "Below are your cards" << std::endl;
 	players[playerIndex]->displayHand();
+	//map[20]->setResearchStation(); used to test action no.4
 
 	////OPTIONS 4 of 8 actions, draw 2 cards, infect 
 	int actioncounter = 0;
@@ -222,7 +223,7 @@ performactions:
 				//players[playerIndex]->executeStrategy();
 				break;
 		case 4: players[playerIndex]->setStrategy(new OptionFour_FlyResearch(players[playerIndex], map));
-				//players[playerIndex]->executeStrategy();
+				players[playerIndex]->executeStrategy();
 				break;
 		case 5: players[playerIndex]->setStrategy(new OptionFive_Cure(players[playerIndex], map));
 				//players[playerIndex]->executeStrategy();

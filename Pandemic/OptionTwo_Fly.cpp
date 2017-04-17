@@ -38,7 +38,7 @@ void OptionTwo_Fly::execute(){
 		for (int i = 0; i < player->getHand().size(); i++){
 			if (player->getHand()[i]->getName() == cityname){
 				std::cout << player->getHand()[i]->getName();
-				//player->getHand().erase(player->getHand().begin() + i); // < --problem in the array
+				//  player->getHand().erase(player->getHand().begin() + i); // < --problem in the array
 				break;
 			}
 		}

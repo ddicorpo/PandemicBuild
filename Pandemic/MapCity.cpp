@@ -202,6 +202,7 @@ bool MapCity::getResearchStation()
 	return hasResearchStation;
 }
 
+
 int MapCity::getAllCubes()
 {
 	return blackCubes + redCubes + blueCubes + yellowCubes;
