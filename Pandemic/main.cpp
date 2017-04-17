@@ -186,6 +186,15 @@ start:
 	////OPTIONS 4 of 8 actions, draw 2 cards, infect 
 	int actioncounter = 0;
 performactions:
+	std::cout << "*************** INFECTED CITIES ***************" << std::endl;
+	std::cout << "Name: \t   Number of cubes: " << std::endl;
+	for (int i = 0; i < map.size(); i++)
+	{
+		if (map[i]->getInfected() == true)
+			std::cout << map[i]->getName() << "\t   " << map[i]->getAllCubes();
+	}
+	std::cout << "***********************************************" << std::endl;
+
 	std::cout << 4 - actioncounter << " actions remain" << std::endl;
 	if (actioncounter > 3)
 		goto proceed;
@@ -247,6 +256,13 @@ proceed:
 		players[playerIndex]->addCard(pDeck.at(0));
 		pDeck.erase(pDeck.begin());
 		
+		std::string epicity = infectionCardDeck.back()->getCity();
+		std::string epicolor = infectionCardDeck.back()->getColor();
+		for (int i = 0; i < map.size(); i++) {
+			if (map[i]->getName() == epicity) {
+				map[i]->epidemic(epicolor);
+			}
+		}
 
 	}
 	else if (pDeck.at(1)->getType() == "epidemic") {
@@ -255,6 +271,14 @@ proceed:
 		pDeck.erase(pDeck.begin());
 		GameManager::Instance().increseInfectionRate();
 		pDeck.erase(pDeck.begin());
+
+		std::string epicity = infectionCardDeck.back()->getCity();
+		std::string epicolor = infectionCardDeck.back()->getColor();
+		for (int i = 0; i < map.size(); i++) {
+			if (map[i]->getName() == epicity) {
+				map[i]->epidemic(epicolor);
+			}
+		}
 	}
 	else {
 		//if not, add 2 cards to your hand

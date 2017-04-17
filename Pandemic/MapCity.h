@@ -46,11 +46,13 @@ public:
 	void removeYellowCube();
 	
 	bool getInfected();
+
 	int getBlackCubes();
 	int getBlueCubes();
 	int getYellowCubes();
 	int getRedCubes();
+	int getAllCubes();
 
 	void outbreak(std::string cubeColor);
-	void epidemic(std::string color);
+	void epidemic(std::string cubeColor);
 };

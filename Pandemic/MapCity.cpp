@@ -113,8 +113,83 @@ void MapCity::outbreak(std::string color)
 	}
 }
 
-void MapCity::epidemic(std::string color){
-
+void MapCity::epidemic(std::string cubeColor){
+	if (cubeColor == "red") {
+		if (redCubes == 0) {
+			addRedCube();
+			addRedCube();
+			addRedCube();
+		}
+		else if (redCubes == 1) {
+			addRedCube();
+			addRedCube();
+			outbreak("red");
+		}
+		else if (redCubes == 2) {
+			addRedCube();
+			outbreak("red");
+		}
+		else if (redCubes == 3) {
+			outbreak("red");
+		}
+	}
+	else if (cubeColor == "blue") {
+		if (blueCubes == 0) {
+			addBlueCube();
+			addBlueCube();
+			addBlueCube();
+		}
+		else if (blueCubes == 1) {
+			addBlueCube();
+			addBlueCube();
+			outbreak("blue");
+		}
+		else if (blueCubes == 2) {
+			addBlueCube();
+			outbreak("blue");
+		}
+		else if (blueCubes == 3) {
+			outbreak("blue");
+		}
+	}
+	else if (cubeColor == "yellow") {
+		if (yellowCubes == 0) {
+			addYellowCube();
+			addYellowCube();
+			addYellowCube();
+		}
+		else if (yellowCubes == 1) {
+			addYellowCube();
+			addYellowCube();
+			outbreak("yellow");
+		}
+		else if (yellowCubes == 2) {
+			addYellowCube();
+			outbreak("yellow");
+		}
+		else if (yellowCubes == 3) {
+			outbreak("yellow");
+		}
+	}
+	else if (cubeColor == "black") {
+		if (blackCubes == 0) {
+			addBlackCube();
+			addBlackCube();
+			addBlackCube();
+		}
+		else if (blackCubes == 1) {
+			addBlackCube();
+			addBlackCube();
+			outbreak("black");
+		}
+		else if (blackCubes == 2) {
+			addBlackCube();
+			outbreak("black");
+		}
+		else if (blackCubes == 3) {
+			outbreak("black");
+		}
+	}
 }
 
 void MapCity::removeBlackCube()
@@ -201,4 +276,9 @@ void MapCity::displayCubes()
 	std::cout << "Blue: " << blueCubes << std::endl;
 	std::cout << "Red: " << redCubes << std::endl;
 	std::cout << "Yellow:  " << yellowCubes << std::endl;
+}
+
+int MapCity::getAllCubes()
+{
+	return blackCubes + redCubes + blueCubes + yellowCubes;
 }
