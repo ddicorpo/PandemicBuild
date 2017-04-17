@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <map>
 #include <fstream>
 #include <time.h>
 #include "City.h"
@@ -37,6 +38,7 @@ int main() {
 
 	std::ifstream mcities("..\\PandemicMap.txt");
 	std::vector<MapCity*> map;
+	
 
 	std::string line;
 
@@ -46,17 +48,21 @@ int main() {
 		std::string word;
 
 		std::string name;
+		std::string region;
 		std::vector<MapCity*> neighs;
 		int wordNum = 1;
 		for (wordNum; ss >> word; wordNum++)
 		{
 			if (wordNum == 1)
 				name = word;
+			if (wordNum == 2)
+				region = word;
 			else
 				neighs.push_back(new MapCity(word));
 		}
-		map.push_back(new MapCity(name, neighs));
+		map.push_back(new MapCity(name, region, neighs));
 	}
+
 
 	//////////////CREATE THE INFECTION DECK
 

@@ -7,6 +7,7 @@ class MapCity
 {
 private:
 	std::string name;
+	std::string region;
 	std::vector <MapCity*> neighbours;
 	bool isInfected; 
 
@@ -24,11 +25,12 @@ private:
 
 
 public:
-	MapCity::MapCity(std::string name, std::vector <MapCity*> neighbours);
+	MapCity::MapCity(std::string name, std::string region, std::vector <MapCity*> neighbours);
 	MapCity::MapCity(std::string name);
 	MapCity::MapCity();
 
 	std::string getName();
+	std::string getRegion();
 	std::vector<MapCity*> getNeighbours();
 
 	void setNeighbours(std::vector <MapCity*> neighbours);

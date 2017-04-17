@@ -2,7 +2,7 @@
 #include "GameManager.h"
 #include "InfectionCard.h"
 
-MapCity::MapCity(std::string name, std::vector <MapCity*> neighbours) :name(name), neighbours(neighbours){};
+MapCity::MapCity(std::string name, std::string region, std::vector <MapCity*> neighbours) :name(name), region(region), neighbours(neighbours){};
 MapCity::MapCity(){};
 
 MapCity::MapCity(std::string name)
@@ -14,6 +14,10 @@ std::string MapCity::getName()
 {
 	return name;
 	std::cout << std::endl;
+}
+
+std::string MapCity::getRegion(){
+	return region;
 }
 
 std::vector<MapCity*> MapCity::getNeighbours()
