@@ -196,3 +196,14 @@ void GameManager::setErradicated(bool redErradicated, bool blueErradicated, bool
 	isYellowErradicated = yellowErradicated;
 	isBlackErradicated = blackErradicated;
 }
+
+std::vector<InfectionCard*> GameManager::epishuffle(std::vector<InfectionCard*> draw, std::vector<InfectionCard*> discard) {
+	std::vector<InfectionCard*> temp = draw;
+	for (int i = 0; i < discard.size(); i++) {
+		int num = rand() % discard.size();
+		temp.insert(temp.begin(), discard[num]);
+		discard.erase(discard.begin() + num);
+	}
+
+	return temp;
+}

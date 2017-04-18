@@ -15,6 +15,21 @@ void Player::addCard(PlayerCard *card){
 	hand.push_back(card);
 }
 
+void Player::handcheck() {
+	while (hand.size() > 7) {
+		std::cout << "You have too many cards. Discard until you have only 7 cards in your hand" << std::endl;
+		int option;
+		for (int i = 0; i < hand.size(); i++) {
+			std::cout << i + 1 << hand[i]->getAttributes() << std::endl;
+		}
+		std::cout << "Choose a card to delete: ";
+		std::cin >> option;
+		if (option > 0 || option < hand.size())
+			hand.erase(hand.begin() + (option - 1));
+		else
+			std::cout << "Try again." << std::endl;
+	}
+}
 
 std::vector<PlayerCard*> Player::getHand(){
 	return hand;
@@ -30,6 +45,10 @@ void Player::displayHand()
 		std::cout << hand[i]->getAttributes() << std::endl;
 		std::cout << "----------------------" << std::endl;
 	}
+}
+
+void Player::setHand(std::vector<PlayerCard*> hand){
+	this->hand = hand;
 }
 
 void Player::getReferenceCard(){

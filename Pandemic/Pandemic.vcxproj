@@ -153,6 +153,7 @@
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="InfectionCard.h" />
     <ClInclude Include="MapCity.h" />
+
     <ClInclude Include="OptionDefault.h" />
     <ClInclude Include="OptionEight_Construct.h" />
     <ClInclude Include="OptionFive_Cure.h" />
@@ -162,6 +163,7 @@
     <ClInclude Include="OptionSix_Trade.h" />
     <ClInclude Include="OptionThree_FlyAny.h" />
     <ClInclude Include="OptionTwo_Fly.h" />
+
     <ClInclude Include="Pawn.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerCard.h" />
@@ -179,6 +181,7 @@
     <ClCompile Include="InfectionCard.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapCity.cpp" />
+
     <ClCompile Include="OptionDefault.cpp" />
     <ClCompile Include="OptionEight_Construct.cpp" />
     <ClCompile Include="OptionFive_Cure.cpp" />
@@ -188,6 +191,8 @@
     <ClCompile Include="OptionSix_Trade.cpp" />
     <ClCompile Include="OptionThree_FlyAny.cpp" />
     <ClCompile Include="OptionTwo_Fly.cpp" />
+
+
     <ClCompile Include="Pawn.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerCard.cpp" />
