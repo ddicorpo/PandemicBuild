@@ -54,6 +54,12 @@
     <ClInclude Include="Serialize.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="OptionThree_FlyAny.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OptionOne_Move.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -96,6 +102,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Serialize.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OptionThree_FlyAny.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OptionOne_Move.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

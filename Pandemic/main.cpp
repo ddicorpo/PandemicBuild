@@ -184,7 +184,7 @@ start:
 	int playerChoice = 0;
 	int playerIndex = turnCounter % playerCount;
 	std::cout << players[playerIndex]->getName() << "' turn" << std::endl;
-	std::cout << "You are stationed in "<< players[playerIndex]->getCurrentCity() << std::endl;
+	std::cout << "You are stationed in "<< players[playerIndex]->getCurrentCity()->getName() << std::endl;
 	std::cout << "Below are your cards" << std::endl;
 	std::cout << "======================== HAND ========================" << std::endl;
 	players[playerIndex]->displayHand();
@@ -217,7 +217,7 @@ performactions:
 		case 2: players[playerIndex]->setStrategy(new OptionTwo_Fly());
 				players[playerIndex]->executeStrategy();
 				break;
-		case 3: players[playerIndex]->setStrategy(new OptionThree_FlyAny());
+		case 3: players[playerIndex]->setStrategy(new OptionThree_FlyAny(players[playerIndex], map));
 				players[playerIndex]->executeStrategy();
 				break;
 		case 4: players[playerIndex]->setStrategy(new OptionFour_FlyResearch());

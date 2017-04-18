@@ -47,6 +47,10 @@ void Player::displayHand()
 	}
 }
 
+void Player::setHand(std::vector<PlayerCard*> hand){
+	this->hand = hand;
+}
+
 void Player::getReferenceCard(){
 	reference_card->output();
 }
@@ -150,7 +154,7 @@ void Player::setCurrentCity(MapCity* currentCity)
 	this->currentCity = currentCity;
 }
 
-std::string Player::getCurrentCity()
+MapCity* Player::getCurrentCity()
 {
-	return currentCity->getName();
+	return currentCity;
 }

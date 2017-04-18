@@ -20,6 +20,7 @@ public:
 	
 	void addCard(PlayerCard *card);
 	void displayHand();
+	void setHand(std::vector<PlayerCard*> hand);
 	void handcheck();
 	void getReferenceCard();
 	
@@ -33,7 +34,7 @@ public:
 
 	void move();
 	void setCurrentCity(MapCity* currentCity);
-	std::string getCurrentCity();
+	MapCity* getCurrentCity();
 
 	//called to set player object with new strategy
 	void setStrategy(Strategy *newStrategy)
