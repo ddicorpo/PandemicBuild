@@ -152,7 +152,10 @@
     <ClInclude Include="Event.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="InfectionCard.h" />
+    <ClInclude Include="Log.h" />
+    <ClInclude Include="LogObserver.h" />
     <ClInclude Include="MapCity.h" />
+    <ClInclude Include="Observer.h" />
     <ClInclude Include="OptionDefault.h" />
     <ClInclude Include="OptionEight_Construct.h" />
     <ClInclude Include="OptionFive_Cure.h" />
@@ -170,6 +173,7 @@
     <ClInclude Include="roles.h" />
     <ClInclude Include="Serialize.h" />
     <ClInclude Include="Strategy.h" />
+    <ClInclude Include="Subject.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="City.cpp" />
@@ -178,8 +182,11 @@
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="InfectionCard.cpp" />
+    <ClCompile Include="Log.cpp" />
+    <ClCompile Include="LogObserver.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapCity.cpp" />
+    <ClCompile Include="Observer.cpp" />
     <ClCompile Include="OptionDefault.cpp" />
     <ClCompile Include="OptionEight_Construct.cpp" />
     <ClCompile Include="OptionFive_Cure.cpp" />
@@ -196,6 +203,7 @@
     <ClCompile Include="reference_cards.cpp" />
     <ClCompile Include="roles.cpp" />
     <ClCompile Include="Serialize.cpp" />
+    <ClCompile Include="Subject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\cities.txt" />

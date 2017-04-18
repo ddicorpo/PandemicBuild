@@ -2,8 +2,8 @@
 #include <string>
 #include "Epidemic.h"
 
-Epidemic::Epidemic(){
-	name = "Epidemic!";
+Epidemic::Epidemic(std::string name){
+	this->name = name;
 	type = "epidemic";
 	atr ="1 - Increase\n"
 		"Move Infection rate marker forward 1 space.\n"

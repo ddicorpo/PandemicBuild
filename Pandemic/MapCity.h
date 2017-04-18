@@ -10,18 +10,11 @@ private:
 	std::string region;
 	std::vector<MapCity*> neighbours;
 	bool isInfected; 
-
-	//bool isInfectedBlue;
-	//bool isInfectedRed;
-	//bool isInfectedBlack;
-	//bool isInfectedYellow;
-
-	//bool epidemic; 
+ 
 	int blueCubes; 
 	int redCubes; 
 	int blackCubes;
 	int yellowCubes; 
-	/*int allCubes;*/
 
 	bool hasResearchStation = false;
 
@@ -61,6 +54,7 @@ public:
 	void epidemic(std::string cubeColor);
 
 	void setResearchStation();
+	void load(int red, int blue, int yellow, int black, bool ii, bool tf);
 	bool getResearchStation();
 	bool checkResearchStation();
 };

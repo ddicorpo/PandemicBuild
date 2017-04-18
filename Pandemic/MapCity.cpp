@@ -310,3 +310,13 @@ bool MapCity::getResearchStation()
 {
 	return hasResearchStation;
 }
+
+void MapCity::load(int red, int blue, int yellow, int black, bool ii, bool tf)
+{
+	redCubes = red;
+	blueCubes = blue;
+	yellowCubes = yellow;
+	blackCubes = black;
+	isInfected = ii;
+	hasResearchStation = tf;
+}

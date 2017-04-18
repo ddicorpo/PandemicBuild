@@ -6,6 +6,8 @@
 #include <sstream>
 #include <algorithm>
 #include "OptionDefault.h"
+#include "Log.h"
+#include "LogObserver.h"
 
 Serialize::Serialize() {}
 Serialize::~Serialize() {}
@@ -53,6 +55,14 @@ void Serialize::saveManager() {
 		<< GameManager::Instance().getIsBlackErradicated();
 	thefile.close();
 	std::cout << "Game Manager Saved" << std::endl;
+}
+
+void Serialize::saveMap(std::vector<MapCity*> map){
+	std::ofstream thefile;
+	thefile.open("_map");
+	for (int i = 0; i < map.size(); i++){
+		thefile << map[i]->getRedCubes() << map[i]->getBlueCubes() << map[i]->getYellowCubes() << map[i]->getBlackCubes() << map[i]->getInfected() << map[i]->getResearchStation() << std::endl;
+	}
 }
 
 std::vector<Player*> Serialize::loadPlayers() {
@@ -138,7 +148,7 @@ std::vector<PlayerCard*> Serialize::loadDeck(){
 			deck.push_back(new Event(temp[0], temp[2]));
 		}
 		else if (temp[1] == "epidemic"){
-			deck.push_back(new Epidemic());
+			deck.push_back(new Epidemic(temp[0]));
 		}
 
 	}

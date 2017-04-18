@@ -23,63 +23,24 @@
 #include "OptionSeven_Remove.h"
 #include "OptionEight_Construct.h"
 #include "OptionDefault.h"
-#include "OptionTen_Save.h"
+#include "Log.h"
+#include "LogObserver.h"
 
 
 int main() {
 	std::srand((int)time(0));
-	//accessing the game manager
-	//GameManager::Instance().displayCubeCount();
+
+	//create log observer
+	Log* log = new Log();
+	LogObserver* lob = new LogObserver(log);
+
+	//std::cout << log->setOutput("the game has started") << std::endl;
 
 	//locals
 	std::vector<Player*> players;
 	std::vector<PlayerCard*> pDeck;
-	int playerCount;
-
-	//////////////CRAETE THE MAP CITY OBJECTS
-
-	std::ifstream mcities("..\\PandemicMap.txt");
 	std::vector<MapCity*> map;
-	
-
-	std::string line;
-
-	for (int lineNum = 1; getline(mcities, line); lineNum++)
-	{
-		std::stringstream ss(line);
-		std::string word;
-
-		std::string name;
-		std::string region;
-		std::vector<MapCity*> neighs;
-		int wordNum = 1;
-		for (wordNum; ss >> word; wordNum++)
-		{
-			if (wordNum == 1)
-				name = word;
-			else if (wordNum == 2)
-				region = word;
-			else
-				neighs.push_back(new MapCity(word));
-		}
-		map.push_back(new MapCity(name, region, neighs));
-	}
-
-	/*for (int i = 0; i < map.size(); i++){
-		for (int j = 0; j < map[i]->getNeighbours().size(); j++){
-			for (int k = 0; k < map.size(); k++){
-				if (map[i]->getNeighbours()[j]->getName() == map[k]->getName()){
-					map[i]->getNeighbours()[j] = map[k];
-					break;
-				}
-			}
-		}
-	}*/
-
-
-
-	map[0]->setResearchStation();
-
+	int playerCount;
 
 	//////////////CREATE THE INFECTION DECK
 
@@ -95,7 +56,7 @@ int main() {
 
 	for (int i = 0; i < 9; i++){
 			if (i % 3 == 0){
-				std::cout << infectionCardDeck[i]->getCity() << std::endl;
+				//std::cout << infectionCardDeck[i]->getCity() << std::endl;
 				for (int m = 0; m < map.size(); m++){
 					if (infectionCardDeck[i]->getCity() == map[m]->getName()){
 						if (infectionCardDeck[i]->getColor() == "red"){
@@ -127,7 +88,7 @@ int main() {
 						
 			}
 			else if (i % 3 == 1) {
-				std::cout << infectionCardDeck[i]->getCity() << std::endl;
+				//std::cout << infectionCardDeck[i]->getCity() << std::endl;
 				for (int m = 0; m < map.size(); m++){
 					if (infectionCardDeck[i]->getCity() == map[m]->getName()){
 						if (infectionCardDeck[i]->getColor() == "red"){
@@ -155,7 +116,7 @@ int main() {
 
 			}
 			else if (i % 3 == 2){
-				std::cout << infectionCardDeck[i]->getCity() << std::endl;
+				//std::cout << infectionCardDeck[i]->getCity() << std::endl;
 				for (int m = 0; m < map.size(); m++){
 					if (infectionCardDeck[i]->getCity() == map[m]->getName()){
 						if (infectionCardDeck[i]->getColor() == "red"){
@@ -185,22 +146,52 @@ int main() {
 
 	Serialize access = Serialize();
 
-	std::cout << "Welcome to Pandemic: Build 1." << std::endl;
-	std::cout << "===============================================" << std::endl;
+	std::cout << log->setOutput("Welcome to Pandemic by Z-Man") << std::endl;
+	std::cout << log->setOutput("===============================================") << std::endl;
 neworload:
 	int input;
-	std::cout << "Would you like to: \n 1) Start a new game? \n 2) Load an existing game?" << std::endl;
+	std::cout << log->setOutput("Would you like to: \n 1) Start a new game? \n 2) Load an existing game?") << std::endl;
 	std::cin >> input;
 	if (input == 2){
 		//loading operations
+		log->setOutput("loaded a game");
 		players = access.loadPlayers();
 		playerCount = players.size();
-
+		map = access.loadMap();
 		pDeck = access.loadDeck();
 		access.loadManager();
 	}
 	else if (input == 1){
 		//set up a new game
+
+	//////////////CRAETE THE MAP CITY OBJECTS
+
+	std::ifstream mcities("..\\PandemicMap.txt");
+
+	std::string line;
+
+	for (int lineNum = 1; getline(mcities, line); lineNum++)
+	{
+		std::stringstream ss(line);
+		std::string word;
+
+		std::string name;
+		std::string region;
+		std::vector<MapCity*> neighs;
+		int wordNum = 1;
+		for (wordNum; ss >> word; wordNum++)
+		{
+			if (wordNum == 1)
+				name = word;
+			else if (wordNum == 2)
+				region = word;
+			else
+				neighs.push_back(new MapCity(word));
+		}
+		map.push_back(new MapCity(name, region, neighs));
+	}
+
+	map[0]->setResearchStation();
 		
 	//////////////CRAETE THE PLAYER CARD OBJECTS
 
@@ -217,10 +208,14 @@ neworload:
 		cities.push_back(new City(name, color, pop));
 	}
 
-	//create epidmics
-	for (int i = 0; i < 6; i++){
-		epidemics.push_back(new Epidemic());
-	}
+	//create epidemics
+	epidemics.push_back(new Epidemic("Epidemic1!"));
+	epidemics.push_back(new Epidemic("Epidemic2!"));
+	epidemics.push_back(new Epidemic("Epidemic3!"));
+	epidemics.push_back(new Epidemic("Epidemic4!"));
+	epidemics.push_back(new Epidemic("Epidemic5!"));
+	epidemics.push_back(new Epidemic("Epidemic6!"));
+	
 
 	//creating event cards
 	events.push_back(new Event("Airlift", "Move any one pawn to any city. Get permission before moving another player's pawn."));
@@ -232,17 +227,18 @@ neworload:
 
 	//////////////INITIALIZE NEW GAME PLAYERS
 
-	std::cout << "How many players?" << std::endl;
+	std::cout << log->setOutput("How many players?") << std::endl;
 	
 	while (!(std::cin >> playerCount) || playerCount < 2 || playerCount > 4) {
 		std::cout << "2-4 PLayers only" << std::endl;
 		std::cin.clear();
 		std::cin.ignore(INT_MAX, '\n');
+		log->setOutput(std::to_string(playerCount));
 	}
 
 	for (int i = 0; i < playerCount; i++){
 		std::string name;
-		std::cout << "What is player " << i + 1 << "'s name?" << std::endl;
+		std::cout << log->setOutput("What is player ") << log->setOutput(std::to_string(i + 1)) << log->setOutput("'s name?") << std::endl;
 		std::cin >> name;
 		players.push_back(new Player(name,new OptionDefault()));
 	}
@@ -257,22 +253,21 @@ neworload:
 	std::vector<int> rolesvec = { 0, 1, 2, 3, 4, 5, 6 };
 	std::vector<PlayerCard*> playerHands = deck->getPlayerHand();
 	int handindex = 0;
-	std::cout << "-------------------- Roles --------------------" << std::endl;
+	std::cout << log->setOutput("-------------------- Roles --------------------") << std::endl;
 	for (int i = 0; i < players.size(); i++){
 		int role = rand() % (7 - i);
 		players[i]->setRole(new roles(rolesvec[role]));
 		players[i]->setRoleId(rolesvec[role]);
 		rolesvec.erase(rolesvec.begin() + role);
 		players[i]->setPawn(new Pawn(players[i]->getRole()->getColor()));
-		std::cout << players[i]->getName() << " is a " << players[i]->getRole()->getName() << std::endl;
+		std::cout << log->setOutput(players[i]->getName()) << log->setOutput(" is a ") << log->setOutput(players[i]->getRole()->getName()) << std::endl;
 		for (int c = 0; c < playerHands.size() / playerCount; c++) {
-			//std::cout << playerHands[handindex]->getAttributes() << std::endl;
 			players[i]->addCard(playerHands[handindex]);
 			handindex++;
 		}
 		players[i]->setCurrentCity(map[0]);
 	}
-	std::cout << "-----------------------------------------------" << std::endl;
+	std::cout << log->setOutput("-----------------------------------------------") << std::endl;
 
 	//delete pointers
 	delete deck;
@@ -280,7 +275,7 @@ neworload:
 
 	}
 	else {
-		std::cout << "Must make a selection" << std::endl;
+		std::cout << log->setOutput("Must make a selection") << std::endl;
 		goto neworload;
 	}
 
@@ -288,34 +283,35 @@ neworload:
 start:
 	int playerChoice = 0;
 	int playerIndex = turnCounter % playerCount;
-	std::cout << players[playerIndex]->getName() << "' turn" << std::endl;
-	std::cout << "You are stationed in "<< players[playerIndex]->getCurrentCity()->getName() << std::endl;
-	std::cout << "Below are your cards" << std::endl;
-	std::cout << "======================== HAND ========================" << std::endl;
+	log->setOutput("Player Index " + std::to_string(playerIndex));
+	std::cout << log->setOutput(players[playerIndex]->getName()) << log->setOutput("'s turn") << std::endl;
+	std::cout << log->setOutput("You are stationed in ") << log->setOutput(players[playerIndex]->getCurrentCity()->getName()) << std::endl;
+	std::cout << log->setOutput("Below are your cards" )<< std::endl;
+	std::cout << log->setOutput("======================== HAND ========================") << std::endl;
 	players[playerIndex]->displayHand();
-	std::cout << "======================================================" << std::endl;
+	std::cout << log->setOutput("======================================================") << std::endl;
 
 
 	////OPTIONS 4 of 8 actions, draw 2 cards, infect 
 	int actioncounter = 0;
 performactions:
-	std::cout << "*************** INFECTED CITIES ***************" << std::endl;
-	std::cout << "Name: \t   Number of cubes: " << std::endl;
+	std::cout << log->setOutput("*************** INFECTED CITIES ***************") << std::endl;
+	std::cout << log->setOutput("Name: \t   Number of cubes: ") << std::endl;
 	for (int i = 0; i < map.size(); i++)
 	{
 		if (map[i]->getInfected() == true)
-			std::cout << map[i]->getName() << "\t   " << map[i]->getAllCubes() << std::endl;
+			std::cout << log->setOutput(map[i]->getName()) << log->setOutput(":\t   ") << log->setOutput(std::to_string(map[i]->getAllCubes())) << std::endl;
 	}
-	std::cout << "***********************************************" << std::endl;
+	std::cout << log->setOutput("***********************************************") << std::endl;
 
 
-	std::cout << 4 - actioncounter << " actions remain" << std::endl;
+	std::cout << log->setOutput(std::to_string(4 - actioncounter)) << log->setOutput(" actions remain") << std::endl;
 	if (actioncounter > 3)
 		goto proceed;
 
 	players[playerIndex]->getReferenceCard();
 	std::cin >> playerChoice;
-
+	log->setOutput("Player choice: " + std::to_string(playerChoice));
 	switch (playerChoice)
 	{
 		case 1: players[playerIndex]->setStrategy(new OptionOne_Move(players[playerIndex], map));
@@ -344,26 +340,30 @@ performactions:
 				break;
 		case 9: actioncounter = 4;
 				break;
-		case 10:/*players[playerIndex]->setStrategy(new OptionTen_Save(players[playerIndex], map));
-				players[playerIndex]->executeStrategy();*/
-				int option;
+		case 10:int option;
 				std::cout << "Options" << std::endl;
 				std::cout << "1 : Save" << std::endl;
 				std::cout << "2 : Exit with save" << std::endl;
 				std::cout << "3 : Exit without save" << std::endl;
-				std::cout << "4 : Exit without save" << std::endl;
+				std::cout << "4 : Cancel" << std::endl;
 				std::cin >> option;
 				switch (option) {
 					case 1: access.saveDeck(pDeck);
 							access.saveManager();
 							access.savePlayers(players);
+							access.saveMap(map);
+							log->setOutput("Game Saved!");
 							break;
 					case 2:	access.saveDeck(pDeck);
 							access.saveManager();
 							access.savePlayers(players);
+							access.saveMap(map);
+							log->setOutput("Game Saved!");
+							log->setOutput("Game Ended!");
 							goto endgame;
 							break;
-					case 3: goto endgame;
+					case 3: log->setOutput("Game Ended!");
+							goto endgame;
 							break;
 					case 4: break;
 				}
@@ -372,7 +372,7 @@ performactions:
 
 	if (playerChoice > 9 || playerChoice < 1)
 	{
-		std::cout << "You made an invalid choice. Please select again!" << std::endl << std::endl;
+		std::cout << log->setOutput("You made an invalid choice. Please select again!") << std::endl << std::endl;
 		goto performactions;
 	}
 
@@ -380,6 +380,7 @@ performactions:
 	goto performactions;
 
 proceed:
+	log->setOutput("Drawing 2 player cards");
 	if (pDeck.at(0)->getType() == "epidemic") {
 		//increase
 		GameManager::Instance().increseInfectionRate();	//if epidemic, increase infection rate and add 1 card to your hand
@@ -439,8 +440,8 @@ proceed:
 
 	//infect cities - done automatiacally by the game - will check if cubes are available and update avaialble cube counts
 	if (GameManager::Instance().checkCubes()) {
-		std::cout << "------------------------------------------------------" << std::endl;
-		std::cout << "Drawing 2 Infection Cards from infection deck . . . . " << std::endl;
+		std::cout << log->setOutput("------------------------------------------------------") << std::endl;
+		std::cout << log->setOutput("Drawing 2 Infection Cards from infection deck . . . . ") << std::endl;
 
 		int card1 = rand() % infectionCardDeck.size();
 		for (int i = 0; i < map.size(); i++){
@@ -460,7 +461,7 @@ proceed:
 			}
 		}
 		
-		infectionCardDeck[card1]->infect();
+		std::cout << log->setOutput(infectionCardDeck[card1]->infect()) << std::endl;
 		infectionCardDiscard.push_back(infectionCardDeck.at(card1));
 		infectionCardDeck.erase(infectionCardDeck.begin() + card1);
 		
@@ -484,10 +485,10 @@ proceed:
 			}
 		}
 
-		/*infectionCardDeck[card2]->infect();*/
+		std::cout << log->setOutput(infectionCardDeck[card2]->infect()) << std::endl;
 		infectionCardDiscard.push_back(infectionCardDeck.at(card2));
 		infectionCardDeck.erase(infectionCardDeck.begin() + card2);
-		std::cout << "------------------------------------------------------" << std::endl;
+		std::cout << log->setOutput("------------------------------------------------------") << std::endl;
 	}
 	else {
 		MessageBox(NULL, L"You ran out of infection cubes", L"Game Over", NULL);
@@ -503,15 +504,16 @@ proceed:
 	endgame:
 
 	//delete rest of pointers
+	/*for (auto it = pDeck.begin(); it != pDeck.end(); it++){
+		delete *it;
+	}
+	pDeck.clear();*/
+
 	for (auto it = players.begin(); it != players.end(); it++)
 		delete *it;
 	players.clear();
-
-	for (auto it = pDeck.begin(); it != pDeck.end(); it++)
-		delete *it;
-	pDeck.clear();
 	
-		for (auto it = map.begin(); it != map.end(); it++)
+	for (auto it = map.begin(); it != map.end(); it++)
 		delete *it; 
 	map.clear();
 
@@ -522,6 +524,8 @@ proceed:
 	for (auto it = infectionCardDiscard.begin(); it != infectionCardDiscard.end(); it++)
 		delete *it;
 	infectionCardDiscard.clear();
+
+	MessageBox(NULL, L"Thanks For Playing!", L"Game Over", NULL);
 
 	return 0;
 }

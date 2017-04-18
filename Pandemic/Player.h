@@ -11,6 +11,8 @@
 #include "Player.h"
 #include "MapCity.h"
 #include <vector>
+#include "Log.h"
+#include "LogObserver.h"
 
 class Player{
 public:
@@ -61,4 +63,6 @@ private:
 	Pawn *pawn;
 	MapCity* currentCity;
 	Strategy *strategy;
+	Log* log = new Log();
+	LogObserver* lob = new LogObserver(log);
 };

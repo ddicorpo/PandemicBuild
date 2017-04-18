@@ -4,7 +4,7 @@
 
 class Epidemic : public PlayerCard{
 public:
-	Epidemic();
+	Epidemic(std::string name);
 	~Epidemic();
 	std::string getAttributes();
 	std::string getType();

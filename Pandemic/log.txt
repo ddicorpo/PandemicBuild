@@ -1,0 +1,1081 @@
+Welcome to Pandemic by Z-Man
+===============================================
+Would you like to: 
+ 1) Start a new game? 
+ 2) Load an existing game?
+loaded a game
+Welcome to Pandemic by Z-Man
+===============================================
+Would you like to: 
+ 1) Start a new game? 
+ 2) Load an existing game?
+How many players?
+'s name?
+1
+What is player 
+'s name?
+2
+What is player 
+-------------------- Roles --------------------
+Medic
+ is a 
+mike
+Contingency Planner
+ is a 
+memo
+-----------------------------------------------
+Player Index0
+'s turn
+mike
+Atlanta
+You are stationed in 
+Below are your cards
+======================== HAND ========================
+Tehran:city:black:1000000
+----------------------
+HongKong:city:red:1000000
+----------------------
+Bogota:city:yellow:1000000
+----------------------
+Chennai:city:black:1000000
+----------------------
+Welcome to Pandemic by Z-Man
+===============================================
+Would you like to: 
+ 1) Start a new game? 
+ 2) Load an existing game?
+How many players?
+'s name?
+1
+What is player 
+'s name?
+2
+What is player 
+-------------------- Roles --------------------
+Researcher
+ is a 
+mike
+Operations Expert
+ is a 
+memo
+-----------------------------------------------
+Player Index 0
+'s turn
+mike
+Atlanta
+You are stationed in 
+Below are your cards
+======================== HAND ========================
+Kinshasa:city:yellow:1000000
+----------------------
+Khartoum:city:yellow:1000000
+----------------------
+Shanghai:city:red:1000000
+----------------------
+Airlift:event:Move any one pawn to any city. Get permission before moving another player's pawn.
+----------------------
+======================================================
+*************** INFECTED CITIES ***************
+Name: 	   Number of cubes: 
+3
+:	   
+Atlanta
+2
+:	   
+Chicago
+1
+:	   
+SanFrancisco
+3
+:	   
+NewYork
+3
+:	   
+London
+2
+:	   
+Madrid
+2
+:	   
+Paris
+1
+:	   
+Essen
+1
+:	   
+Milan
+***********************************************
+ actions remain
+4
+Player choice: 1
+*************** INFECTED CITIES ***************
+Name: 	   Number of cubes: 
+3
+:	   
+Atlanta
+2
+:	   
+Chicago
+1
+:	   
+SanFrancisco
+3
+:	   
+NewYork
+3
+:	   
+London
+2
+:	   
+Madrid
+2
+:	   
+Paris
+1
+:	   
+Essen
+1
+:	   
+Milan
+***********************************************
+ actions remain
+3
+Player choice: 1
+*************** INFECTED CITIES ***************
+Name: 	   Number of cubes: 
+3
+:	   
+Atlanta
+2
+:	   
+Chicago
+1
+:	   
+SanFrancisco
+3
+:	   
+NewYork
+3
+:	   
+London
+2
+:	   
+Madrid
+2
+:	   
+Paris
+1
+:	   
+Essen
+1
+:	   
+Milan
+***********************************************
+ actions remain
+2
+Player choice: 1
+*************** INFECTED CITIES ***************
+Name: 	   Number of cubes: 
+3
+:	   
+Atlanta
+2
+:	   
+Chicago
+1
+:	   
+SanFrancisco
+3
+:	   
+NewYork
+3
+:	   
+London
+2
+:	   
+Madrid
+2
+:	   
+Paris
+1
+:	   
+Essen
+1
+:	   
+Milan
+***********************************************
+ actions remain
+1
+Player choice: 1
+*************** INFECTED CITIES ***************
+Name: 	   Number of cubes: 
+3
+:	   
+Atlanta
+2
+:	   
+Chicago
+1
+:	   
+SanFrancisco
+3
+:	   
+NewYork
+3
+:	   
+London
+2
+:	   
+Madrid
+2
+:	   
+Paris
+1
+:	   
+Essen
+1
+:	   
+Milan
+***********************************************
+ actions remain
+0
+Drawing 2 player cards
+------------------------------------------------------
+Drawing 2 Infection Cards from infection deck . . . . 
+BuenosAires infected! 1 yellow added to BuenosAires.
+Taipei infected! 1 red added to Taipei.
+------------------------------------------------------
+Player Index 1
+'s turn
+memo
+Atlanta
+You are stationed in 
+Below are your cards
+======================== HAND ========================
+Istanbul:city:black:1000000
+----------------------
+Karachi:city:black:1000000
+----------------------
+Kolkata:city:black:1000000
+----------------------
+MexicoCity:city:yellow:1000000
+----------------------
+======================================================
+*************** INFECTED CITIES ***************
+Name: 	   Number of cubes: 
+3
+:	   
+Atlanta
+2
+:	   
+Chicago
+1
+:	   
+SanFrancisco
+3
+:	   
+NewYork
+3
+:	   
+London
+2
+:	   
+Madrid
+2
+:	   
+Paris
+1
+:	   
+Essen
+1
+:	   
+Milan
+1
+:	   
+Taipei
+***********************************************
+ actions remain
+4
+Player choice: 2
+*************** INFECTED CITIES ***************
+Name: 	   Number of cubes: 
+3
+:	   
+Atlanta
+2
+:	   
+Chicago
+1
+:	   
+SanFrancisco
+3
+:	   
+NewYork
+3
+:	   
+London
+2
+:	   
+Madrid
+2
+:	   
+Paris
+1
+:	   
+Essen
+1
+:	   
+Milan
+1
+:	   
+Taipei
+***********************************************
+ actions remain
+3
+Player choice: 2
+*************** INFECTED CITIES ***************
+Name: 	   Number of cubes: 
+3
+:	   
+Atlanta
+2
+:	   
+Chicago
+1
+:	   
+SanFrancisco
+3
+:	   
+NewYork
+3
+:	   
+London
+2
+:	   
+Madrid
+2
+:	   
+Paris
+1
+:	   
+Essen
+1
+:	   
+Milan
+1
+:	   
+Taipei
+***********************************************
+ actions remain
+2
+Player choice: 9
+*************** INFECTED CITIES ***************
+Name: 	   Number of cubes: 
+3
+:	   
+Atlanta
+2
+:	   
+Chicago
+1
+:	   
+SanFrancisco
+3
+:	   
+NewYork
+3
+:	   
+London
+2
+:	   
+Madrid
+2
+:	   
+Paris
+1
+:	   
+Essen
+1
+:	   
+Milan
+1
+:	   
+Taipei
+***********************************************
+ actions remain
+-1
+Drawing 2 player cards
+------------------------------------------------------
+Drawing 2 Infection Cards from infection deck . . . . 
+Chennai infected! 1 black added to Chennai.
+Karachi infected! 1 black added to Karachi.
+------------------------------------------------------
+Player Index 0
+'s turn
+mike
+Santiago
+You are stationed in 
+Below are your cards
+======================== HAND ========================
+Kinshasa:city:yellow:1000000
+----------------------
+Khartoum:city:yellow:1000000
+----------------------
+Shanghai:city:red:1000000
+----------------------
+Airlift:event:Move any one pawn to any city. Get permission before moving another player's pawn.
+----------------------
+Manila:city:red:1000000
+----------------------
+Resilient Population:event:Take a card from the Infection Discard Pile and remove it from the game.
+----------------------
+======================================================
+*************** INFECTED CITIES ***************
+Name: 	   Number of cubes: 
+3
+:	   
+Atlanta
+2
+:	   
+Chicago
+1
+:	   
+SanFrancisco
+3
+:	   
+NewYork
+3
+:	   
+London
+2
+:	   
+Madrid
+2
+:	   
+Paris
+1
+:	   
+Essen
+1
+:	   
+Milan
+1
+:	   
+Chennai
+1
+:	   
+Karachi
+1
+:	   
+Taipei
+***********************************************
+ actions remain
+4
+Player choice: 10
+Game Ended!
+Welcome to Pandemic by Z-Man
+===============================================
+Would you like to: 
+ 1) Start a new game? 
+ 2) Load an existing game?
+How many players?
+'s name?
+1
+What is player 
+'s name?
+2
+What is player 
+-------------------- Roles --------------------
+Dispatcher
+ is a 
+aa
+Scientist
+ is a 
+ss
+-----------------------------------------------
+Player Index 0
+'s turn
+aa
+Atlanta
+You are stationed in 
+Below are your cards
+======================== HAND ========================
+Chennai:city:black:1000000
+----------------------
+Essen:city:blue:1000000
+----------------------
+Atlanta:city:blue:1000000
+----------------------
+Baghdad:city:black:1000000
+----------------------
+======================================================
+*************** INFECTED CITIES ***************
+Name: 	   Number of cubes: 
+3
+:	   
+Atlanta
+2
+:	   
+Chicago
+1
+:	   
+SanFrancisco
+3
+:	   
+NewYork
+3
+:	   
+London
+2
+:	   
+Madrid
+2
+:	   
+Paris
+1
+:	   
+Essen
+1
+:	   
+Milan
+***********************************************
+ actions remain
+4
+Player choice: 10
+Game Ended!
+Welcome to Pandemic by Z-Man
+===============================================
+Would you like to: 
+ 1) Start a new game? 
+ 2) Load an existing game?
+How many players?
+'s name?
+1
+What is player 
+'s name?
+2
+What is player 
+-------------------- Roles --------------------
+Operations Expert
+ is a 
+sdg
+Dispatcher
+ is a 
+dfg
+-----------------------------------------------
+Player Index 0
+'s turn
+sdg
+Atlanta
+You are stationed in 
+Below are your cards
+======================== HAND ========================
+Forecast:event:Examine the top 6 cards of the Infection Draw Pile, rearrange them in the order of your choice, then place them back on the pile.
+----------------------
+Essen:city:blue:1000000
+----------------------
+Seoul:city:red:1000000
+----------------------
+Karachi:city:black:1000000
+----------------------
+======================================================
+*************** INFECTED CITIES ***************
+Name: 	   Number of cubes: 
+3
+:	   
+Atlanta
+2
+:	   
+Chicago
+1
+:	   
+SanFrancisco
+3
+:	   
+NewYork
+3
+:	   
+London
+2
+:	   
+Madrid
+2
+:	   
+Paris
+1
+:	   
+Essen
+1
+:	   
+Milan
+***********************************************
+ actions remain
+4
+Player choice: 10
+Game Ended!
+Welcome to Pandemic by Z-Man
+===============================================
+Would you like to: 
+ 1) Start a new game? 
+ 2) Load an existing game?
+How many players?
+'s name?
+1
+What is player 
+'s name?
+2
+What is player 
+-------------------- Roles --------------------
+Medic
+ is a 
+sf
+Quarantine Specialist
+ is a 
+sg
+-----------------------------------------------
+Player Index 0
+'s turn
+sf
+Atlanta
+You are stationed in 
+Below are your cards
+======================== HAND ========================
+Beijing:city:red:1000000
+----------------------
+Cairo:city:black:1000000
+----------------------
+BuenosAires:city:yellow:1000000
+----------------------
+Resilient Population:event:Take a card from the Infection Discard Pile and remove it from the game.
+----------------------
+======================================================
+*************** INFECTED CITIES ***************
+Name: 	   Number of cubes: 
+3
+:	   
+Atlanta
+2
+:	   
+Chicago
+1
+:	   
+SanFrancisco
+3
+:	   
+NewYork
+3
+:	   
+London
+2
+:	   
+Madrid
+2
+:	   
+Paris
+1
+:	   
+Essen
+1
+:	   
+Milan
+***********************************************
+ actions remain
+4
+Player choice: 10
+Game Ended!
+Welcome to Pandemic by Z-Man
+===============================================
+Would you like to: 
+ 1) Start a new game? 
+ 2) Load an existing game?
+How many players?
+'s name?
+1
+What is player 
+'s name?
+2
+What is player 
+-------------------- Roles --------------------
+Dispatcher
+ is a 
+dg
+Researcher
+ is a 
+sh
+-----------------------------------------------
+Player Index 0
+'s turn
+dg
+Atlanta
+You are stationed in 
+Below are your cards
+======================== HAND ========================
+Airlift:event:Move any one pawn to any city. Get permission before moving another player's pawn.
+----------------------
+Khartoum:city:yellow:1000000
+----------------------
+One Quiet Night:event:The next player to begin the Playing The Infection phase of their turn may skip that phase entirely.
+----------------------
+Paris:city:blue:1000000
+----------------------
+======================================================
+*************** INFECTED CITIES ***************
+Name: 	   Number of cubes: 
+3
+:	   
+Atlanta
+2
+:	   
+Chicago
+1
+:	   
+SanFrancisco
+3
+:	   
+NewYork
+3
+:	   
+London
+2
+:	   
+Madrid
+2
+:	   
+Paris
+1
+:	   
+Essen
+1
+:	   
+Milan
+***********************************************
+ actions remain
+4
+Player choice: 10
+Game Ended!
+Welcome to Pandemic by Z-Man
+===============================================
+Would you like to: 
+ 1) Start a new game? 
+ 2) Load an existing game?
+How many players?
+'s name?
+1
+What is player 
+'s name?
+2
+What is player 
+-------------------- Roles --------------------
+Medic
+ is a 
+dfg
+Dispatcher
+ is a 
+dxh
+-----------------------------------------------
+Player Index 0
+'s turn
+dfg
+Atlanta
+You are stationed in 
+Below are your cards
+======================== HAND ========================
+Johannesburg:city:yellow:1000000
+----------------------
+Algiers:city:black:1000000
+----------------------
+Washington:city:blue:1000000
+----------------------
+BuenosAires:city:yellow:1000000
+----------------------
+======================================================
+*************** INFECTED CITIES ***************
+Name: 	   Number of cubes: 
+3
+:	   
+Atlanta
+2
+:	   
+Chicago
+1
+:	   
+SanFrancisco
+3
+:	   
+NewYork
+3
+:	   
+London
+2
+:	   
+Madrid
+2
+:	   
+Paris
+1
+:	   
+Essen
+1
+:	   
+Milan
+***********************************************
+ actions remain
+4
+Player choice: 10
+Game Saved!
+You made an invalid choice. Please select again!
+*************** INFECTED CITIES ***************
+Name: 	   Number of cubes: 
+3
+:	   
+Atlanta
+2
+:	   
+Chicago
+1
+:	   
+SanFrancisco
+3
+:	   
+NewYork
+3
+:	   
+London
+2
+:	   
+Madrid
+2
+:	   
+Paris
+1
+:	   
+Essen
+1
+:	   
+Milan
+***********************************************
+ actions remain
+4
+Player choice: 10
+Game Ended!
+Welcome to Pandemic by Z-Man
+===============================================
+Would you like to: 
+ 1) Start a new game? 
+ 2) Load an existing game?
+Welcome to Pandemic by Z-Man
+===============================================
+Would you like to: 
+ 1) Start a new game? 
+ 2) Load an existing game?
+Welcome to Pandemic by Z-Man
+===============================================
+Would you like to: 
+ 1) Start a new game? 
+ 2) Load an existing game?
+How many players?
+'s name?
+1
+What is player 
+'s name?
+2
+What is player 
+-------------------- Roles --------------------
+Operations Expert
+ is a 
+dgh
+Researcher
+ is a 
+sdhj
+-----------------------------------------------
+Player Index 0
+'s turn
+dgh
+Atlanta
+You are stationed in 
+Below are your cards
+======================== HAND ========================
+Forecast:event:Examine the top 6 cards of the Infection Draw Pile, rearrange them in the order of your choice, then place them back on the pile.
+----------------------
+Sydney:city:red:1000000
+----------------------
+Bangkok:city:red:1000000
+----------------------
+Santiago:city:yellow:1000000
+----------------------
+======================================================
+*************** INFECTED CITIES ***************
+Name: 	   Number of cubes: 
+3
+:	   
+Atlanta
+2
+:	   
+Chicago
+1
+:	   
+SanFrancisco
+3
+:	   
+NewYork
+3
+:	   
+London
+2
+:	   
+Madrid
+2
+:	   
+Paris
+1
+:	   
+Essen
+1
+:	   
+Milan
+***********************************************
+ actions remain
+4
+Player choice: 10
+Game Ended!
+Welcome to Pandemic by Z-Man
+===============================================
+Would you like to: 
+ 1) Start a new game? 
+ 2) Load an existing game?
+How many players?
+'s name?
+1
+What is player 
+'s name?
+2
+What is player 
+-------------------- Roles --------------------
+Dispatcher
+ is a 
+mike
+Medic
+ is a 
+memo
+-----------------------------------------------
+Player Index 0
+'s turn
+mike
+Atlanta
+You are stationed in 
+Below are your cards
+======================== HAND ========================
+Tehran:city:black:1000000
+----------------------
+Chicago:city:blue:1000000
+----------------------
+SanFrancisco:city:blue:1000000
+----------------------
+Algiers:city:black:1000000
+----------------------
+======================================================
+*************** INFECTED CITIES ***************
+Name: 	   Number of cubes: 
+3
+:	   
+Atlanta
+2
+:	   
+Chicago
+1
+:	   
+SanFrancisco
+3
+:	   
+NewYork
+3
+:	   
+London
+2
+:	   
+Madrid
+2
+:	   
+Paris
+1
+:	   
+Essen
+1
+:	   
+Milan
+***********************************************
+ actions remain
+4
+Player choice: 10
+Game Ended!
+Welcome to Pandemic by Z-Man
+===============================================
+Would you like to: 
+ 1) Start a new game? 
+ 2) Load an existing game?
+How many players?
+'s name?
+1
+What is player 
+'s name?
+2
+What is player 
+-------------------- Roles --------------------
+Contingency Planner
+ is a 
+mike
+Researcher
+ is a 
+memo
+-----------------------------------------------
+Player Index 0
+'s turn
+mike
+Atlanta
+You are stationed in 
+Below are your cards
+======================== HAND ========================
+Mumbai:city:black:1000000
+----------------------
+HongKong:city:red:1000000
+----------------------
+Taipei:city:red:1000000
+----------------------
+Kinshasa:city:yellow:1000000
+----------------------
+======================================================
+*************** INFECTED CITIES ***************
+Name: 	   Number of cubes: 
+3
+:	   
+Atlanta
+2
+:	   
+Chicago
+1
+:	   
+SanFrancisco
+3
+:	   
+NewYork
+3
+:	   
+London
+2
+:	   
+Madrid
+2
+:	   
+Paris
+1
+:	   
+Essen
+1
+:	   
+Milan
+***********************************************
+ actions remain
+4
+Player choice: 10
+Game Saved!
+Game Ended!

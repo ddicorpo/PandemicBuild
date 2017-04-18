@@ -12,9 +12,11 @@ public:
 
 	void savePlayers(std::vector<Player*> p);
 	void saveDeck(std::vector<PlayerCard*> d);
+	void saveMap(std::vector<MapCity*> m);
 	void saveManager();
 
 	std::vector<Player*> loadPlayers();
 	std::vector<PlayerCard*> loadDeck();
+	std::vector<MapCity*> loadMap();
 	void loadManager();
 };

@@ -42,8 +42,8 @@ std::string Player::getName(){
 void Player::displayHand()
 {
 	for (int i = 0; i < hand.size(); i++) {
-		std::cout << hand[i]->getAttributes() << std::endl;
-		std::cout << "----------------------" << std::endl;
+		std::cout << log->setOutput(hand[i]->getAttributes()) << std::endl;
+		std::cout << log->setOutput("----------------------") << std::endl;
 	}
 }
 
