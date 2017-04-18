@@ -12,9 +12,6 @@ private:
 	std::vector<MapCity*> map;
 public:
 	OptionFour_FlyResearch(Player*, std::vector<MapCity*>);
-	void execute()
-	{
-		std::cout << "Called OptionFour_FlyResearch Execute()" << std::endl;
-	}
+	void execute();
 };
 

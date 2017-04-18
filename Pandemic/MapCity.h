@@ -21,6 +21,7 @@ private:
 	int redCubes; 
 	int blackCubes;
 	int yellowCubes; 
+	/*int allCubes;*/
 
 	bool hasResearchStation = false;
 
@@ -60,4 +61,5 @@ public:
 
 	void setResearchStation();
 	bool getResearchStation();
+	bool checkResearchStation();
 };

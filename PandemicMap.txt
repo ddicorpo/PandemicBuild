@@ -10,7 +10,6 @@ Paris Europe Essen Milan Algiers Madrid London
 Essen Europe StPetersburg Milan Paris London
 Milan Europe Istanbul Paris Essen
 StPetersburg Asia Moscow Istanbul Essen
-
 Bogota SouthAmerica Miami MexicoCity Lima BuenosAires SaoPaulo
 BuenosAries SouthAmerica SaoPaulo Bogota
 Johannesburg Africa Khartoum Kinshasa
@@ -23,7 +22,6 @@ MexicoCity NorthAmerica Chicago LosAngeles Miami Bogota Lima
 Miami NorthAmerica Washington Bogota Atlana MexicoCity
 Santiago SouthAmerica Lima
 SaoPaulo SouthAmerica Lagos Madrid Bogota BuenosAires
-
 Algiers Africa Cairo Istanbul Paris Madrid
 Baghdad Asia Karachi Tehran Riyadh Cairo Istanbul
 Cairo Africa Khartom Riyadh Baghdad Istanbul Algiers
@@ -36,7 +34,6 @@ Moscow Asia Tehran Istanbul StPetersburg
 Mumbai Asia Karachi Delhi Chennai
 Riyadh Asia Cairo Baghdad Karachi
 Tehran Asia Moscow Baghdad Karachi Delhi
-  
 Bangkok Asia Kolkata HongKong HoChiMinhCity Jakarta Chennai
 Beijing Asia Seoul Shanghai 
 HoChiMinhCity Asia Jakarta Bangkok HongKong Manila

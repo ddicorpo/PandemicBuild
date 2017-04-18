@@ -193,6 +193,7 @@ start:
 	players[playerIndex]->displayHand();
 	std::cout << "======================================================" << std::endl;
 
+
 	////OPTIONS 4 of 8 actions, draw 2 cards, infect 
 	int actioncounter = 0;
 performactions:
@@ -204,6 +205,7 @@ performactions:
 			std::cout << map[i]->getName() << "\t   " << map[i]->getAllCubes() << std::endl;
 	}
 	std::cout << "***********************************************" << std::endl;
+
 
 	std::cout << 4 - actioncounter << " actions remain" << std::endl;
 	if (actioncounter > 3)
@@ -224,7 +226,7 @@ performactions:
 				players[playerIndex]->executeStrategy();
 				break;
 		case 4: players[playerIndex]->setStrategy(new OptionFour_FlyResearch(players[playerIndex], map));
-				//players[playerIndex]->executeStrategy();
+				players[playerIndex]->executeStrategy();
 				break;
 		case 5: players[playerIndex]->setStrategy(new OptionFive_Cure(players[playerIndex], map));
 				//players[playerIndex]->executeStrategy();
@@ -233,7 +235,7 @@ performactions:
 				//players[playerIndex]->executeStrategy();
 				break;
 		case 7: players[playerIndex]->setStrategy(new OptionSeven_Remove(players[playerIndex], map));
-				//players[playerIndex]->executeStrategy();
+				players[playerIndex]->executeStrategy();
 				break;
 		case 8: players[playerIndex]->setStrategy(new OptionEight_Construct(players[playerIndex], map));
 				players[playerIndex]->executeStrategy();
@@ -334,7 +336,6 @@ proceed:
 				else if (infectionCardDeck.at(card1)->getColor() == "black"){
 					map[i]->addBlackCube();
 				}
-
 			}
 		}
 		
@@ -362,7 +363,7 @@ proceed:
 			}
 		}
 
-		infectionCardDeck[card2]->infect();
+		/*infectionCardDeck[card2]->infect();*/
 		infectionCardDiscard.push_back(infectionCardDeck.at(card2));
 		infectionCardDeck.erase(infectionCardDeck.begin() + card2);
 		std::cout << "------------------------------------------------------" << std::endl;

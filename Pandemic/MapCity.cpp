@@ -288,7 +288,7 @@ int MapCity::getRedCubes()
 void MapCity::displayCubes()
 {
 	
-	std::cout << "Here are the list of cubes: " << std::endl;
+	std::cout << "Here are the list of cubes in  " << getName() << ":"  << std::endl;
 	std::cout << "Black: " << blackCubes << std::endl;
 	std::cout << "Blue: " << blueCubes << std::endl;
 	std::cout << "Red: " << redCubes << std::endl;
@@ -308,4 +308,10 @@ void MapCity::setResearchStation()
 bool MapCity::getResearchStation()
 {
 	return hasResearchStation;
+}
+
+
+int MapCity::getAllCubes()
+{
+	return blackCubes + redCubes + blueCubes + yellowCubes;
 }

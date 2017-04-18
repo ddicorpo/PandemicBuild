@@ -2,6 +2,7 @@
 #include "InfectionCard.h"
 #include <vector>
 
+
 class GameManager {
 public:
 	static GameManager &Instance() {
@@ -55,7 +56,6 @@ public:
 
 	std::vector<InfectionCard*> epishuffle(std::vector<InfectionCard*> draw, std::vector<InfectionCard*> discard);
 
-	
 	//checkers
 	bool checkCubes();			//check if cubes are available
 	bool checkOutbreak();
