@@ -5,12 +5,13 @@ class InfectionCard
 {
 
 public:
-
+	InfectionCard::InfectionCard();
 	InfectionCard::InfectionCard(std::string city, std::string colorCode);
 
-	void infect(); 
-	std::string getCity();
+	void infect();
 
+	std::string getCity();
+	std::string getColor();
 
 private:
 	std::string colorCode;

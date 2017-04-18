@@ -1,5 +1,6 @@
 #pragma once
-#include <string>
+#include "InfectionCard.h"
+#include <vector>
 
 
 class GameManager {
@@ -18,6 +19,14 @@ public:
 	int getBlue();					//save
 	int getYellow();				//save
 	int getBlack();					//save
+	bool getIsRedCured();			//save
+	bool getIsRedErradicated();		//save
+	bool getIsBlueCured();			//save
+	bool getIsBlueErradicated();	//save
+	bool getIsYellowCured();		//save
+	bool getIsYellowErradicated();	//save
+	bool getIsBlackCured();			//save
+	bool getIsBlackErradicated();	//save
 	
 	void displayCubeCount();
 	
@@ -34,8 +43,19 @@ public:
 	void setBlue(int b);
 	void setYellow(int y);
 	void setBlack(int bl);
+	void setIsRedCured(bool redCured);
+	void setIsRedErradicated(bool redErradicated);
+	void setIsBlueCured(bool blueCured);
+	void setIsBlueErradicated(bool blueErradicated);
+	void setIsYellowCured(bool yellowCured);
+	void setIsYellowErradicated(bool yellowErradicated);
+	void setIsBlackCured(bool blackCured);
+	void setIsBlackErradicated(bool blackErradicated);
+	void setCures(bool redCured, bool blueCured, bool yellowCured, bool blackCured);
+	void setErradicated(bool redErradicated, bool blueErradicated, bool yellowErradicated, bool blackErradicated);
 
-	
+	std::vector<InfectionCard*> epishuffle(std::vector<InfectionCard*> draw, std::vector<InfectionCard*> discard);
+
 	//checkers
 	bool checkCubes();			//check if cubes are available
 	bool checkOutbreak();
@@ -53,4 +73,13 @@ private:
 	int infectionRateIndex;
 	int outbreakTracker;
 	int researchStations;
+
+	bool isRedCured;
+	bool isRedErradicated;
+	bool isBlueCured;
+	bool isBlueErradicated;
+	bool isYellowCured;
+	bool isYellowErradicated;
+	bool isBlackCured;
+	bool isBlackErradicated;
 };

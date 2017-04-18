@@ -17,6 +17,14 @@ GameManager::GameManager(){
 	infectionRateIndex = 0;
 	outbreakTracker = 1;
 	researchStations = 6;
+	isRedCured = false;
+	isRedErradicated = false;
+	isBlueCured = false;
+	isBlueErradicated = false;
+	isYellowCured = false;
+	isYellowErradicated = false;
+	isBlackCured = false;
+	isBlackErradicated = false;
 }
 
 void GameManager::increseInfectionRate(){
@@ -125,3 +133,77 @@ void GameManager::setBlack(int bl){
 	blackCubes = bl;
 }
 
+bool GameManager::getIsRedCured(){
+	return isRedCured;
+}
+bool GameManager::getIsRedErradicated(){
+	return isRedErradicated;
+}
+bool GameManager::getIsBlueCured(){
+	return isBlueCured;
+}
+bool GameManager::getIsBlueErradicated(){
+	return isBlueErradicated;
+}
+bool GameManager::getIsYellowCured(){
+	return isYellowCured;
+}
+bool GameManager::getIsYellowErradicated(){
+	return isYellowErradicated;
+}
+bool GameManager::getIsBlackCured(){
+	return isBlackCured;
+}
+bool GameManager::getIsBlackErradicated(){
+	return isBlackErradicated;
+}
+
+void GameManager::setIsRedCured(bool redCured){
+	isRedCured = redCured;
+}
+void GameManager::setIsRedErradicated(bool redErradicated){
+	isRedErradicated = redErradicated;
+}
+void GameManager::setIsBlueCured(bool blueCured){
+	isBlueCured = blueCured;
+}
+void GameManager::setIsBlueErradicated(bool blueErradicated){
+	isBlueErradicated = blueErradicated;
+}
+void GameManager::setIsYellowCured(bool yellowCured){
+	isYellowCured = yellowCured;
+}
+void GameManager::setIsYellowErradicated(bool yellowErradicated){
+	isYellowErradicated = yellowErradicated;
+}
+void GameManager::setIsBlackCured(bool blackCured){
+	isBlackCured = blackCured;
+}
+void GameManager::setIsBlackErradicated(bool blackErradicated){
+	isBlackErradicated = blackErradicated;
+}
+
+void GameManager::setCures(bool redCured, bool blueCured, bool yellowCured, bool blackCured){
+	isRedCured = redCured;
+	isBlueCured = blueCured;
+	isYellowCured = yellowCured;
+	isBlackCured = blackCured;
+}
+
+void GameManager::setErradicated(bool redErradicated, bool blueErradicated, bool yellowErradicated, bool blackErradicated){
+	isRedErradicated = redErradicated;
+	isBlueErradicated = blueErradicated;
+	isYellowErradicated = yellowErradicated;
+	isBlackErradicated = blackErradicated;
+}
+
+std::vector<InfectionCard*> GameManager::epishuffle(std::vector<InfectionCard*> draw, std::vector<InfectionCard*> discard) {
+	std::vector<InfectionCard*> temp = draw;
+	for (int i = 0; i < discard.size(); i++) {
+		int num = rand() % discard.size();
+		temp.insert(temp.begin(), discard[num]);
+		discard.erase(discard.begin() + num);
+	}
+
+	return temp;
+}

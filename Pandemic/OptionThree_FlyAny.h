@@ -4,6 +4,8 @@
 #include "Player.h"
 #include "MapCity.h"
 #include <vector>
+#include <map>
+
 
 class OptionThree_FlyAny : public Strategy
 {
@@ -12,9 +14,6 @@ private:
 	std::vector<MapCity*> map;
 public:
 	OptionThree_FlyAny(Player*, std::vector<MapCity*>);
-	void execute()
-	{
-		std::cout << "Called OptionThree_FlyAny Execute()" << std::endl;
-	}
+  void execute();
 };
 

@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <map>
 #include <fstream>
 #include <time.h>
 #include "City.h"
@@ -38,6 +39,7 @@ int main() {
 
 	std::ifstream mcities("..\\PandemicMap.txt");
 	std::vector<MapCity*> map;
+	
 
 	std::string line;
 
@@ -47,19 +49,23 @@ int main() {
 		std::string word;
 
 		std::string name;
+		std::string region;
 		std::vector<MapCity*> neighs;
 		int wordNum = 1;
 		for (wordNum; ss >> word; wordNum++)
 		{
 			if (wordNum == 1)
 				name = word;
+			if (wordNum == 2)
+				region = word;
 			else
 				neighs.push_back(new MapCity(word));
 		}
-		map.push_back(new MapCity(name, neighs));
+		map.push_back(new MapCity(name, region, neighs));
 	}
 
 	map[0]->setResearchStation();
+
 
 	//////////////CREATE THE INFECTION DECK
 
@@ -183,19 +189,20 @@ start:
 	std::cout << players[playerIndex]->getName() << "' turn" << std::endl;
 	std::cout << "You are stationed in "<< players[playerIndex]->getCurrentCity()->getName() << std::endl;
 	std::cout << "Below are your cards" << std::endl;
+	std::cout << "======================== HAND ========================" << std::endl;
 	players[playerIndex]->displayHand();
-	//map[20]->setResearchStation(); used to test action no.4
+	std::cout << "======================================================" << std::endl;
+
 
 	////OPTIONS 4 of 8 actions, draw 2 cards, infect 
 	int actioncounter = 0;
 performactions:
-
 	std::cout << "*************** INFECTED CITIES ***************" << std::endl;
 	std::cout << "Name: \t   Number of cubes: " << std::endl;
 	for (int i = 0; i < map.size(); i++)
 	{
 		if (map[i]->getInfected() == true)
-			std::cout << map[i]->getName() << "\t   " << map[i]->getAllCubes();
+			std::cout << map[i]->getName() << "\t   " << map[i]->getAllCubes() << std::endl;
 	}
 	std::cout << "***********************************************" << std::endl;
 
@@ -203,10 +210,6 @@ performactions:
 	std::cout << 4 - actioncounter << " actions remain" << std::endl;
 	if (actioncounter > 3)
 		goto proceed;
-
-	//////////////////////////////////////////
-	//////////////dans work here//////////////
-	//////////////////////////////////////////
 
 	players[playerIndex]->getReferenceCard();
 	std::cin >> playerChoice;
@@ -220,7 +223,7 @@ performactions:
 				players[playerIndex]->executeStrategy();
 				break;
 		case 3: players[playerIndex]->setStrategy(new OptionThree_FlyAny(players[playerIndex], map));
-				//players[playerIndex]->executeStrategy();
+				players[playerIndex]->executeStrategy();
 				break;
 		case 4: players[playerIndex]->setStrategy(new OptionFour_FlyResearch(players[playerIndex], map));
 				players[playerIndex]->executeStrategy();
@@ -236,6 +239,8 @@ performactions:
 				break;
 		case 8: players[playerIndex]->setStrategy(new OptionEight_Construct(players[playerIndex], map));
 				players[playerIndex]->executeStrategy();
+				break;
+		case 9: actioncounter = 0;
 				break;
 	}
 
@@ -255,18 +260,50 @@ performactions:
 
 proceed:
 	if (pDeck.at(0)->getType() == "epidemic") {
-		//if epidemic, increase infection rate and add 1 card to your hand
-		GameManager::Instance().increseInfectionRate();
+		//increase
+		GameManager::Instance().increseInfectionRate();	//if epidemic, increase infection rate and add 1 card to your hand
 		pDeck.erase(pDeck.begin());
 		players[playerIndex]->addCard(pDeck.at(0));
 		pDeck.erase(pDeck.begin());
+		
+		//infect
+		std::string epicity = infectionCardDeck.back()->getCity();
+		std::string epicolor = infectionCardDeck.back()->getColor();
+		for (int i = 0; i < map.size(); i++) {
+			if (map[i]->getName() == epicity) {
+				map[i]->epidemic(epicolor);
+			}
+		}
+
+		//intensify
+		infectionCardDeck = GameManager::Instance().epishuffle(infectionCardDeck, infectionCardDiscard);
+		infectionCardDiscard.clear();
+
+		//check player has <= 7 cards
+		players[playerIndex]->handcheck();
 	}
 	else if (pDeck.at(1)->getType() == "epidemic") {
-		//if 2nd card is epidemic, increase infection rate and add first card to your hand
+		//increase
 		players[playerIndex]->addCard(pDeck.at(0));
 		pDeck.erase(pDeck.begin());
-		GameManager::Instance().increseInfectionRate();
+		GameManager::Instance().increseInfectionRate();	//if 2nd card is epidemic, increase infection rate and add first card to your hand
 		pDeck.erase(pDeck.begin());
+
+		//infect
+		std::string epicity = infectionCardDeck.back()->getCity();
+		std::string epicolor = infectionCardDeck.back()->getColor();
+		for (int i = 0; i < map.size(); i++) {
+			if (map[i]->getName() == epicity) {
+				map[i]->epidemic(epicolor);
+			}
+		}
+
+		//intensify
+		infectionCardDeck = GameManager::Instance().epishuffle(infectionCardDeck, infectionCardDiscard);
+		infectionCardDiscard.clear();
+
+		//check player has <= 7 cards
+		players[playerIndex]->handcheck();
 	}
 	else {
 		//if not, add 2 cards to your hand
@@ -274,6 +311,9 @@ proceed:
 		pDeck.erase(pDeck.begin());
 		players[playerIndex]->addCard(pDeck.at(0));
 		pDeck.erase(pDeck.begin());
+
+		//check player has <= 7 cards
+		players[playerIndex]->handcheck();
 	}
 
 	//infect cities - done automatiacally by the game - will check if cubes are available and update avaialble cube counts
@@ -282,18 +322,50 @@ proceed:
 		std::cout << "Drawing 2 Infection Cards from infection deck . . . . " << std::endl;
 
 		int card1 = rand() % infectionCardDeck.size();
-
-		/*infectionCardDeck[card1]->infect();*/
+		for (int i = 0; i < map.size(); i++){
+			if (map[i]->getName() == infectionCardDeck.at(card1)->getCity()){
+				if (infectionCardDeck.at(card1)->getColor() == "red"){
+					map[i]->addRedCube();
+				}
+				else if (infectionCardDeck.at(card1)->getColor() == "blue"){
+					map[i]->addBlueCube();
+				}
+				else if (infectionCardDeck.at(card1)->getColor() == "yellow"){
+					map[i]->addYellowCube();
+				}
+				else if (infectionCardDeck.at(card1)->getColor() == "black"){
+					map[i]->addBlackCube();
+				}
+			}
+		}
+		
+		infectionCardDeck[card1]->infect();
 		infectionCardDiscard.push_back(infectionCardDeck.at(card1));
 		infectionCardDeck.erase(infectionCardDeck.begin() + card1);
 		
 
 		int card2 = rand() % infectionCardDeck.size();
+		for (int i = 0; i < map.size(); i++){
+			if (map[i]->getName() == infectionCardDeck.at(card2)->getCity()){
+				if (infectionCardDeck.at(card2)->getColor() == "red"){
+					map[i]->addRedCube();
+				}
+				else if (infectionCardDeck.at(card2)->getColor() == "blue"){
+					map[i]->addBlueCube();
+				}
+				else if (infectionCardDeck.at(card2)->getColor() == "yellow"){
+					map[i]->addYellowCube();
+				}
+				else if (infectionCardDeck.at(card2)->getColor() == "black"){
+					map[i]->addBlackCube();
+				}
+
+			}
+		}
 
 		/*infectionCardDeck[card2]->infect();*/
 		infectionCardDiscard.push_back(infectionCardDeck.at(card2));
 		infectionCardDeck.erase(infectionCardDeck.begin() + card2);
-		
 		std::cout << "------------------------------------------------------" << std::endl;
 	}
 	else {
