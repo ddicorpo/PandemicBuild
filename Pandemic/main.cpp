@@ -683,6 +683,18 @@ proceed:
 	for (auto it = pDeck.begin(); it != pDeck.end(); it++)
 		delete *it;
 	pDeck.clear();
+	
+		for (auto it = map.begin(); it != map.end(); it++)
+		delete *it; 
+	map.clear();
+
+	for (auto it = infectionCardDeck.begin(); it != infectionCardDeck.end(); it++)
+		delete *it;
+	infectionCardDeck.clear();
+
+	for (auto it = infectionCardDiscard.begin(); it != infectionCardDiscard.end(); it++)
+		delete *it;
+	infectionCardDiscard.clear();
 
 	return 0;
 }
