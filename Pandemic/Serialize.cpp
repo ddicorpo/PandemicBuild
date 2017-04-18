@@ -42,7 +42,15 @@ void Serialize::saveManager() {
 		<< GameManager::Instance().getBlack() << " "
 		<< GameManager::Instance().getInfectionRateIndex() << " "
 		<< GameManager::Instance().getOutbreakTracker() << " "
-		<< GameManager::Instance().getAvailableStations();
+		<< GameManager::Instance().getAvailableStations() << " "
+		<< GameManager::Instance().getIsRedCured() << " "
+		<< GameManager::Instance().getIsRedErradicated() << " "
+		<< GameManager::Instance().getIsBlueCured() << " "
+		<< GameManager::Instance().getIsBlueErradicated() << " "
+		<< GameManager::Instance().getIsYellowCured() << " "
+		<< GameManager::Instance().getIsYellowErradicated() << " "
+		<< GameManager::Instance().getIsBlackCured() << " "
+		<< GameManager::Instance().getIsBlackErradicated();
 	thefile.close();
 	std::cout << "Game Manager Saved" << std::endl;
 }
@@ -141,12 +149,15 @@ void Serialize::loadManager(){
 	std::ifstream thefile;
 	thefile.open("_gamemanager");
 	int red, blue, yellow, black, infectionrateindex, outbreaktracker, stations;
+	bool redCured, redErradicated, blueCured, blueErradicated, yellowCured, yellowErradicated, blackCured, blackErradicated;
 
-	while (thefile >> red >> blue >> yellow >> black >> infectionrateindex >> outbreaktracker >> stations)
+	while (thefile >> red >> blue >> yellow >> black >> infectionrateindex >> outbreaktracker >> stations >> redCured >> redErradicated >> blueCured >> blueErradicated >> yellowCured >> yellowErradicated >> blackCured >> blackErradicated)
 	{
 		GameManager::Instance().setCubes(red, blue, yellow, black);
 		GameManager::Instance().setInfectionRateIndex(infectionrateindex);
 		GameManager::Instance().setOutbreakTracker(outbreaktracker);
 		GameManager::Instance().setStationCount(stations);
+		GameManager::Instance().setCures(redCured, blueCured, yellowCured, blackCured);
+		GameManager::Instance().setErradicated(redErradicated, blueErradicated, yellowErradicated, blackErradicated);
 	}
 }

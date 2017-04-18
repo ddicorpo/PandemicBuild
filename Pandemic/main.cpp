@@ -225,6 +225,8 @@ performactions:
 		case 8: players[playerIndex]->setStrategy(new OptionEight_Construct(players[playerIndex], map));
 				players[playerIndex]->executeStrategy();
 				break;
+		case 9: actioncounter = 0;
+				break;
 	}
 
 	if (playerChoice > 8 || playerChoice < 1)
