@@ -5,6 +5,7 @@ OptionThree_FlyAny::OptionThree_FlyAny(Player* player, std::vector<MapCity*> map
 {
 	this->player = player;
 	this->map = map;
+
 }
 
 void OptionThree_FlyAny::execute()

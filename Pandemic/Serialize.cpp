@@ -5,7 +5,7 @@
 #include <fstream>
 #include <sstream>
 #include <algorithm>
-#include "OptionOne_Move.h"
+#include "OptionDefault.h"
 
 Serialize::Serialize() {}
 Serialize::~Serialize() {}
@@ -14,7 +14,7 @@ void Serialize::savePlayers(std::vector<Player*> players) {
 	std::ofstream thefile;
 	thefile.open("_playerssave");
 	for (int k = 0; k < players.size(); k++) {
-		thefile << players.at(k)->getName() << "|" << players.at(k)->getRoleId() << "|" << players.at(k)->getCurrentCity() << "|";
+		thefile << players.at(k)->getName() << "|" << players.at(k)->getRoleId() << "|" << players.at(k)->getCurrentCity()->getName() << "|";
 		for (int i = 0; i < players.at(k)->getHand().size(); i++) {
 			thefile << players.at(k)->getHand().at(i)->getAttributes() << "|";
 		}
@@ -42,7 +42,15 @@ void Serialize::saveManager() {
 		<< GameManager::Instance().getBlack() << " "
 		<< GameManager::Instance().getInfectionRateIndex() << " "
 		<< GameManager::Instance().getOutbreakTracker() << " "
-		<< GameManager::Instance().getAvailableStations();
+		<< GameManager::Instance().getAvailableStations() << " "
+		<< GameManager::Instance().getIsRedCured() << " "
+		<< GameManager::Instance().getIsRedErradicated() << " "
+		<< GameManager::Instance().getIsBlueCured() << " "
+		<< GameManager::Instance().getIsBlueErradicated() << " "
+		<< GameManager::Instance().getIsYellowCured() << " "
+		<< GameManager::Instance().getIsYellowErradicated() << " "
+		<< GameManager::Instance().getIsBlackCured() << " "
+		<< GameManager::Instance().getIsBlackErradicated();
 	thefile.close();
 	std::cout << "Game Manager Saved" << std::endl;
 }
@@ -75,7 +83,7 @@ std::vector<Player*> Serialize::loadPlayers() {
 		std::string name = temp[0];
 		int roleid = std::stoi(temp[1]);
 		std::string city = temp[2];
-		Player* pl = new Player(name, new OptionOne_Move());
+		Player* pl = new Player(name, new OptionDefault());
 		pl->setCurrentCity(new MapCity(city));
 		pl->setRoleId(roleid);
 		for (int i = 3; i < temp.size(); i++) {
@@ -141,12 +149,15 @@ void Serialize::loadManager(){
 	std::ifstream thefile;
 	thefile.open("_gamemanager");
 	int red, blue, yellow, black, infectionrateindex, outbreaktracker, stations;
+	bool redCured, redErradicated, blueCured, blueErradicated, yellowCured, yellowErradicated, blackCured, blackErradicated;
 
-	while (thefile >> red >> blue >> yellow >> black >> infectionrateindex >> outbreaktracker >> stations)
+	while (thefile >> red >> blue >> yellow >> black >> infectionrateindex >> outbreaktracker >> stations >> redCured >> redErradicated >> blueCured >> blueErradicated >> yellowCured >> yellowErradicated >> blackCured >> blackErradicated)
 	{
 		GameManager::Instance().setCubes(red, blue, yellow, black);
 		GameManager::Instance().setInfectionRateIndex(infectionrateindex);
 		GameManager::Instance().setOutbreakTracker(outbreaktracker);
 		GameManager::Instance().setStationCount(stations);
+		GameManager::Instance().setCures(redCured, blueCured, yellowCured, blackCured);
+		GameManager::Instance().setErradicated(redErradicated, blueErradicated, yellowErradicated, blackErradicated);
 	}
 }

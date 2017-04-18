@@ -22,7 +22,7 @@ private:
 	int blackCubes;
 	int yellowCubes; 
 
-
+	bool hasResearchStation = false;
 
 public:
 	MapCity::MapCity(std::string name, std::string region, std::vector <MapCity*> neighbours);
@@ -57,4 +57,7 @@ public:
 
 	void outbreak(std::string cubeColor);
 	void epidemic(std::string cubeColor);
+
+	void setResearchStation();
+	bool getResearchStation();
 };

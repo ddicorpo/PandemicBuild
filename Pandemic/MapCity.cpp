@@ -2,6 +2,7 @@
 #include "GameManager.h"
 #include "InfectionCard.h"
 
+
 MapCity::MapCity(std::string name, std::string region, std::vector <MapCity*> neighbours) :name(name), region(region), neighbours(neighbours){};
 MapCity::MapCity(){};
 
@@ -297,4 +298,14 @@ void MapCity::displayCubes()
 int MapCity::getAllCubes()
 {
 	return blackCubes + redCubes + blueCubes + yellowCubes;
+}
+void MapCity::setResearchStation()
+{
+	hasResearchStation = true;
+	GameManager::Instance().useStation();
+}
+
+bool MapCity::getResearchStation()
+{
+	return hasResearchStation;
 }

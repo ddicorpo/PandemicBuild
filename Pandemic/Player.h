@@ -8,6 +8,9 @@
 #include "roles.h"
 #include "Pawn.h"
 #include "Strategy.h"
+#include "Player.h"
+#include "MapCity.h"
+#include <vector>
 
 class Player{
 public:
