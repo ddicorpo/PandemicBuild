@@ -36,6 +36,7 @@ void MapCity::getListOfNeighbours()
 };
 
 
+
 void MapCity::setNeighbours(std::vector<MapCity*> neighbours)
 {
 	this->neighbours = neighbours;
@@ -308,10 +309,4 @@ void MapCity::setResearchStation()
 bool MapCity::getResearchStation()
 {
 	return hasResearchStation;
-}
-
-
-int MapCity::getAllCubes()
-{
-	return blackCubes + redCubes + blueCubes + yellowCubes;
 }

@@ -8,7 +8,7 @@ class MapCity
 private:
 	std::string name;
 	std::string region;
-	std::vector <MapCity*> neighbours;
+	std::vector<MapCity*> neighbours;
 	bool isInfected; 
 
 	//bool isInfectedBlue;
@@ -54,6 +54,7 @@ public:
 	int getBlueCubes();
 	int getYellowCubes();
 	int getRedCubes();
+
 	int getAllCubes();
 
 	void outbreak(std::string cubeColor);

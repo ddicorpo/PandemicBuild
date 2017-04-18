@@ -12,9 +12,5 @@ private:
 	std::vector<MapCity*> map;
 public:
 	OptionFive_Cure(Player*, std::vector<MapCity*>);
-	void execute()
-	{
-		std::cout << "Called OptionFive_Cure Execute()" << std::endl;
-	}
+	void execute();
 };
-

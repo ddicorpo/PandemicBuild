@@ -18,7 +18,12 @@ void OptionOne_Move::execute()
 	std::cin >> option;
 
 	if (option > 0 && option <= neighbors.size()){
-		player->setCurrentCity(neighbors[option - 1]);
+		for (int i = 0; i < map.size(); i++){
+			if (neighbors[option - 1]->getName() == map[i]->getName()){
+				player->setCurrentCity(map[i]);
+				break;
+			}	
+		}
 	}
 
 	std::cout << std::endl << "You moved to " << player->getCurrentCity()->getName() << std::endl;

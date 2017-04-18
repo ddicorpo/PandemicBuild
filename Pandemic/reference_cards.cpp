@@ -20,7 +20,8 @@ void reference_cards::output()
 		<< "6. Trade a player card of a city if and only if both parties are at the same city" << std::endl
 		<< "7. Remove one infection cube from the current city" << std::endl
 		<< "8. Construct a research station by discarding the player card of that city. Required to also be located at the city" << std::endl
-		<< "9. End Turn" << std::endl << std::endl;
+		<< "9. End Turn" << std::endl
+		<< "10. Save/Exit" << std::endl << std::endl;
 }
 
 reference_cards* reference_cards::instance()

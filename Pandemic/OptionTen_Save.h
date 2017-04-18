@@ -5,13 +5,12 @@
 #include "MapCity.h"
 #include <vector>
 
-class OptionSix_Trade : public Strategy
+class OptionTen_Save : public Strategy
 {
 private:
 	Player* player;
 	std::vector<MapCity*> map;
 public:
-	OptionSix_Trade(Player*, std::vector<MapCity*>);
+	OptionTen_Save(Player*, std::vector<MapCity*>);
 	void execute();
 };
-
