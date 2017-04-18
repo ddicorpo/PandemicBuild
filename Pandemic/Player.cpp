@@ -32,6 +32,10 @@ void Player::displayHand()
 	}
 }
 
+void Player::setHand(std::vector<PlayerCard*> hand){
+	this->hand = hand;
+}
+
 void Player::getReferenceCard(){
 	reference_card->output();
 }

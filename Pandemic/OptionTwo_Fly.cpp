@@ -7,40 +7,25 @@ OptionTwo_Fly::OptionTwo_Fly(Player* player, std::vector<MapCity*> map)
 }
 
 void OptionTwo_Fly::execute(){
+
 	std::vector<PlayerCard*> hand = player->getHand();
-	std::vector<PlayerCard*> citycards;
-	
-	std::string cityname;
+	int option;
 	for (int i = 0; i < hand.size(); i++){
 		if (hand[i]->getType() == "city"){
-			citycards.push_back(hand[i]);
+			std::cout << i + 1 << " : " << hand[i]->getName() << std::endl;
 		}
 	}
-
-	std::cout << "Fly to which city?" << std::endl;
-	int option = 0;
-	for (int i = 0; i < citycards.size(); i++){
-		if (citycards[i]->getType() == "city"){
-			std::cout << i + 1 << " : " << citycards[i]->getName() << std::endl;
-		}
-	}
+	std::cout << "Where to move? Picking a city will dicard your card." << std::endl;
 	std::cin >> option;
-	if (option > 0 && option <= citycards.size()){
+	if (option > 0 && option <= hand.size()){
 		for (int i = 0; i < map.size(); i++){
-			if (citycards[option - 1]->getName() == map[i]->getName()){
+			if (hand[option - 1]->getName() == map[i]->getName()){
 				player->setCurrentCity(map[i]);
 				std::cout << "Player is now at: " << player->getCurrentCity()->getName() << std::endl;
-				cityname = map[i]->getName();
-				std::cout << cityname << std::endl;
 				break;
 			}
 		}
-		for (int i = 0; i < player->getHand().size(); i++){
-			if (player->getHand()[i]->getName() == cityname){
-				std::cout << player->getHand()[i]->getName();
-				//  player->getHand().erase(player->getHand().begin() + i); // < --problem in the array
-				break;
-			}
-		}
+		hand.erase(hand.begin() + (option-1));
+		player->setHand(hand);
 	}
 }

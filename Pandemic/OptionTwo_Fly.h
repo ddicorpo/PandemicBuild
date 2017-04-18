@@ -11,7 +11,7 @@ private:
 	Player* player;
 	std::vector<MapCity*> map;
 public:
-	OptionTwo_Fly(Player*, std::vector<MapCity*>);
+	OptionTwo_Fly(Player* p, std::vector<MapCity*> m);
 	void execute();
 };
 

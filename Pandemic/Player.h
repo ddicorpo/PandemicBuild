@@ -23,6 +23,7 @@ public:
 	
 	void addCard(PlayerCard *card);
 	void displayHand();
+	void setHand(std::vector<PlayerCard*> hand);
 	void getReferenceCard();
 	
 	void setRole(roles* role);
