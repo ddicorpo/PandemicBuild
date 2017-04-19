@@ -19,6 +19,7 @@ public:
 	int getBlue();					//save
 	int getYellow();				//save
 	int getBlack();					//save
+
 	bool getIsRedCured();			//save
 	bool getIsRedErradicated();		//save
 	bool getIsBlueCured();			//save
@@ -28,6 +29,8 @@ public:
 	bool getIsBlackCured();			//save
 	bool getIsBlackErradicated();	//save
 	
+	bool isWin();
+
 	void displayCubeCount();
 	
 	//setters
@@ -59,6 +62,9 @@ public:
 	//checkers
 	bool checkCubes();			//check if cubes are available
 	bool checkOutbreak();
+
+	void setvalidaction(bool tf);
+	bool getvalidaction();
 private:
 	GameManager();
 	~GameManager();
@@ -82,4 +88,6 @@ private:
 	bool isYellowErradicated;
 	bool isBlackCured;
 	bool isBlackErradicated;
+
+	bool isvalidaction;
 };

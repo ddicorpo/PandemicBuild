@@ -42,6 +42,35 @@ int main() {
 	std::vector<MapCity*> map;
 	int playerCount;
 
+	//////////////CRAETE THE MAP CITY OBJECTS
+
+	std::ifstream mcities("..\\PandemicMap.txt");
+
+	std::string line;
+
+	for (int lineNum = 1; getline(mcities, line); lineNum++)
+	{
+		std::stringstream ss(line);
+		std::string word;
+
+		std::string name;
+		std::string region;
+		std::vector<MapCity*> neighs;
+		int wordNum = 1;
+		for (wordNum; ss >> word; wordNum++)
+		{
+			if (wordNum == 1)
+				name = word;
+			else if (wordNum == 2)
+				region = word;
+			else
+				neighs.push_back(new MapCity(word));
+		}
+		map.push_back(new MapCity(name, region, neighs));
+	}
+
+	map[0]->setResearchStation();
+
 	//////////////CREATE THE INFECTION DECK
 
 	std::vector<InfectionCard*> infectionCardDeck;
@@ -157,41 +186,13 @@ neworload:
 		log->setOutput("loaded a game");
 		players = access.loadPlayers();
 		playerCount = players.size();
-		map = access.loadMap();
+		map = access.loadMap(map);
 		pDeck = access.loadDeck();
 		access.loadManager();
 	}
 	else if (input == 1){
 		//set up a new game
 
-	//////////////CRAETE THE MAP CITY OBJECTS
-
-	std::ifstream mcities("..\\PandemicMap.txt");
-
-	std::string line;
-
-	for (int lineNum = 1; getline(mcities, line); lineNum++)
-	{
-		std::stringstream ss(line);
-		std::string word;
-
-		std::string name;
-		std::string region;
-		std::vector<MapCity*> neighs;
-		int wordNum = 1;
-		for (wordNum; ss >> word; wordNum++)
-		{
-			if (wordNum == 1)
-				name = word;
-			else if (wordNum == 2)
-				region = word;
-			else
-				neighs.push_back(new MapCity(word));
-		}
-		map.push_back(new MapCity(name, region, neighs));
-	}
-
-	map[0]->setResearchStation();
 		
 	//////////////CRAETE THE PLAYER CARD OBJECTS
 
@@ -312,6 +313,7 @@ performactions:
 	players[playerIndex]->getReferenceCard();
 	std::cin >> playerChoice;
 	log->setOutput("Player choice: " + std::to_string(playerChoice));
+	GameManager::Instance().setvalidaction(true);
 	switch (playerChoice)
 	{
 		case 1: players[playerIndex]->setStrategy(new OptionOne_Move(players[playerIndex], map));
@@ -328,9 +330,13 @@ performactions:
 				break;
 		case 5: players[playerIndex]->setStrategy(new OptionFive_Cure(players[playerIndex], map));
 				//players[playerIndex]->executeStrategy();
+				if (GameManager::Instance().isWin()){
+					MessageBox(NULL, L"You won the game!", L"Win", NULL);
+					goto endgame;
+				}
 				break;
 		case 6: players[playerIndex]->setStrategy(new OptionSix_Trade(players[playerIndex], map));
-				players[playerIndex]->executeStrategy();
+				//players[playerIndex]->executeStrategy();
 				break;
 		case 7: players[playerIndex]->setStrategy(new OptionSeven_Remove(players[playerIndex], map));
 				players[playerIndex]->executeStrategy();
@@ -340,7 +346,7 @@ performactions:
 				break;
 		case 9: actioncounter = 4;
 				break;
-		case 10:int option;
+		case 11:int option;
 				std::cout << "Options" << std::endl;
 				std::cout << "1 : Save" << std::endl;
 				std::cout << "2 : Exit with save" << std::endl;
@@ -368,6 +374,10 @@ performactions:
 					case 4: break;
 				}
 				break;
+		case 10: for (int i = 0; i < players.size(); i++){
+						std::cout << players[i]->getName()<< " : " << players[i]->getCurrentCity()->getName() << std::endl;
+					}
+				 system("pause");
 	}
 
 	if (playerChoice > 9 || playerChoice < 1)
@@ -376,11 +386,16 @@ performactions:
 		goto performactions;
 	}
 
-	actioncounter++;
+	if (GameManager::Instance().getvalidaction())
+		actioncounter++;
 	goto performactions;
 
 proceed:
 	log->setOutput("Drawing 2 player cards");
+	if (pDeck.size() == 0){
+		MessageBox(NULL, L"You ran out of player cards", L"Game Over", NULL);
+		goto endgame;
+	}
 	if (pDeck.at(0)->getType() == "epidemic") {
 		//increase
 		GameManager::Instance().increseInfectionRate();	//if epidemic, increase infection rate and add 1 card to your hand
@@ -436,6 +451,11 @@ proceed:
 
 		//check player has <= 7 cards
 		players[playerIndex]->handcheck();
+	}
+
+	if (GameManager::Instance().checkOutbreak()){
+		MessageBox(NULL, L"Outbreak tracker at maximum. You lose.", L"Game Over", NULL);
+		goto endgame;
 	}
 
 	//infect cities - done automatiacally by the game - will check if cubes are available and update avaialble cube counts

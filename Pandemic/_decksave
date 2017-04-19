@@ -1,48 +1,48 @@
-Cairo:city:black:1000000
-SaoPaulo:city:yellow:1000000
-Santiago:city:yellow:1000000
-Washington:city:blue:1000000
-HoChiMinhCity:city:red:1000000
-Milan:city:blue:1000000
+Kinshasa:city:yellow:1000000
 MexicoCity:city:yellow:1000000
-Seoul:city:red:1000000
-Osaka:city:red:1000000
+Milan:city:blue:1000000
+SanFrancisco:city:blue:1000000
 Riyadh:city:black:1000000
-Government Grant:event:Add a Research Station to any city for free.
+HoChiMinhCity:city:red:1000000
+HongKong:city:red:1000000
+Resilient Population:event:Take a card from the Infection Discard Pile and remove it from the game.
+Johannesburg:city:yellow:1000000
+Lagos:city:yellow:1000000
+Chennai:city:black:1000000
 Epidemic1!:epidemic
-Kolkata:city:black:1000000
-StPetersburg:city:blue:1000000
-LosAngeles:city:yellow:1000000
-Essen:city:blue:1000000
+Khartoum:city:yellow:1000000
+Manila:city:red:1000000
+One Quiet Night:event:The next player to begin the Playing The Infection phase of their turn may skip that phase entirely.
+SaoPaulo:city:yellow:1000000
 Karachi:city:black:1000000
-London:city:blue:1000000
+Government Grant:event:Add a Research Station to any city for free.
+Essen:city:blue:1000000
 Baghdad:city:black:1000000
-Tokyo:city:red:1000000
+Seoul:city:red:1000000
 NewYork:city:blue:1000000
 Shanghai:city:red:1000000
-Chennai:city:black:1000000
-Paris:city:blue:1000000
-Epidemic1!:epidemic
-Forecast:event:Examine the top 6 cards of the Infection Draw Pile, rearrange them in the order of your choice, then place them back on the pile.
-Miami:city:yellow:1000000
-Algiers:city:black:1000000
-Manila:city:red:1000000
-Jakarta:city:red:1000000
-Beijing:city:red:1000000
-Sydney:city:red:1000000
-Lagos:city:yellow:1000000
 Chicago:city:blue:1000000
-BuenosAires:city:yellow:1000000
-Bangkok:city:red:1000000
-Delhi:city:black:1000000
 Epidemic1!:epidemic
-Madrid:city:blue:1000000
-Montreal:city:blue:1000000
-Moscow:city:black:1000000
-Airlift:event:Move any one pawn to any city. Get permission before moving another player's pawn.
-Bogota:city:yellow:1000000
-Lima:city:yellow:1000000
-Tehran:city:black:1000000
+London:city:blue:1000000
 Istanbul:city:black:1000000
-SanFrancisco:city:blue:1000000
-Resilient Population:event:Take a card from the Infection Discard Pile and remove it from the game.
+Osaka:city:red:1000000
+Sydney:city:red:1000000
+Cairo:city:black:1000000
+LosAngeles:city:yellow:1000000
+Bogota:city:yellow:1000000
+Madrid:city:blue:1000000
+BuenosAires:city:yellow:1000000
+Jakarta:city:red:1000000
+Washington:city:blue:1000000
+StPetersburg:city:blue:1000000
+Epidemic1!:epidemic
+Atlanta:city:blue:1000000
+Forecast:event:Examine the top 6 cards of the Infection Draw Pile, rearrange them in the order of your choice, then place them back on the pile.
+Mumbai:city:black:1000000
+Moscow:city:black:1000000
+Miami:city:yellow:1000000
+Beijing:city:red:1000000
+Montreal:city:blue:1000000
+Kolkata:city:black:1000000
+Delhi:city:black:1000000
+Algiers:city:black:1000000

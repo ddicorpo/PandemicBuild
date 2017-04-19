@@ -61,8 +61,15 @@ void Serialize::saveMap(std::vector<MapCity*> map){
 	std::ofstream thefile;
 	thefile.open("_map");
 	for (int i = 0; i < map.size(); i++){
-		thefile << map[i]->getRedCubes() << map[i]->getBlueCubes() << map[i]->getYellowCubes() << map[i]->getBlackCubes() << map[i]->getInfected() << map[i]->getResearchStation() << std::endl;
+		thefile << map[i]->getRedCubes() << " "
+			<< map[i]->getBlueCubes() << " "
+			<< map[i]->getYellowCubes() << " "
+			<< map[i]->getBlackCubes() << " "
+			<< map[i]->getInfected() << " "
+			<< map[i]->getResearchStation() << " "
+			<< std::endl;
 	}
+	thefile.close();
 }
 
 std::vector<Player*> Serialize::loadPlayers() {
@@ -86,7 +93,6 @@ std::vector<Player*> Serialize::loadPlayers() {
 		ss.str(line);
 		std::vector<std::string> temp;
 		for (int k = 0; getline(ss, item, '|'); k++) {
-			//std::cout << item << std::endl;
 			temp.push_back(item);
 		}
 
@@ -170,4 +176,18 @@ void Serialize::loadManager(){
 		GameManager::Instance().setCures(redCured, blueCured, yellowCured, blackCured);
 		GameManager::Instance().setErradicated(redErradicated, blueErradicated, yellowErradicated, blackErradicated);
 	}
+}
+
+std::vector<MapCity*> Serialize::loadMap(std::vector<MapCity*> map){
+	std::ifstream thefile;
+	thefile.open("_map");
+	int red, blue, yellow, black;
+	bool ii, rs;
+	int i = 0;
+	while (thefile >> red >> blue >> yellow >> black >> ii >> rs){
+		map[i]->load(red, blue, yellow, black, ii, rs);
+		i++;
+	}
+	thefile.close();
+	return map;
 }

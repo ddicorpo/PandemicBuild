@@ -17,6 +17,6 @@ public:
 
 	std::vector<Player*> loadPlayers();
 	std::vector<PlayerCard*> loadDeck();
-	std::vector<MapCity*> loadMap();
+	std::vector<MapCity*> loadMap(std::vector<MapCity*> m);
 	void loadManager();
 };

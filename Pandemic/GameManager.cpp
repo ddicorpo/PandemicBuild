@@ -207,3 +207,18 @@ std::vector<InfectionCard*> GameManager::epishuffle(std::vector<InfectionCard*> 
 
 	return temp;
 }
+
+bool GameManager::isWin(){
+	if (GameManager::isRedCured & GameManager::isBlueCured && GameManager::isYellowCured && GameManager::isBlackCured){
+		return true;
+	}
+	else
+		return false;
+}
+
+void GameManager::setvalidaction(bool tf){
+	isvalidaction = tf;
+}
+bool GameManager::getvalidaction(){
+	return isvalidaction;
+}

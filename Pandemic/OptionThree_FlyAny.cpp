@@ -1,4 +1,5 @@
 #include "OptionThree_FlyAny.h"
+#include "GameManager.h"
 #include <vector>
 
 OptionThree_FlyAny::OptionThree_FlyAny(Player* player, std::vector<MapCity*> map)
@@ -99,6 +100,7 @@ void OptionThree_FlyAny::execute()
 		}
 	}
 	else {
+		GameManager::Instance().setvalidaction(false);
 		std::cout << "This option is invalid" << std::endl;
 	}
 

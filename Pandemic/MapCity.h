@@ -54,7 +54,7 @@ public:
 	void epidemic(std::string cubeColor);
 
 	void setResearchStation();
-	void load(int red, int blue, int yellow, int black, bool ii, bool tf);
+	void load(int red, int blue, int yellow, int black, bool ii, bool rs);
 	bool getResearchStation();
 	bool checkResearchStation();
 };

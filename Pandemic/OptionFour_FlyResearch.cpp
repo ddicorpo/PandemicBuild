@@ -1,4 +1,5 @@
 #include "OptionFour_FlyResearch.h"
+#include "GameManager.h"
 
 OptionFour_FlyResearch::OptionFour_FlyResearch(Player* player, std::vector<MapCity*> map)
 {
@@ -30,6 +31,9 @@ void OptionFour_FlyResearch::execute()
 		player->setCurrentCity(citiesWithResearchStation[playerChoice - 1]);
 		std::cout << player->getName() << " is now at: " << player->getCurrentCity()->getName() << std::endl;
 	}
-	else
+	else {
 		std::cout << "Invalid input!";
+		GameManager::Instance().setvalidaction(false);
+	}
+		
 }
